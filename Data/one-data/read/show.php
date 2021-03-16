@@ -26,7 +26,6 @@ $elDato = "<b> - " . file_get_contents( $filename ) . "</b>" . $mensaje;
     background-color: red;
 }
 
-
 </style>
 
 </head>
@@ -35,15 +34,24 @@ $elDato = "<b> - " . file_get_contents( $filename ) . "</b>" . $mensaje;
     <?php echo $elDato; ?>
 
     <div class="menu" >
-        <ul>
-            <div class="opcion" >
+        <div class="opcion" >
+            <ul>
                 <li> <a href="../index.html"> Volver al Inicio </a> </li>
-            </div>
+            </ul>
+        </div>
 
-            <div class="opcion" >
-                <li class="delete" > <a  href="../delete/delete.php"> Eliminar Dato </a> </li>
-            </div>
-        </ul>
+        <?php
+            if ( file_exists($filename) ) {
+                echo "
+                <div class='opcion' >
+                    <ul>
+                        <li class='delete' > <a  href='../delete/delete.php'> Eliminar Dato </a> </li>    
+                    </ul>
+                </div>        
+                ";
+            }
+        ?>
+        
     </div>
 </body>
 </html>
