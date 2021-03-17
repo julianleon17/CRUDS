@@ -5,7 +5,10 @@ require_once('../read/read.php');
 if ( file_exists($filename) == false )  {
     echo $mensaje;
 }else{
-    echo "<form action='update.php' method='POST'>
+    $oldData = file_get_contents($filename);
+    echo "
+    <b>Dato existente: </b> $oldData<br><br>
+    <form action='update.php' method='POST'>
 
     <p><b>Nuevo Dato:</b> <input type='text' placeholder='Su Nuevo Dato' name='new-dato'> </p>
     <br>

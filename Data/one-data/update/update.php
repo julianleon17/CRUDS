@@ -11,7 +11,7 @@ if ( file_exists( $filename ) ) {
     file_put_contents($filename, $oldData, $FILE_APPEND);
     echo 'El dato fue actualizado con exito :D';
 }else{
-    echo $mensaje;
+    echo "Nuevo Dato</br>$data</br>$mensaje";
 }
 ?>
 

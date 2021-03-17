@@ -7,7 +7,7 @@ $dato = "<h1>SU DATO</h1></br><b>Dato : $data</b> </br></br>";
 require_once('../read/read.php');
 
 if (file_exists($filename)) {
-    
+    $mensaje;
 }else{
     file_put_contents($filename, $data);    
     $mensaje = 'El dato fue creado exitosamente';

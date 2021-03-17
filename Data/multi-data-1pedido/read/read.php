@@ -5,9 +5,9 @@ $filename = "../baseDatos.db";
 $mensaje;
 
 if ( file_exists( $filename ) ) {
-    $mensaje = " (El historial ya existe)";
+    $mensaje = " (El pedido ya existe)";
 }else{
-    $mensaje = " (El historial aún no existe)";
+    $mensaje = " (El pedido aún no existe)";
 }
 
 ?>

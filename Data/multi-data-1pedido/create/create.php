@@ -1,5 +1,7 @@
 <?php
 
+require_once('../read/read.php');
+
 $telefono = $_POST['celular'];
 $pedido = $_POST['pedido'];
 $nombre = $_POST['nombre'];
@@ -9,14 +11,11 @@ $orden = "<h1>SU PEDIDO</h1></br><b>Nombre :</b> $nombre</br></br> <b>Telefono :
 $data = "Nombre : $nombre </br>\nTelefono : (57)$telefono </br>\nPedido : $pedido</br></br></br><hr> \n\n";
 
 
-$filename = "../baseDatos.db";
-
 if ( file_exists( $filename ) ) {
-    $oldData = file_get_contents($filename);
-    $oldData .= $data; 
-    file_put_contents($filename, $oldData, $FILE_APPEND);
+    $mensaje;
 }else{
-    file_put_contents($filename, $data);    
+    file_put_contents($filename, $data);  
+    $mensaje = 'El pedodo fue realizado exitosamente ;)';  
 }
 
 ?>    
@@ -33,7 +32,7 @@ if ( file_exists( $filename ) ) {
 </head>
 <body>
     <p> <?php echo $orden; ?> </p>
-    <p>Tu pedido ha sido realizado ;)</p>
+    <p> <?php echo $mensaje; ?> </p>
     
     <div class="menu" >
         <ul>
