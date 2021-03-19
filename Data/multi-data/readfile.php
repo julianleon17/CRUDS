@@ -1,5 +1,5 @@
 <?php
-  $handle = fopen( 'baseDatos.db', 'r' );
+  $handle = fopen( 'baseDatos2.db', 'r' );
 
   if ( $handle ) {
     $numDatos = 0;
@@ -13,7 +13,7 @@
     }
 
     if ( $numDatos > 0 ) {
-      echo $numDatos . ' Encontrados.';
+      echo $numDatos . ' Encontrados.' . "\n";
     } else {
       echo 'No se encontraron datos.';
     }
@@ -23,4 +23,3 @@
     // error opening the file.
     echo 'Error abriendo la base de datos';
   }
-

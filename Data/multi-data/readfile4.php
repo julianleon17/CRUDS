@@ -1,7 +1,7 @@
 <?php
 
 require_once( './read/read.php' );
-$filename = './baseDatos.db';
+$filename = './baseDatos2.db';
 
 
 $dato = array(
@@ -41,8 +41,8 @@ function mostrar($variable){
       if ( strpos( $line, $variable ) !== false ) {
         $numDatos += 1;
         $pos1 = 8;
-        $pos2 = ( strpos( $line, '</br>' ) - strlen( $line ) );
-        echo "$variable '" . trim( substr( $line, $pos1, $pos2 ) ) . "'\n";
+        $pos2 = ( strpos( $line, "\n" ) - strlen( $line ) );
+        echo "$numDatos $variable " . trim( substr( $line, $pos1, $pos2 ) ) . "\n";
       }
     }
   

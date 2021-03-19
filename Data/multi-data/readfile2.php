@@ -23,7 +23,7 @@
     }
 
     if ( $numDatos > 0 ) {
-      echo $numDatos . ' Encontrados.';
+      echo $numDatos . ' Encontrados.' . "\n";
       print_r( $datos );
     } else {
       echo 'No se encontraron datos.';
