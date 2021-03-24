@@ -1,7 +1,7 @@
-Estos son los datos del clientes </br></br>
+Estos son los datos del cliente </br></br>
 
-Nombre = %NAME% </br>
+Nombre : %NAME% </br>
 
-Telefono = %TEL% </br>
+Telefono : %TEL% </br>
 
-Pedido = %PED% </br>
+Pedido : %PED% </br>
