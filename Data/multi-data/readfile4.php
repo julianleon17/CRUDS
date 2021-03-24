@@ -13,9 +13,9 @@ $dato = array(
 $menuOpciones = "
     \n
     MENU\n
-    (1)Ver Nombres\n
-    (2)Ver Telefonos \n
-    (3)Ver Pedidos \n
+    (1)Ver Usuarios\n
+    (2)Seleccionar Un Usuario\n
+    (3)Decir 'Que util' :D\n
     (4)Salir \n=====================================
 ";
 
@@ -38,11 +38,11 @@ function mostrar($variable){
   
     while( ( $line = fgets($handle) ) !== false ) {
       // process the line read.
-      if ( strpos( $line, $variable ) !== false ) {
+      if ( strpos( $line, "Nombre :" ) !== false ) {
+      
+    	$line = preg_replace("[Nombre :|</br>]","",$line);
+        echo "$numDatos Usuario : " . $line . "\n";
         $numDatos += 1;
-        $pos1 = 8;
-        $pos2 = ( strpos( $line, "\n" ) - strlen( $line ) );
-        echo "$numDatos $variable " . trim( substr( $line, $pos1, $pos2 ) ) . "\n";
       }
     }
   
@@ -84,8 +84,7 @@ if( file_exists( $filename ) == true ){
       break;
       
       case 3:
-        $variable = $dato[2];
-        mostrar($variable);
+        echo 'Que Util! :D';
       break;
       
       case 4:
@@ -102,3 +101,12 @@ if( file_exists( $filename ) == true ){
 }else{
   echo $mensaje . "\n";
 }
+
+
+/*===================================CANASTA
+
+					//Otra forma de sacar limpios los datos
+    //$pos1 = 8;
+    //$pos2 = ( strpos( $line, "\n" ) - strlen( $line ) );
+    //echo "$numDatos Usuario : " . trim( substr( $line, $pos1, $pos2 ) ) . "\n";
+*/
