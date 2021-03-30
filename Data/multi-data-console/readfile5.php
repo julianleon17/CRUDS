@@ -8,12 +8,6 @@ $filename = './baseDatos2.db';
 
 	$cantidadPedidos = count($pedidos);
 	
-$menuOpciones = "
-    \n
-    MENU\n
-    (1)Ver Clientes\n
-    (2)Salir \n=====================================
-";
 
 
 /*==============================================
@@ -26,8 +20,121 @@ $template = file_get_contents("show.template");
  *													Functions
  *=============================================================================================*/
 
+							//Opciones Principales MAIN
 
-							//Opciones principales  "LISTAR USUARIOS"
+$opcionesMain = "
+    \n
+    MENU\n
+    Entrar como: \n
+    (1)Admin \n
+    (2)Cliente \n
+    (3)Salir \n=====================================
+";
+							
+$password;
+$passwordTrue = "123";				
+
+function main(){
+
+	global $opcionesMain;
+	global $password;
+	global $passwordTrue;
+
+	do{
+  	
+  		echo $opcionesMain;
+  		$opcion = readline("Elige tu opción \n");
+  	
+  	switch( $opcion ){
+  		
+  		case 1:
+			$password = getPassword();
+  			
+  			if( $password == $passwordTrue ){
+  				mainAdmin();
+  			}else{
+  				echo " Contraseña incorrecta \n";
+  			}
+  				
+  		break;
+  		
+  		case 2:
+  			echo "Aún no está disponible \n";
+  		break;
+  		
+  		case 3:
+  			echo "Gracias por usar \n";
+  			die();
+  		break;
+  		
+  		default:
+  		echo "Opcion Invalida \n";
+  	}
+  	
+  }while( $opcion != 3 );
+}
+
+
+
+								//Obtener contraseña
+
+function getPassword($prompt = "Ingresa Contraseña : ") {
+	echo $prompt;
+
+ 	system('stty -echo');
+
+  	$password = trim(fgets(STDIN));
+
+	system('stty echo');
+
+   	return $password;
+}
+
+
+
+
+					      //Opciones de ADMIN
+
+
+$opcionesAdmin = "
+    \n
+       MENU DE ADMIN\n
+    (1)Ver Clientes\n
+    (2)Salir \n=====================================
+";
+					   
+function mainAdmin(){
+	
+	global $opcionesAdmin;
+
+	do{
+    
+    echo $opcionesAdmin;
+    $opcion = readline("Elige tu opción \n");
+    
+
+    switch( $opcion ){
+      
+      case 1:
+        mostrar();
+		elegirUser();
+      break;
+      
+      case 2:
+        main();
+      break;
+
+      default:
+      echo "Opcion Invalida \n";
+    }
+      
+     
+  }while( $opcion != 2 );
+}
+
+
+
+							//Opciones  "LISTAR USUARIOS"
 							
 
 function mostrar(){
@@ -65,7 +172,46 @@ function mostrar(){
 
 
 
+							//Elegir usuarios
+
+function elegirUser(){
+
+	global $filename;
+	global $data;
+	global $cantidadPedidos;
+
+	$pregunta = readLine("Deseas Ver Un Cliente? y/n : ");
+        
+    if($pregunta == "y"){
+    
+		$num = readLine("Que usuario deseas ver? : \n");
+    	
+    	if( is_numeric($num) != true){
+    		echo "\nSolo números! \n";
+    	}else{
+    	
+			if( $num < $cantidadPedidos ){
+				extractData($num);   	
+    		}else{
+				echo "El cliente número $num no existe \n";
+				
+				$num = readLine("Que Cliente deseas ver? : \n");
+				extractData($num);
+			}
+    	}
+	
+		
+	}else if($pregunta != "y" && $pregunta != "n" ){
+		echo "Opción invalida \n";
+		elegirUser();
+	}
+}
+
+
+
+
 							//Extraer los datos de cada pedido
+		
 		
 		
 $pedido;
@@ -82,8 +228,7 @@ function extractData($key){
 	
 	$pedido = explode( "</br>", $numUser );
 	$pedido = preg_replace("[Nombre :|Telefono :|Pedido :|</br>]","",$pedido);
-	//print_r($pedido) . "\n";
-	
+		
 	$numDatos = 3;
 	
 	echo "\n\n\n============Cliente Número ($key) \n";
@@ -105,47 +250,25 @@ function extractData($key){
 	echo "\n" . str_replace("</br>","",$text) . "\n";
 }
 
+	
 
-							//Elegir usuarios
+					      //Opciones de CLIENTE
 
-function elegirUser(){
 
-	global $filename;
-	global $data;
-	global $cantidadPedidos;
+$opcionesAdmin = "
+    \n
+       MENU DE CLIENTE\n
+    (1)Ver Clientes\n
+    (2)Salir \n=====================================
+";
+					   
+function mainAdmin(){
+	
+	global $opcionesAdmin;
 
-	$pregunta = readLine("Deseas Ver Un Cliente? y/n : ");
-        
-    if($pregunta == "y"){
+	do{
     
-		$num = readLine("Que usuario deseas ver? : \n");
-	
-		if( $num < $cantidadPedidos ){
-			extractData($num);   
-    	}else{
-			echo "Solo hay $cantidadPedidos clientes contando desde 0 \n";
-			$num = readLine("Que usuario deseas ver? : \n");
-			extractData($num);
-		}
-	}else{
-	
-	}
-}
-
-
-	
-	
-	
-/*=============================================================================================
- *												Execute
- *=============================================================================================*/
-	
-	
-if( file_exists( $filename ) == true ){
-  
-  do{
-    
-    echo $menuOpciones;
+    echo $opcionesAdmin;
     $opcion = readline("Elige tu opción \n");
     
 
@@ -157,7 +280,7 @@ if( file_exists( $filename ) == true ){
       break;
       
       case 2:
-        echo "Gracias por usar \n";
+        main();
       break;
 
       default:
@@ -166,6 +289,21 @@ if( file_exists( $filename ) == true ){
       
      
   }while( $opcion != 2 );
+}
+
+
+
+
+
+	
+/*=============================================================================================
+ *												Execute
+ *=============================================================================================*/
+	
+	
+if( file_exists( $filename ) == true ){
+  
+  main();
   
 }else{
   echo $mensaje . "\n";

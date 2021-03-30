@@ -1,12 +1,16 @@
 <?php
 
+$nombre = $_POST['nombre'];
 $telefono = $_POST['celular'];
 $pedido = $_POST['pedido'];
-$nombre = $_POST['nombre'];
 
-$orden = "<h1>SU PEDIDO</h1></br><b>Nombre :</b> $nombre</br></br> <b>Telefono :</b> $telefono</br></br> <b>Pedido :</b> $pedido</br>";
+$template = file_get_contents("../templates/pedido.template");
 
-$data = "Nombre : $nombre </br>\nTelefono : (57)$telefono </br>\nPedido : $pedido</br></br></br><hr> \n\n";
+$orden = str_replace( "%NAME%", $nombre, $template );
+$orden = str_replace( "%TEL%", $telefono, $orden );
+$orden = str_replace( "%PED%", $pedido, $orden );
+
+$data = "Nombre : $nombre </br>\nTelefono : (57)$telefono </br>\nPedido : $pedido</br> \n,\n";
 
 
 $filename = "../baseDatos.db";

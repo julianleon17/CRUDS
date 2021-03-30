@@ -1,6 +1,6 @@
 <?php
 
-require_once( './read/read.php' );
+require_once( '../read/read.php' );
 $filename = './baseDatos2.db';
 
 	$data = file_get_contents($filename);
