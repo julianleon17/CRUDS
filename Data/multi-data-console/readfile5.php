@@ -252,23 +252,23 @@ function extractData($key){
 
 	
 
-					      //Opciones de CLIENTE
+					      //Opciones de CLIENTE en proceso
 
 
-$opcionesAdmin = "
+$opcionesClienten = "
     \n
        MENU DE CLIENTE\n
     (1)Ver Clientes\n
     (2)Salir \n=====================================
 ";
 					   
-function mainAdmin(){
+function mainCliente(){
 	
-	global $opcionesAdmin;
+	global $opcionesClienten;
 
 	do{
     
-    echo $opcionesAdmin;
+    echo $opcionesClienten;
     $opcion = readline("Elige tu opción \n");
     
 

@@ -4,11 +4,7 @@ $nombre = $_POST['nombre'];
 $telefono = $_POST['celular'];
 $pedido = $_POST['pedido'];
 
-$template = file_get_contents("../templates/pedido.template");
 
-$orden = str_replace( "%NAME%", $nombre, $template );
-$orden = str_replace( "%TEL%", $telefono, $orden );
-$orden = str_replace( "%PED%", $pedido, $orden );
 
 $data = "Nombre : $nombre </br>\nTelefono : (57)$telefono </br>\nPedido : $pedido</br> \n,\n";
 
@@ -22,6 +18,16 @@ if ( file_exists( $filename ) ) {
 }else{
     file_put_contents($filename, $data);    
 }
+
+
+					/*========Template=========*/
+
+
+$template = file_get_contents("../templates/pedido.template");
+
+$orden = str_replace( "%NAME%", $nombre, $template );
+$orden = str_replace( "%TEL%", $telefono, $orden );
+$orden = str_replace( "%PED%", $pedido, $orden );
 
 ?>    
 

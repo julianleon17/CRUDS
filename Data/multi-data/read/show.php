@@ -2,62 +2,57 @@
 
 require_once("../read/read.php");
 
-if ( file_exists($filename) ) {
+$template = file_get_contents("../templates/pedido.template");
+
     $data = file_get_contents( $filename );
+    $pedidos = explode(',' , $data );
     
-	$template = file_get_contents( "../templates/pedido.template" );
-		
-		
-		
-		/*
-								//Extraer los datos de cada pedido
-			
-	$pedidos = explode( "," , $data )
-			
-	$pedido;
-		
-	function extractData($key){
-		//Mirar linea por linea cada pedido
-		
-		global $pedidos;
-		global $pedido;
-		global $text;
-		global $template;
-		
-		$numUser = $pedidos[$key];
-		
-		$pedido = explode( "</br>", $numUser );
-		$pedido = preg_replace("[Nombre :|Telefono :|Pedido :|</br>]","",$pedido);
-			
-		$numDatos = 3;
-		
-		for($i = 0; $i < $numDatos; $i ++){
-		
-			if( $i == 0 ){
-				$text = str_replace( "%NAME%", $pedido[$i], $template );
-			}
-			
-			if( $i == 1 ){
-				$text = str_replace( "%TEL%", $pedido[$i], $text );
-			}
-			
-			if( $i == 2 ){
-				$text = str_replace( "%PED%", $pedido[$i], $text );
-			}
-		}	
-		echo "\n" . str_replace("</br>","",$text) . "\n";
-	}
-/*==========================================================================================================*/
+	$totalClientes = (count($clientes) - 1) . " Clientes encontrados. </br></br>";
 
 
-    $clientes = str_replace(",","</br> <ul class='verMas'> <li> <a href='#'>Ver más</a> </li> </ul>  </br><hr>",$data);	
 
-    
-}else{
-    $clientes = $mensaje;
+							//Extraer los datos de cada pedido
+		
+
+		
+$pedido;
+	
+function extractData($key){
+	//Mirar linea por linea cada pedido
+	
+	global $pedidos;
+	global $pedido;
+	global $template;
+	
+	$numUser = $pedidos[$key];
+	
+	$pedido = explode( "</br>" , $numUser );
+	$pedido = preg_replace("[Nombre :|Telefono :|Pedido :]" , "" , $pedido);
+
+	$numDatos = count($pedido);
+	$idCliente = $key + 1;
+	
+	echo "Cliente Número ($idCliente) ";
+	
+	for($i = 0; $i < $numDatos; $i ++){
+	
+		if( $i == 0 ){
+			$template = str_replace( "%NAME%", $pedido[$i], $template );
+		}
+		
+		if( $i == 1 ){
+			$template = str_replace( "%TEL%", $pedido[$i], $template );
+		}
+		
+		if( $i == 2 ){
+			$template = str_replace( "%PED%", $pedido[$i], $template );
+		}
+	}	
+	echo $template ;
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,43 +71,27 @@ if ( file_exists($filename) ) {
     background-color: red;
 }
 
-.verMas{
-	list-style: none;
-}
-
-.verMas a{
-	text-decoration: none;
-}
-
-.verMas a:hover{
-	color: blue;
-	font-size: 15px;
-}
-
 </style>
 
 </head>
 <body>
-    <h1>Historial de Pedidos</h1>
-    <?php echo $clientes; ?>
+    
+    <?php 
+    
+    	$id = $_GET['id'];
+    	
+    	extractData($id);		
+    ?>
 
     <div class="menu" >
         <div class="opcion" >
             <ul>
-                <li> <a href="../index.html"> Volver al Inicio </a> </li>
+                <li> <a href="list.php"> Volver al Historial </a> </li>
             </ul>
         </div>
 
         <?php
-            if ( file_exists($filename) ) {
-                echo "
-                <div class='opcion' >
-                    <ul>
-                        <li class='delete' > <a  href='../delete/delete.php'> Eliminar Historial </a> </li>    
-                    </ul>
-                </div>        
-                ";
-            }
+        	
         ?>
     </div>
 </body>
