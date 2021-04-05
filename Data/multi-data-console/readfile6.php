@@ -1,7 +1,6 @@
 <?php
 
-require_once( '../read/read.php' );
-$filename = './baseDatos2.db';
+require_once( "read/read.php" );
 
 	$data = file_get_contents($filename);
 	$pedidos = explode( ',', trim($data) );

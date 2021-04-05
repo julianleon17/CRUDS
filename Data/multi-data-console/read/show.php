@@ -2,14 +2,57 @@
 
 require_once("../read/read.php");
 
-if ( file_exists($filename) ) {
+$template = file_get_contents("../templates/pedido.template");
+
     $data = file_get_contents( $filename );
-    $pedidos = preg_replace("[Nombre :|Telefono :|Pedido :]"," ",$data);
-}else{
-    $pedidos = $mensaje;
+    $pedidos = explode(',' , $data );
+    
+	$totalClientes = (count($clientes) - 1) . " Clientes encontrados. </br></br>";
+
+
+
+							//Extraer los datos de cada pedido
+		
+
+		
+$pedido;
+	
+function extractData($key){
+	//Mirar linea por linea cada pedido
+	
+	global $pedidos;
+	global $pedido;
+	global $template;
+	
+	$numUser = $pedidos[$key];
+	
+	$pedido = explode( "</br>" , $numUser );
+	$pedido = preg_replace("[Nombre :|Telefono :|Pedido :]" , "" , $pedido);
+
+	$numDatos = count($pedido);
+	$idCliente = $key + 1;
+	
+	echo "Cliente Número ($idCliente) ";
+	
+	for($i = 0; $i < $numDatos; $i ++){
+	
+		if( $i == 0 ){
+			$template = str_replace( "%NAME%", $pedido[$i], $template );
+		}
+		
+		if( $i == 1 ){
+			$template = str_replace( "%TEL%", $pedido[$i], $template );
+		}
+		
+		if( $i == 2 ){
+			$template = str_replace( "%PED%", $pedido[$i], $template );
+		}
+	}	
+	echo $template ;
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,31 +71,27 @@ if ( file_exists($filename) ) {
     background-color: red;
 }
 
-
 </style>
 
 </head>
 <body>
-    <h1>Historial de Pedidos</h1>
-    <?php echo $pedidos; ?>
+    
+    <?php 
+    
+    	$id = $_GET['id'];
+    	
+    	extractData($id);		
+    ?>
 
     <div class="menu" >
         <div class="opcion" >
             <ul>
-                <li> <a href="../index.html"> Volver al Inicio </a> </li>
+                <li> <a href="list.php"> Volver al Historial </a> </li>
             </ul>
         </div>
 
         <?php
-            if ( file_exists($filename) ) {
-                echo "
-                <div class='opcion' >
-                    <ul>
-                        <li class='delete' > <a  href='../delete/delete.php'> Eliminar Historial </a> </li>    
-                    </ul>
-                </div>        
-                ";
-            }
+        	
         ?>
     </div>
 </body>

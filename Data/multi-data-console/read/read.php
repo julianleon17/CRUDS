@@ -1,6 +1,6 @@
 <?php
 
-$filename = "../baseDatos2.db";
+$filename = "./baseDatos.db";
 
 $mensaje;
 
