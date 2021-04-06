@@ -1,6 +1,8 @@
 <?php
 
 require_once( "read/read.php" );
+$filename2 = "./baseDatos.db";
+
 
 	//reestablecerBase();
 	
@@ -23,7 +25,7 @@ if($question == "y"){
 }
 
 
-
+reestablecerBase();
 
 
 //===================Functions
@@ -64,15 +66,17 @@ function sobre_ecribir_Base($newData){
 
 function reestablecerBase(){
 		
+		global $filename2;
 		global $filename;
 		
 	if( file_exists($filename) ){
-	
-		$filenamePro = "./baseDatos2.db";
 		
-		$filenamePro = file_get_contents($filenamePro);
+		$oldFilename = file_get_contents($filename);
+		$filenamePro = file_get_contents($filename2);
 		
-		file_put_contents($filename , $filenamePro);
+		$oldFilename = $filenamePro;
+		
+		file_put_contents($filename , $oldFilename);
 	}
 }
 
