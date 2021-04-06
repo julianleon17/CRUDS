@@ -6,7 +6,7 @@ if ( file_exists($filename) ) {
     $data = file_get_contents( $filename );
     $clientes = explode("," , $data );
     $totalClientes = (count($clientes) - 1);
-	$totalClientes = "Clientes encontrados $totalClientes . </br></br>";
+	$totalClientes = "<h2>~~~~ Clientes encontrados $totalClientes ~~~~</h2> </br><hr></br>";
 		
 		
 	//$template = file_get_contents( "../templates/pedido.template" );
@@ -80,6 +80,8 @@ if ( file_exists($filename) ) {
 	color: blue;
 	font-size: 15px;
 }
+
+
 
 </style>
 

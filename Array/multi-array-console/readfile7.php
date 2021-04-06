@@ -1,31 +1,8 @@
 <?php
 
 require_once( "read/read.php" );
-$filename2 = "./baseDatos.db";
+$filename2 = "./baseDatos2.db";
 
-
-	//reestablecerBase();
-	
-leerBase();
-
-$question = readLine("Deseas eliminar un usuario? y/n : ");
-
-if($question == "y"){
-
-	$question = readLine("Elije el número : ");	
-	
-	unset( $pedidos[$question] );
-	$pedidos = array_values($pedidos);
-	
-	sobre_ecribir_Base($pedidos);
-	
-	
-}else if($question == "n"){
-	die();
-}
-
-
-reestablecerBase();
 
 
 //===================Functions
@@ -38,49 +15,99 @@ function leerBase(){
 	$data = file_get_contents($filename);
 	$pedidos = explode("," , $data );
 	
-	print_r($pedidos);
+	//print_r($pedidos);
 }
 
-function sobre_ecribir_Base($newData){
+
+
+
+
+
+function sobre_escribir_Base($newData){
 
 	global $filename;
+	//global $pedidos;
+	//global $data;
 	
 	$array = $newData;
 	$newData = implode(",", $array);
 	
 	if( file_exists($filename) ){
-		$oldData = file_get_contents($filename);
-		
-		$oldData = $newData;
-		
+			
 		file_put_contents( $filename, $newData);
 		
+		/*
 		leerBase();
-		
-		echo "\n Actualizado correctamente.\n";		
+		print_r( $pedidos );
+		*/		
+		echo "\n Actualizado correctamente.\n";
 		
 	}else{
 		echo "No existe.\n";
 	}
 }
 
+
+
+
 function reestablecerBase(){
 		
 		global $filename2;
 		global $filename;
+		global $pedidos;
 		
 	if( file_exists($filename) ){
 		
-		$oldFilename = file_get_contents($filename);
+		$filenamePro;
+		
 		$filenamePro = file_get_contents($filename2);
 		
-		$oldFilename = $filenamePro;
+		file_put_contents($filename , $filenamePro);
+	
+	
+	//Limpio los reciduos de la dataBase
+	
+		leerBase();
+	
+		$maxPedid = (count($pedidos) - 1) ;
+	
+		unset( $pedidos[$maxPedid] );
+		$pedidos = array_values($pedidos);
 		
-		file_put_contents($filename , $oldFilename);
+		sobre_escribir_Base($pedidos);
 	}
 }
 
 
+
+
+//===================Functions
+
+
+
+	reestablecerBase();
+	
+leerBase();
+print_r($pedidos);
+
+
+$question = readLine("Deseas eliminar un usuario? y/n : ");
+
+if($question == "y"){
+
+	$question = readLine("Elije el número : ");	
+	
+	unset( $pedidos[$question] );
+	$pedidos = array_values($pedidos);
+	
+	sobre_escribir_Base($pedidos);
+	print_r($pedidos);
+	
+	
+	
+}else if($question == "n"){
+	die();
+}
 //============Pruebas
 
 
@@ -88,6 +115,28 @@ function reestablecerBase(){
 
 
 /*===========Basura
+
+	//Limpio los reciduos de la dataBase
+	
+	
+function limpiarBase(){
+
+	leerBase();
+
+	$maxPedid = (count($pedidos) - 1) ;
+
+	unset( $pedidos[$maxPedid] );
+	$pedidos = array_values($pedidos);
+
+	sobre_escribir_Base($pedidos);
+
+}
+
+
+
+
+
+
 
 
 //echo $separado_por_comas;
