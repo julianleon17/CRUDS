@@ -64,8 +64,8 @@ if ( file_exists($filename) ) {
 <style>
 
 .delete a{
-    color: white;
     background-color: red;
+    color: white;
 }
 
 .verMas{
@@ -114,7 +114,7 @@ if ( file_exists($filename) ) {
     		<div class='menu' >
 	            <div class='opcion' >
     	            <ul>
-        	            <li class='delete' > <a  href='../delete/confirm.php'> Eliminar Historial </a> </li>    
+        	            <li class='delete' > <a  href='../delete/confirm-historial.php'> Eliminar Historial </a> </li>    
             	    </ul>
 	            </div>
 	        </div>        

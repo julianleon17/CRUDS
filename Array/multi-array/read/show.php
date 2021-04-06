@@ -86,13 +86,15 @@ function extractData($key){
     <div class="menu" >
         <div class="opcion" >
             <ul>
-                <li> <a href="list.php"> Volver al Historial </a> </li>
+                <li class="delete"> <a href="../delete/confirm-user.php?id=<?php echo $id; ?>" > Eliminar </a> </li>
             </ul>
         </div>
 
-        <?php
-        	
-        ?>
+        <div class="opcion" >
+            <ul>
+                <li> <a href="list.php"> Volver al Historial </a> </li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>

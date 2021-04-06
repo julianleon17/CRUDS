@@ -29,7 +29,7 @@ require_once('../read/read.php');
 
 
 
-<h1> ¿Seguro que quieres eliminar el historial? </h1>
+<h1> ¿Seguro que quieres eliminar este cliente? </h1>
 
 </br>
 </br>
@@ -37,7 +37,7 @@ require_once('../read/read.php');
 <div class="menu" >
     <div class="opcion" >
     	<ul>
-            <li class="delete" > <a href="delete.php"> Confirmar </a> </li>
+            <li class="delete" > <a href="delete-user.php?id=<?php $id = $_GET['id']; echo $id; ?>" > Confirmar </a> </li>
     	</ul>
     </div>
 </div>
