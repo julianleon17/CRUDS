@@ -66,9 +66,15 @@ function extractData($key){
     
 <style>
 
-.delete a{
+.delete {
     color: white;
     background-color: red;
+}
+
+
+.top-options{
+	margin:auto;
+	float:center;
 }
 
 </style>
@@ -84,9 +90,16 @@ function extractData($key){
     ?>
 
     <div class="menu" >
+        
         <div class="opcion" >
-            <ul>
-                <li class="delete"> <a href="../delete/confirm-user.php?id=<?php echo $id; ?>" > Eliminar </a> </li>
+            <ul class="top-options" >
+                <li > <a href="../update/edit.php?id=<?php echo $id; ?>" > Editar </a> </li>
+            </ul>
+        </div>
+        
+        <div class="opcion" >
+            <ul class="top-options">
+                <li > <a class="delete" href="../delete/confirm-user.php?id=<?php echo $id; ?>" > Eliminar </a> </li>
             </ul>
         </div>
 

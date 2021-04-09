@@ -83,7 +83,7 @@ function reestablecerBase(){
 
 //===================Functions
 
-
+/*
 
 	reestablecerBase();
 	
@@ -108,7 +108,46 @@ if($question == "y"){
 }else if($question == "n"){
 	die();
 }
+
+*/
 //============Pruebas
+
+
+reestablecerBase();
+
+leerBase();
+print_r($pedidos);
+
+
+$question = readLine("Deseas reemplazar un usuario? y/n : ");
+
+if($question == "y"){
+
+	$question = readLine("Elije el número : ");	
+	$question2 = readLine("Escribir reemplazo : ");	
+	
+	$toReplace = array($question => $question2);
+	$pedidos = array_replace($pedidos , $toReplace );
+	
+	$pedidos = array_values($pedidos);
+	
+	sobre_escribir_Base($pedidos);
+	print_r($pedidos);
+	
+	
+	
+}else if($question == "n"){
+	die();
+}
+
+/*
+$base = array("Lugar 0","Lugar 1","Lugar 2","Lugar 3","Lugar 4"); 
+
+$toReplace = array(1 => "estoy en este lugar!");
+
+$base = array_replace($base , $toReplace );
+
+print_r($base);
 
 
 

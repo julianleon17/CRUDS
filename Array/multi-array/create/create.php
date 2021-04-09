@@ -1,12 +1,12 @@
 <?php
 
-$nombre = $_POST['nombre'];
-$telefono = $_POST['celular'];
 $pedido = $_POST['pedido'];
+$nombre = filter_var( $_POST['nombre'] , FILTER_SANITIZE_STRING );
+$telefono = filter_var( $_POST['celular'] , FILTER_SANITIZE_NUMBER_INT );
 
 
 
-$data = "Nombre : $nombre </br>\nTelefono : (57)$telefono </br>\nPedido : $pedido</br> \n,\n";
+$data = "Nombre : $nombre </br>\nTelefono : $telefono </br>\nPedido : $pedido</br> \n,\n";
 
 
 $filename = "../baseDatos.db";
