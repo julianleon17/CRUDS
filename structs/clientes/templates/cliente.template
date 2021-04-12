@@ -1,0 +1,9 @@
+<h1> DATOS DEL CLIENTE </h1>
+
+<b>Nombre :</b> %NAME% </br></br>
+
+<b>Telefono :</b> (+57) %TEL% </br></br>
+
+<b>Email :</b> %EMAIL% </br></br>
+
+<b>Dirección :</b> %ADR% </br></br>

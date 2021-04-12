@@ -7,7 +7,7 @@ $telefono = filter_var( $_POST['celular'] );
 
 $id = $_GET['id'];
 
-$datos = "\nNombre : $nombre </br>\nTelefono : $telefono </br>\nPedido : $pedido</br>\n";
+$datos = "\nNombre : \"$nombre\" </br>\nTelefono : $telefono </br>\nPedido : $pedido</br>\n";
 	
 	
 	leerBase();

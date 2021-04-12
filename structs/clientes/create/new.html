@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Nuevo Cliente</title>
+
+    <link rel="stylesheet" href="../../../CSS/styles.css">
+</head>
+<body>
+    <form action="create.php" method="POST">
+
+        <p><b>Nombre del Cliente:</b> <input type="text" placeholder="Su Nombre" name="client[name]" required > </p>
+        
+        <p><b>Número Celular:</b> <input type="number" placeholder="Número de celular" name="client[phone]" required > </p>
+        
+        <p><b>Email:</b> <input type="email" placeholder="Email" name="client[email]" required > </p>
+        
+        <p><b>Dirección:</b> <input type="number" placeholder="Dirección" name="client[address]" required > </p>
+
+        <input type="submit" value="Enviar" >
+        <input type="reset" value="Borrar" >
+        <br>    
+
+        <div class="menu" >
+            <ul>
+                <div class="opcion" >
+                    <li> <a href="../index.html"> Volver al Inicio </a> </li>
+                </div>
+            </ul>
+        </div>
+    </form>
+
+</body>
+</html>
