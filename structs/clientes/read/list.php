@@ -1,28 +1,17 @@
 <?php
-
-require_once( 'read.php' );
-
-  $data = file_get_contents( $filename );
-  $clientes = explode("," , $data );
-
-  $totalClientes = count($clientes) - 1;
-  $contador = "<h2>~~~ Clientes encontrados " . $totalClientes . " ~~~</h2> </br><hr>";
-
+  require_once( 'read.php' ); // Model
 
 /*===============
  *  Functions
  *===============*/
  
- function listClients(){
-   
-   global $filename;
-   
+ // Controller
+ function print_listClients( $filename ){
+      
    $handle = fopen( $filename , 'r' );
    
    $id = 0;
    $numClient = 1;
-   
-   echo $contador;
    
    while( ( $line = fgets( $handle ) ) !== false ){   
    
@@ -43,7 +32,7 @@ require_once( 'read.php' );
    
    fclose( $hanlde );
  }
-
+ // View :
 ?>
 
 <!DOCTYPE html>
@@ -76,8 +65,6 @@ require_once( 'read.php' );
 	font-size: 15px;
 }
 
-
-
 </style>
 
 </head>
@@ -85,14 +72,18 @@ require_once( 'read.php' );
     <h1>Listado de Clientes</h1>
     
     <?php
-      
+
+  if ( !$fileExists ) {
+      echo 'El archivo de "Clientes" NO existe!';
+  } else if ( empty( $totalClientes ) ) {
+      echo 'No se han encontrado "Clientes"!';
+  } else {
+ 
+    $contador = "<h2>~~~ Clientes encontrados " . $totalClientes . " ~~~</h2> </br><hr>";
+    
       echo $contador;
       
-      listClients();
-           
-      if( file_exists( $filename ) !== true ){
-        echo $mensaje;
-      }else{
+      print_listClients( $filename );
       
         echo "
     			<div class='menu' >
@@ -103,7 +94,7 @@ require_once( 'read.php' );
             </div>
           </div>      
         ";
-      }
+   }
                  
     ?>
     

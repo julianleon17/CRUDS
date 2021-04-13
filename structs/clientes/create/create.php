@@ -1,4 +1,6 @@
 <?php
+  require_once( "../read/read.php" );
+
   $client = $_POST['client'];
   $client['nombre'] = filter_var( $client[ 'nombre' ] , FILTER_SANITIZE_STRING );
   $client[ 'celular' ] = filter_var( $client[ 'celular' ] , FILTER_SANITIZE_NUMBER_INT );
@@ -11,9 +13,7 @@
   $data .= ",\n";
 
 
-  $filename = "../clientes.db";
-
-  if ( file_exists( $filename ) ) {
+  if ( $fileExists ) {
   
     $oldData = file_get_contents($filename);
     $oldData .= $data; 
@@ -31,10 +31,10 @@
 
 $template = file_get_contents("../templates/cliente.template");
 
-$orden = str_replace( "%NAME%", $client['name'], $template );
-$orden = str_replace( "%TEL%", $client['phone'], $orden );
-$orden = str_replace( "%EMAIL%", $client['email'], $orden );
-$orden = str_replace( "%ADR%", $client['address'], $orden );
+$template = str_replace( "%NAME%", $client['name'], $template );
+$template = str_replace( "%TEL%", $client['phone'], $template );
+$template = str_replace( "%EMAIL%", $client['email'], $template );
+$template = str_replace( "%ADR%", $client['address'], $template );
 
 ?>    
 
@@ -49,7 +49,7 @@ $orden = str_replace( "%ADR%", $client['address'], $orden );
 
 </head>
 <body>
-    <p> <?php echo $orden . 'Cliente creado exitosamente'; ?> </p>
+    <?php echo $template . 'Cliente creado exitosamente'; ?>
     
     <div class="menu" >
         <ul>

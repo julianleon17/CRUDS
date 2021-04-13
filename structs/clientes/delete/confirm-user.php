@@ -34,16 +34,16 @@ require_once('../read/read.php');
 </br>
 </br>
 
-<div class="menu" >
-    <div class="opcion" >
+<div class='menu' >
+    <div class='opcion' >
     	<ul>
-            <li class="delete" > <a href="delete-user.php?id=<?php $id = $_GET['id']; echo $id; ?>" > Confirmar </a> </li>
+            <li class='delete' > <a href="delete-user.php?id=<?php $id = $_GET['id']; echo $id; ?>" > Confirmar </a> </li>
     	</ul>
     </div>
 </div>
 
-<div class="menu" >
-    <div class="opcion" >
+<div class='menu' >
+    <div class='opcion' >
     	<ul>
             <li> <a href="../read/show.php?id=<?php echo $id; ?>"> Cancelar </a> </li>
 	    </ul>

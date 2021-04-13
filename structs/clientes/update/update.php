@@ -4,78 +4,56 @@
 	$client = $_POST['client'];
 	$id = $_GET['id'];
 			
-			
-			//new data of client
-			
-	$newClient = "\nNombre :" . $client['name'] . "</br>\n";
-  $newClient .= "Telefono :" . $client['phone'] . "</br>\n";
-  $newClient .= "Email :" . $client['email'] . "</br>\n";
-  $newClient .= "Direccion :" . $client['address'] . "</br>";
-  $newClient .= "\n";
-	
-  
-  leerBase();
-  
-	$clients[$id] = $newClient;
-		
-	$clients = array_values($clients);
-	
-	
-	sobre_escribir_Base( $clients );
-	
-	
-	
-	
-	    
-	    
 	    //Template
 	    
   $template = "../templates/cliente.template";
   $template = file_get_contents($template);
   
+	$template	= str_replace( "DATOS DEL CLIENTE" , "NUEVOS DATOS DEL CLIENTE" , $template );
 	$template	= str_replace( "%NAME%" , $client['name'] , $template );
 	$template	= str_replace( "%TEL%" , $client['phone'] , $template );
 	$template	= str_replace( "%EMAIL%" , $client['email'] , $template );
 	$template	= str_replace( "%ADR%" , $client['address'] , $template );
-	$template	= str_replace( "DATOS DEL CLIENTE" , "NUEVOS DATOS DEL CLIENTE" , $template );
   
-  /*==============
-   *  Functions
-   *==============*/
+			
+			//new data of client
+			
+	$newClientData = "\nNombre :" . $client['name'] . "</br>\n";
+  $newClientData .= "Telefono :" . $client['phone'] . "</br>\n";
+  $newClientData .= "Email :" . $client['email'] . "</br>\n";
+  $newClientData .= "Direccion :" . $client['address'] . "</br>";
+  $newClientData .= "\n";
 
-   
+	
+		//Replace data  
+	$clients[$id] = $newClientData;
+		
+	$clients = array_values($clients);
+	
+  update_Base( $clients , $filename , 'Actualizado Exitosamente.' );	
+	    
+	    
+/*==============
+ *  Functions
+ *==============*/  
 
-function sobre_escribir_Base($newData){
+function update_Base( $newData , $filename , $message='' ) {
 
-	global $filename;
+	$filename = $filename;
 	
 	$array = $newData;
 	$newData = implode(",", $array);
 	
-	if( file_exists($filename) ){
+	if( file_exists($filename) ) {
 			
 		file_put_contents( $filename, $newData);
 		
-			
-		echo "</br></br> Actualizado correctamente.\n";
+		echo $message;
 		
 	}else{
 		echo "No existe.\n";
 	}
-	
-	
 }
-
-function leerBase(){
-
-	global $filename;
-	global $clients;
-		
-  $data = file_get_contents( $filename );
-  $clients = explode(',' , $data );
-  
-}
-
 
 ?>
 

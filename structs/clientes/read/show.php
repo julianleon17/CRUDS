@@ -1,52 +1,33 @@
 <?php
 
-require_once("../read/read.php");
+require_once("read.php");
 
 $template = file_get_contents("../templates/cliente.template");
 
-    $data = file_get_contents( $filename );
-    $clients = explode(',' , $data );
+							//Extraer los datos del cliente y lo retorna sobre el template
 
-							//Extraer los datos de cada cliente
-		
+function extractClientData_on_Template( $array , $key , $template ) {
 
-function extractData($key){
-	//Mirar linea por linea cada cliente
-	
-	global $clients;
-	global $template;
-	
-  $numUser = $clients[$key];
-	
-	$client = explode( "</br>" , $numUser );
-	$client = preg_replace("[Nombre :|Telefono :|Email :|Direccion :]" , "" , $client);
+  $dictionary = [ "%NAME%", "%TEL%", "%EMAIL%", "%ADR%" ];
 
-	$numDatos = count($client);
+  $clients = $array;
+  $client = $clients[$key];
+
+	$clientFields = explode( "</br>" , $client );
+	$clientFieldsData = preg_replace( "[Nombre :|Telefono :|Email :|Direccion :]" , "" , $clientFields ); // Sanitize Fields
+
+	$numFields = count( $clientFieldsData );
 	$idCliente = $key + 1;
 	
-	for($i = 0; $i < $numDatos; $i ++){
+	$template = str_replace( "DATOS DEL CLIENTE", "DATOS DEL CLIENTE ( $idCliente )" , $template );
 	
-		if( $i == 0 ){
-			$template = str_replace( "%NAME%", $client[$i], $template );
-		}
-		
-		if( $i == 1 ){
-			$template = str_replace( "%TEL%", $client[$i], $template );
-		}
-			
-		if( $i == 2 ){
-			$template = str_replace( "%EMAIL%", $client[$i], $template );
-		}
-		
-		if( $i == 3 ){
-			$template = str_replace( "%ADR%", $client[$i], $template );
-		}
+	for ( $i = 0; $i < $numFields; $i++ ) {
+	  $template = str_replace( $dictionary[ $i ], $clientFieldsData[ $i ], $template );
 	}
 	
-	$template = str_replace( "DATOS DEL CLIENTE" , "DATOS DEL CLIENTE ( $idCliente )" , $template );
-	
-	echo $template ;
+	return $template;
 }
+
 
 ?>
 
@@ -80,10 +61,11 @@ function extractData($key){
 <body>
     
     <?php 
-    
     	$id = $_GET['id'];
     	
-    	extractData($id);		
+    	$template = extractClientData_on_Template( $clients , $id , $template );		
+    	
+    	echo $template;
     ?>
 
     <div class="menu" >

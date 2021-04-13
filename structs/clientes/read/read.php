@@ -1,15 +1,13 @@
 <?php
+  $filename = "../clientes.db";
+  $data = null;
+  $clients = array();
+  $fileExists = false;
 
-$filename = "../clientes.db";
-$mensaje;
-
-if ( file_exists( $filename ) ) {
-
-    $mensaje = "(El archivo ya existe)";
+  if ( file_exists( $filename ) ) {
+    $fileExists = true;
+    $data = file_get_contents( $filename );
+    $clients = explode("," , $data );
     
-}else{
-
-    $mensaje = "(El archivo no existe)";
-}
-
-?>
+    $totalClientes = count($clients) - 1;
+  }

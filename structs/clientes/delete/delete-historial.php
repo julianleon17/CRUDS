@@ -1,10 +1,14 @@
 <?php
 
 require_once('../read/read.php');
-
-    //unlink($filename);
-    echo 'Todos los clientes fueron eliminados exitosamente';
-
+    
+    if ( $fileExists  ) {
+      
+      unlink($filename);
+      echo 'El archivo de Clientes fue eliminado exitosamente';
+    }else{
+      echo 'El archivo de "Clientes" NO existe! ';
+    }
 ?>
 
 <link rel="stylesheet" href="../../../CSS/styles.css">
