@@ -14,7 +14,7 @@
   $newClient .= "\n";
 	
   
-  $clients = leerBase();
+  leerBase();
   
 	$clients[$id] = $newClient;
 		
@@ -69,11 +69,11 @@ function sobre_escribir_Base($newData){
 function leerBase(){
 
 	global $filename;
+	global $clients;
 		
   $data = file_get_contents( $filename );
   $clients = explode(',' , $data );
   
-  return $clients;
 }
 
 

@@ -45,7 +45,7 @@ require_once('../read/read.php');
 <div class="menu" >
     <div class="opcion" >
     	<ul>
-            <li> <a href="../read/list.php"> Cancelar </a> </li>
+            <li> <a href="../read/show.php?id=<?php echo $id; ?>"> Cancelar </a> </li>
 	    </ul>
     </div>
 </div>

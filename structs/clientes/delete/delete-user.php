@@ -2,17 +2,23 @@
 require_once('../read/read.php');
 
 	$id = $_GET['id'];
-	$user = $id + 1;
 	
-	leerBase();	
+  leerBase();	
+	
+	$client = $clients[$id];
+	$client = explode( "</br>" , $client );
+	$client = str_replace( "Nombre :" , "" , $client );
+	$client = $client[0];	
+	
+  echo "</br></br>El Cliente ( <b>$client</b> ) fue eliminado con éxito.";
+  
 	
 	unset( $clients[$id] );
-	$clients = array_values($pedidos);
 	
-	sobre_escribir_Base($pedidos);
+	$clients = array_values( $clients );
 	
-    echo "</br></br>El Cliente <b>$user</b> fue eliminado con éxito.";
-
+  sobre_escribir_Base( $clients );
+		
 
 
 /*=========================
@@ -22,7 +28,7 @@ function leerBase(){
 
 	global $filename;
 	global $clients;
-	
+		
 	$data = file_get_contents($filename);
 	$clients = explode("," , $data );
 	
