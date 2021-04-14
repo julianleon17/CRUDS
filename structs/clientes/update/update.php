@@ -32,29 +32,6 @@
 	
   update_Base( $clients , $filename , 'Actualizado Exitosamente.' );	
 	    
-	    
-/*==============
- *  Functions
- *==============*/  
-
-function update_Base( $newData , $filename , $message='' ) {
-
-	$filename = $filename;
-	
-	$array = $newData;
-	$newData = implode(",", $array);
-	
-	if( file_exists($filename) ) {
-			
-		file_put_contents( $filename, $newData);
-		
-		echo $message;
-		
-	}else{
-		echo "No existe.\n";
-	}
-}
-
 ?>
 
 <!DOCTYPE html>

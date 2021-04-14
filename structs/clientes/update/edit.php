@@ -5,32 +5,6 @@
   
   $dataFilds = extractClientData( $clients , $id );   
   
-/*==============
- *  Functions
- *==============*/
-  
-function extractClientData( $array , $key ){
-
-  $dictionary = [ 'name', 'phone', 'email', 'address' ];
-  $dataFilds = [];  
-    
-  $clients = $array;
-  $client = $clients[ $key ];
-	
-	$clientFilds = explode( "</br>" , $client );
-	$clientFildsData = preg_replace( "[Nombre :|Telefono :|Email :|Direccion :]" , "" , $clientFilds );
-
-	$numFilds = count($clientFildsData);
-	$idCliente = $key + 1;
-	
-	for ( $i = 0; $i < $numFilds; $i++ ) {
-	  $dataFilds[ $dictionary[ $i ] ] = $clientFildsData[ $i ];
-	}
-
-	return $dataFilds;
-}
-
-
 ?>
 
 

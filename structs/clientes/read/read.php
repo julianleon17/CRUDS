@@ -1,4 +1,7 @@
 <?php
+  include('../libraries/library.php');
+  
+  
   $filename = "../clientes.db";
   $data = null;
   $clients = array();

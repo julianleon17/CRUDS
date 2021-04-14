@@ -1,5 +1,11 @@
 <?php
 
+/*======================================================================================================================================================
+ *
+ *                                                        F   U   N   C   T   I   O   N   S
+ *
+ *======================================================================================================================================================*/
+																		
 
 							//Extraer los datos del cliente y lo retorna sobre el template
 
@@ -99,7 +105,12 @@ function extractClientData( $array , $key ){
 
           //Imprime una lista con todos los nombres de los clientes existentes
           
- function print_listClients( $filename ){
+  // Controller          
+function print_listClients( $filename , $totalClientes ){
+ 
+   $contador = "<h2>~~~ Clientes encontrados " . $totalClientes . " ~~~</h2> </br><hr>";
+    
+   echo $contador;
       
    $handle = fopen( $filename , 'r' );
    
@@ -124,7 +135,27 @@ function extractClientData( $array , $key ){
    }
    
    fclose( $hanlde );
- }
+}
+
+
+
+             //Crea los clientes
+
+function createClient( $data , $filename , $fileExists , $message='' ) {
+
+  if ( $fileExists ) {
+  
+    $oldData = file_get_contents($filename);
+    $oldData .= $data; 
+    file_put_contents($filename, $oldData);
+        
+  } else {
+  
+    file_put_contents($filename, $data);    
+    
+  }
+  echo $message;
+}
 
 
 		/*

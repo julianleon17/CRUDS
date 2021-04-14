@@ -13,17 +13,7 @@
   $data .= ",\n";
 
 
-  if ( $fileExists ) {
-  
-    $oldData = file_get_contents($filename);
-    $oldData .= $data; 
-    file_put_contents($filename, $oldData);
-        
-  } else {
-  
-    file_put_contents($filename, $data);    
-    
-  }
+createClient( $data , $filename , $fileExists , 'Cliente creado exitosamente' );
 
 
 					/*========Template=========*/
@@ -49,7 +39,7 @@ $template = str_replace( "%ADR%", $client['address'], $template );
 
 </head>
 <body>
-    <?php echo $template . 'Cliente creado exitosamente'; ?>
+    <?php echo $template; ?>
     
     <div class="menu" >
         <ul>

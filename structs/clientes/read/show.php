@@ -1,34 +1,5 @@
 <?php
-
-require_once("read.php");
-
-$template = file_get_contents("../templates/cliente.template");
-
-							//Extraer los datos del cliente y lo retorna sobre el template
-
-function extractClientData_on_Template( $array , $key , $template ) {
-
-  $dictionary = [ "%NAME%", "%TEL%", "%EMAIL%", "%ADR%" ];
-
-  $clients = $array;
-  $client = $clients[$key];
-
-	$clientFields = explode( "</br>" , $client );
-	$clientFieldsData = preg_replace( "[Nombre :|Telefono :|Email :|Direccion :]" , "" , $clientFields ); // Sanitize Fields
-
-	$numFields = count( $clientFieldsData );
-	$idCliente = $key + 1;
-	
-	$template = str_replace( "DATOS DEL CLIENTE", "DATOS DEL CLIENTE ( $idCliente )" , $template );
-	
-	for ( $i = 0; $i < $numFields; $i++ ) {
-	  $template = str_replace( $dictionary[ $i ], $clientFieldsData[ $i ], $template );
-	}
-	
-	return $template;
-}
-
-
+  require_once("read.php");
 ?>
 
 
@@ -63,6 +34,7 @@ function extractClientData_on_Template( $array , $key , $template ) {
     <?php 
     	$id = $_GET['id'];
     	
+      $template = file_get_contents("../templates/cliente.template");
     	$template = extractClientData_on_Template( $clients , $id , $template );		
     	
     	echo $template;

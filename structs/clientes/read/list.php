@@ -1,37 +1,6 @@
 <?php
   require_once( 'read.php' ); // Model
-
-/*===============
- *  Functions
- *===============*/
- 
- // Controller
- function print_listClients( $filename ){
-      
-   $handle = fopen( $filename , 'r' );
-   
-   $id = 0;
-   $numClient = 1;
-   
-   while( ( $line = fgets( $handle ) ) !== false ){   
-   
-     if( strpos($line, "Nombre :") !== false ){
-            
-       $line = str_replace( "Nombre :" , "" , $line );
-       
-       $line = "<b>Cliente ($numClient) : </b>" . $line . "</br>";
-       $line .= "<a href='show.php?id=" . $id . "'> Ver más </a>";
-       $line .= "</br> <hr> </br>";
-
-       echo  $line;
-       
-       $id += 1;
-       $numClient += 1;       
-     }
-   }
-   
-   fclose( $hanlde );
- }
+  
  // View :
 ?>
 
@@ -78,22 +47,18 @@
   } else if ( empty( $totalClientes ) ) {
       echo 'No se han encontrado "Clientes"!';
   } else {
- 
-    $contador = "<h2>~~~ Clientes encontrados " . $totalClientes . " ~~~</h2> </br><hr>";
-    
-      echo $contador;
+  
+      print_listClients( $filename , $totalClientes );
       
-      print_listClients( $filename );
-      
-        echo "
-    			<div class='menu' >
-            <div class='opcion' >
-              <ul>
-                <li class='delete'> <a href='../delete/confirm-historial.php'> Eliminar Lista </a> </li>
-              </ul>
-            </div>
-          </div>      
-        ";
+      echo "
+    		<div class='menu' >
+          <div class='opcion' >
+            <ul>
+              <li class='delete'> <a href='../delete/confirm-historial.php'> Eliminar Lista </a> </li>
+            </ul>
+          </div>
+        </div>      
+      ";
    }
                  
     ?>
