@@ -1,6 +1,44 @@
 <?php
+  require_once('../read/read.php');
+  
+  
+/*==============
+ *  BUTTONS
+ *==============*/
+ 
+$options = "
+  <h1> ¿Seguro que quieres eliminar todos los clientes? </h1>
 
-require_once('../read/read.php');
+  </br>
+  </br>
+
+  <div class='menu' >
+      <div class='opcion' >
+      		<ul>
+             <li class='delete' > <a href='delete-historial.php'> Confirmar </a> </li>
+    	   </ul>
+      </div>
+  </div>
+
+  <div class='menu' >
+      <div class='opcion' >
+          <ul>
+             <li> <a href='../read/list.php'> Cancelar </a> </li>
+	    	  </ul>
+      </div>
+  </div>
+";
+
+
+$buttonBack = "
+  <div class='menu' >        
+      <div class='opcion' >
+          <ul>
+             <li> <a href='../index.html'> Volver al Inicio </a> </li>
+          </ul>
+      </div>
+  </div>
+";
 
 ?>
 
@@ -14,41 +52,49 @@ require_once('../read/read.php');
 
 <link rel="stylesheet" href="../../../CSS/styles.css">
 
-
+    
 <style>
 
 .delete a{
-    color: white;
     background-color: red;
+    color: white;
+}
+
+.verMas{
+	list-style: none;
+}
+
+.verMas a{
+	text-decoration: none;
+}
+
+.verMas a:hover{
+	color: blue;
+	font-size: 15px;
+}
+
+
+.top-options{
+	margin:auto;
+	float:center;
 }
 
 </style>
 
+
+
 <head>
 <body>
 
-
-
-<h1> ¿Seguro que quieres eliminar todos los clientes? </h1>
-
-</br>
-</br>
-
-<div class="menu" >
-    <div class="opcion" >
-    	<ul>
-            <li class="delete" > <a href="delete-historial.php"> Confirmar </a> </li>
-    	</ul>
-    </div>
-</div>
-
-<div class="menu" >
-    <div class="opcion" >
-    	<ul>
-            <li> <a href="../read/list.php"> Cancelar </a> </li>
-	    </ul>
-    </div>
-</div>
+		<?php
+  		if ( $fileExists  ) {				  
+      		
+      		echo $options;
+    	}else{
+    		
+  		   	echo 'El archivo de "Clientes" NO existe!' . $buttonBack ;    
+    	 }
+		?>
 
 
 </body>

@@ -1,31 +1,21 @@
 <?php
   require_once( "../read/read.php" );
-
-  $client = $_POST['client'];
-  $client['nombre'] = filter_var( $client[ 'nombre' ] , FILTER_SANITIZE_STRING );
-  $client[ 'celular' ] = filter_var( $client[ 'celular' ] , FILTER_SANITIZE_NUMBER_INT );
-
-
-  $data = 'Nombre :' . $client['name'] . "</br>\n";
-  $data .= 'Telefono :' . $client['phone'] . "</br>\n";
-  $data .= 'Email :' . $client['email'] . "</br>\n";
-  $data .= 'Direccion :' . $client['address'] . "</br>\n";
-  $data .= ",\n";
-
-
-createClient( $data , $filename , $fileExists , 'Cliente creado exitosamente' );
-
-
+  
 					/*========Template=========*/
+  $template = "../templates/cliente.template";
 
 
-$template = file_get_contents("../templates/cliente.template");
+          //Data of client
+  
+  $client = $_POST['client'];
+  $client = sanitize_dataClient( $client );
 
-$template = str_replace( "%NAME%", $client['name'], $template );
-$template = str_replace( "%TEL%", $client['phone'], $template );
-$template = str_replace( "%EMAIL%", $client['email'], $template );
-$template = str_replace( "%ADR%", $client['address'], $template );
-
+  $clientData = 'Nombre :' . $client['name'] . "</br>\n";
+  $clientData .= 'Telefono :' . $client['phone'] . "</br>\n";
+  $clientData .= 'Email :' . $client['email'] . "</br>\n";
+  $clientData .= 'Direccion :' . $client['address'] . "</br>\n";
+  $clientData .= ",\n";
+  
 ?>    
 
 <!DOCTYPE html>
@@ -35,18 +25,54 @@ $template = str_replace( "%ADR%", $client['address'], $template );
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cliente creado</title>
+    
     <link rel="stylesheet" href="../../../CSS/styles.css">
+        
+<style>
+
+.delete a{
+    background-color: red;
+    color: white;
+}
+
+.verMas{
+	list-style: none;
+}
+
+.verMas a{
+	text-decoration: none;
+}
+
+.verMas a:hover{
+	color: blue;
+	font-size: 15px;
+}
+
+
+.top-options{
+	margin:auto;
+	float:center;
+}
+
+</style>
+
+
 
 </head>
 <body>
-    <?php echo $template; ?>
+
+     <?php
+     
+       createData( $clientData , $filename , 'Cliente creado exitosamente' );
+       print_Data_on_Template( $client , $template )  
+     ?>
     
     <div class="menu" >
-        <ul>
-            <div class="opcion" >
+        <div class="opcion" >
+            <ul>
                 <li> <a href="../index.html"> Volver al Inicio </a> </li>
-            </div>
-        </ul>
+            </ul>
+        </div>
     </div>
 </body>
 </html>

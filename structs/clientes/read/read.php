@@ -10,7 +10,9 @@
   if ( file_exists( $filename ) ) {
     $fileExists = true;
     $data = file_get_contents( $filename );
-    $clients = explode("," , $data );
+    $array = explode("," , $data );
     
-    $totalClientes = count($clients) - 1;
+    $totalData = count( $array ) - 1;
+     
+    $clients = $array;
   }

@@ -1,7 +1,45 @@
 <?php
+  require_once('../read/read.php');
+  $id = $_GET[ 'id' ];
 
-require_once('../read/read.php');
+/*==============
+ *  BUTTONS
+ *==============*/
+ 
+$bottonBack = "
+<div class='menu' >        
+    <div class='opcion' >
+        <ul>
+            <li> <a href='../index.html'> Volver al Inicio </a> </li>
+        </ul>
+    </div>
+</div>
+";
 
+
+$options = "					
+<h1> ¿Seguro que quieres eliminar este cliente? </h1>
+	
+	</br>
+	</br>
+	
+	<div class='menu' >
+    	<div class='opcion' >
+    		<ul>
+            	<li class='delete' > <a href='delete-user.php?id=$id' > Confirmar </a> </li>
+    		</ul>
+    	</div>
+	</div>
+	
+	<div class='menu' >
+    	<div class='opcion' >
+    		<ul>
+            	<li> <a href='../read/show.php?id=$id' > Cancelar </a> </li>
+	    	</ul>
+    	</div>
+	</div>
+";
+  
 ?>
 
 <!DOCTYPE html>
@@ -14,42 +52,55 @@ require_once('../read/read.php');
 
 <link rel="stylesheet" href="../../../CSS/styles.css">
 
-
+    
 <style>
 
 .delete a{
-    color: white;
     background-color: red;
+    color: white;
+}
+
+.verMas{
+	list-style: none;
+}
+
+.verMas a{
+	text-decoration: none;
+}
+
+.verMas a:hover{
+	color: blue;
+	font-size: 15px;
+}
+
+
+.top-options{
+	margin:auto;
+	float:center;
 }
 
 </style>
 
+
+
 <head>
 <body>
+		
+		<?php
+  		if ( $fileExists  ) {
+  		
+    		if ( $id > $totalData ) {
 
-
-
-<h1> ¿Seguro que quieres eliminar este cliente? </h1>
-
-</br>
-</br>
-
-<div class='menu' >
-    <div class='opcion' >
-    	<ul>
-            <li class='delete' > <a href="delete-user.php?id=<?php $id = $_GET['id']; echo $id; ?>" > Confirmar </a> </li>
-    	</ul>
-    </div>
-</div>
-
-<div class='menu' >
-    <div class='opcion' >
-    	<ul>
-            <li> <a href="../read/show.php?id=<?php echo $id; ?>"> Cancelar </a> </li>
-	    </ul>
-    </div>
-</div>
-
+      		echo 'Este cliente NO existe!' . $bottonBack;    
+    		}else {
+    		   
+				 	echo $options;
+  		  }
+  		}else{
+					
+    		echo 'El archivo de "Clientes" NO existe! ' . $bottonBack;
+  		}
+		?>
 
 </body>
 </html>

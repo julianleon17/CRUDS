@@ -1,16 +1,45 @@
 <?php
   require_once('../read/read.php');
+  $id = $_GET['id'];
 ?>
 
 <link rel="stylesheet" href="../../../CSS/styles.css">
+  
+<style>
+
+.delete a{
+    background-color: red;
+    color: white;
+}
+
+.verMas{
+	list-style: none;
+}
+
+.verMas a{
+	text-decoration: none;
+}
+
+.verMas a:hover{
+	color: blue;
+	font-size: 15px;
+}
+
+
+.top-options{
+	margin:auto;
+	float:center;
+}
+
+</style>
+
+
 
 <?php
 
   if ( $fileExists  ) {
-			
-		$id = $_GET['id'];
 		
-    if ( $id > $totalClientes ) {
+    if ( $id > $totalDatos ) {
     
       echo 'Este cliente NO existe!' ;    
     }else { 

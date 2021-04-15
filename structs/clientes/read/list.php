@@ -14,9 +14,10 @@
 
     <link rel="stylesheet" href="../../../CSS/styles.css">
     
+    
 <style>
 
-.delete a{
+.delete {
     background-color: red;
     color: white;
 }
@@ -34,37 +35,44 @@
 	font-size: 15px;
 }
 
+
+.top-options{
+	margin:auto;
+	float:center;
+}
+
 </style>
+
+
 
 </head>
 <body>
     <h1>Listado de Clientes</h1>
     
     <?php
-
-  if ( !$fileExists ) {
-      echo 'El archivo de "Clientes" NO existe!';
-  } else if ( empty( $totalClientes ) ) {
-      echo 'No se han encontrado "Clientes"!';
-  } else {
-  
-      print_listClients( $filename , $totalClientes );
-      
-      echo "
-    		<div class='menu' >
-          <div class='opcion' >
-            <ul>
-              <li class='delete'> <a href='../delete/confirm-historial.php'> Eliminar Lista </a> </li>
-            </ul>
-          </div>
-        </div>      
-      ";
-   }
-                 
+  		if ( !$fileExists ) {
+      		echo 'El archivo de "Clientes" NO existe!';
+  		} else if ( empty( $totalData ) ) {
+      		echo 'No se han encontrado "Clientes"!';
+  		} else {
+  		
+      		print_listClients( $filename , $totalData );
+      		
+      		$buttonDelete = "
+          		<div class='opcion' >
+            		<ul>
+              		<li> <a class='delete' href='../delete/confirm-historial.php'> Eliminar Lista </a> </li>
+            		</ul>
+          		</div>
+      		";
+   		}           
     ?>
     
 
     <div class="menu" >
+    
+        <?php if( $fileExists ) { echo $buttonDelete; } ?>
+        
         <div class="opcion" >
             <ul>
                 <li> <a href="../index.html"> Volver al Inicio </a> </li>

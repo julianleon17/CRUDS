@@ -1,20 +1,13 @@
 <?php
-  require_once("../read/read.php");
+  require_once( "../read/read.php" );
+	$id = $_GET['id'];
 	
 	$client = $_POST['client'];
-	$id = $_GET['id'];
+  $client = sanitize_dataClient( $client );  
 			
 	    //Template
-	    
   $template = "../templates/cliente.template";
-  $template = file_get_contents($template);
-  
-	$template	= str_replace( "DATOS DEL CLIENTE" , "NUEVOS DATOS DEL CLIENTE" , $template );
-	$template	= str_replace( "%NAME%" , $client['name'] , $template );
-	$template	= str_replace( "%TEL%" , $client['phone'] , $template );
-	$template	= str_replace( "%EMAIL%" , $client['email'] , $template );
-	$template	= str_replace( "%ADR%" , $client['address'] , $template );
-  
+
 			
 			//new data of client
 			
@@ -24,13 +17,20 @@
   $newClientData .= "Direccion :" . $client['address'] . "</br>";
   $newClientData .= "\n";
 
-	
-		//Replace data  
-	$clients[$id] = $newClientData;
-		
-	$clients = array_values($clients);
-	
-  update_Base( $clients , $filename , 'Actualizado Exitosamente.' );	
+  
+/*==============
+ *  BUTTONS
+ *==============*/
+ 
+$bottonBack = "
+<div class='menu' >        
+    <div class='opcion' >
+        <ul>
+            <li> <a href='../index.html'> Volver al Inicio </a> </li>
+        </ul>
+    </div>
+</div>
+";
 	    
 ?>
 
@@ -44,10 +44,65 @@
 
     <link rel="stylesheet" href="../../../CSS/styles.css">
 
+    
+<style>
+
+.delete a{
+    background-color: red;
+    color: white;
+}
+
+.verMas{
+	list-style: none;
+}
+
+.verMas a{
+	text-decoration: none;
+}
+
+.verMas a:hover{
+	color: blue;
+	font-size: 15px;
+}
+
+
+.top-options{
+	margin:auto;
+	float:center;
+}
+
+</style>
+
+
+
 </head>
 <body>
-        
-        <?php echo $template;	 ?>
+    
+<?php 
+    
+if ( $fileExists  ) {
+	 
+   if ( $id > $totalData ) {
+    
+     echo 'Este cliente NO existe!' ;    
+   }else { 
+		      //Replace data  
+	   $clients[$id] = $newClientData;
+	   $clients = array_values($clients);
+
+     update_Base( $clients , $filename , 'Actualizado Exitosamente.' );
+     
+     $template	= str_replace( "DATOS DEL CLIENTE" , "NUEVOS DATOS DEL CLIENTE" , $template );
+     print_Data_on_Template( $client , $template );
+   }
+} else {
+    
+   echo 'El archivo de "Clientes" NO existe! ';
+}
+
+?>
+            
+    
         
     <div class="menu" >        
         <div class="opcion" >

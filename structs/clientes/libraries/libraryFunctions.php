@@ -13,8 +13,7 @@ function extractClientData_on_Template( $array , $key , $template ) {
 
   $dictionary = [ "%NAME%", "%TEL%", "%EMAIL%", "%ADR%" ];
 
-  $clients = $array;
-  $client = $clients[$key];
+  $client = $array[$key];
 
 	$clientFields = explode( "</br>" , $client );
 	$clientFieldsData = preg_replace( "[Nombre :|Telefono :|Email :|Direccion :]" , "" , $clientFields ); // Sanitize Fields
@@ -31,52 +30,29 @@ function extractClientData_on_Template( $array , $key , $template ) {
 	return $template;
 }
 
-
-             //Sobre escribir la base de datos
-
-function update_Base( $newData , $filename , $message='' ) {
-
-	$filename = $filename;
-	
-	$array = $newData;
-	$newData = implode(",", $array);
-	
-	if( file_exists($filename) ) {
-			
-		file_put_contents( $filename, $newData);
-		
-		echo $message;
-	
-	}else{
-		echo "No existe.\n";
-	}
-}
-
            //Eliminar un cliente
 
 function deleteClient( $array , $key , $filename ){
 
-      $clients = $array;
-			
-			$client = $clients[ $key ];
+			$client = $array[ $key ];
 			$client = explode( "</br>" , $client );
 			$client = str_replace( "Nombre :" , "" , $client );
 			$client = $client[0];	
 			
 			echo "</br></br>El Cliente ( <b>$client</b> ) fue eliminado con éxito.";
 
-			unset( $clients[ $key ] );
+			unset( $array[ $key ] );
 			
-			$clients = array_values( $clients );
+			$array = array_values( $array );
       
-			update_Base( $clients , $filename );
+			update_Base( $array , $filename );
 }
 
 
 
 
 
-          //Extrae los datos del cliente y devuelve un array asociativo (O hash)
+          //Extrae los datos del cliente y devuelve un array asociativo. Estos son los campos del array devuelto : ('name', 'phone', 'email', 'address')
             
 function extractClientData( $array , $key ){
 
@@ -106,9 +82,9 @@ function extractClientData( $array , $key ){
           //Imprime una lista con todos los nombres de los clientes existentes
           
   // Controller          
-function print_listClients( $filename , $totalClientes ){
+function print_listClients( $filename , $totalData ){
  
-   $contador = "<h2>~~~ Clientes encontrados " . $totalClientes . " ~~~</h2> </br><hr>";
+   $contador = "<h2>~~~ Clientes encontrados " . $totalData . " ~~~</h2> </br><hr>";
     
    echo $contador;
       
@@ -123,8 +99,8 @@ function print_listClients( $filename , $totalClientes ){
             
        $line = str_replace( "Nombre :" , "" , $line );
        
-       $line = "<b>Cliente ($numClient) : </b>" . $line . "</br>";
-       $line .= "<a href='show.php?id=" . $id . "'> Ver más </a>";
+       $line = "<b>Cliente ($numClient) : </b>" . $line . "</br><li class='verMas'>";
+       $line .= "<a href='show.php?id=" . $id . "'> Ver más </a></li>";
        $line .= "</br> <hr> </br>";
 
        echo  $line;
@@ -139,11 +115,49 @@ function print_listClients( $filename , $totalClientes ){
 
 
 
-             //Crea los clientes
+       //Saneamiento de los datos del cliente para crear y actualizar
+       
+function sanitize_dataClient( $client ) {
 
-function createClient( $data , $filename , $fileExists , $message='' ) {
+    $client['name'] = filter_var( $client[ 'name' ] , FILTER_SANITIZE_STRING );
+    $client[ 'phone' ] = filter_var( $client[ 'phone' ] , FILTER_SANITIZE_NUMBER_INT );
+    $client = str_replace( "," , "" , $client );
 
-  if ( $fileExists ) {
+    return $client;
+}
+
+
+
+
+         //Imprimir el template de los datos actualizados
+         
+function print_Data_on_Template( $array , $template ) {
+
+  $template = file_get_contents( $template );
+
+  $dictionaryTemplate = [ "%NAME%", "%TEL%", "%EMAIL%", "%ADR%" ];
+  $dictionaryData = [ 'name', 'phone', 'email', 'address' ];
+  
+  $numFields = count( $array );
+  
+  for ( $i = 0; $i < $numFields; $i++ ) {
+	  $template	= str_replace( $dictionaryTemplate[ $i ] , $array[ $dictionaryData[ $i ] ] , $template );
+  }
+
+  echo $template;
+}
+
+
+
+/*===============================================================
+ *       Lo que creo me sirve de forma global (Otras estructuras)
+ *===============================================================*/
+
+             //Crear un dato
+
+function createData( $data , $filename , $message='' ) {
+
+  if ( file_exists( $filename ) ) {
   
     $oldData = file_get_contents($filename);
     $oldData .= $data; 
@@ -157,8 +171,48 @@ function createClient( $data , $filename , $fileExists , $message='' ) {
   echo $message;
 }
 
+      
+      
+      //Eliminar un dato
+      
+function deleteData( $array , $key , $filename , $message='' ){
 
-		/*
+			unset( $array[ $key ] );
+			
+			$array = array_values( $array );
+      
+			update_Base( $array , $filename , $message );
+}
+
+
+
+             //Sobre escribir la base de datos
+
+function update_Base( $newData , $filename , $message='' ) {
+
+	$array = $newData;
+	$newData = implode(",", $array);
+	
+	if( file_exists($filename) ) {
+			
+		file_put_contents( $filename, $newData);
+		
+		echo $message;
+	
+	}else{
+		echo "No existe.\n";
+	}
+}
+
+
+
+
+
+
+
+
+
+		/*BASURA
 // printClientData
 // echoClientData
 // getClientData

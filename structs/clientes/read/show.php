@@ -1,5 +1,24 @@
 <?php
-  require_once("read.php");
+  require_once('read.php'); //Model
+  $id = $_GET[ 'id' ];
+  
+/*==============
+ *  BUTTONS
+ *==============*/
+    
+$bottons = "    	   	
+<div class='opcion' >
+    <ul class='top-options' >
+       <li > <a href='../update/edit.php?id=$id' > Editar </a> </li>
+    </ul>
+</div>
+
+<div class='opcion' >
+    <ul class='top-options'>
+       <li > <a class='delete' href='../delete/confirm-user.php?id=$id' > Eliminar </a> </li>
+    </ul>
+</div>    	   	
+";
 ?>
 
 
@@ -13,11 +32,25 @@
 
     <link rel="stylesheet" href="../../../CSS/styles.css">
     
+    
 <style>
 
 .delete {
-    color: white;
     background-color: red;
+    color: white;
+}
+
+.verMas{
+	list-style: none;
+}
+
+.verMas a{
+	text-decoration: none;
+}
+
+.verMas a:hover{
+	color: blue;
+	font-size: 15px;
 }
 
 
@@ -32,27 +65,32 @@
 <body>
     
     <?php 
-    	$id = $_GET['id'];
     	
-      $template = file_get_contents("../templates/cliente.template");
-    	$template = extractClientData_on_Template( $clients , $id , $template );		
+    	if ( !$fileExists ) {
     	
-    	echo $template;
+    	   echo 'El archivo de "Clientes" NO existe! ';
+    	         	
+    	}else{
+    	
+    		if ( !( $id > ( $totalData -1 ) ) ) {
+    		  
+    		  $clientExists = true;
+    		  
+         	$template = file_get_contents("../templates/cliente.template");
+    	   	$template = extractClientData_on_Template( $clients , $id , $template );		
+    		  
+    	   	echo $template;    	      	   	
+    		}else{
+    	    
+      	  echo 'Este cliente NO existe!' ;    
+    		}
+    	}
+    	
     ?>
 
     <div class="menu" >
         
-        <div class="opcion" >
-            <ul class="top-options" >
-                <li > <a href="../update/edit.php?id=<?php echo $id; ?>" > Editar </a> </li>
-            </ul>
-        </div>
-        
-        <div class="opcion" >
-            <ul class="top-options">
-                <li > <a class="delete" href="../delete/confirm-user.php?id=<?php echo $id; ?>" > Eliminar </a> </li>
-            </ul>
-        </div>
+        <?php if ( !$clientExists ){  }else{ echo $bottons; } ?>
 
         <div class="opcion" >
             <ul>
