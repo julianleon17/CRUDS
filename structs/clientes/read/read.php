@@ -1,6 +1,6 @@
 <?php
-  include('../libraries/libraryFunctions.php');
-  
+  include('../libraries/functions.php');
+  include('../libraries/helpers.php'); 
   
   $filename = "../clientes.db";
   $data = null;

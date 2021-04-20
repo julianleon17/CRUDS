@@ -1,45 +1,14 @@
 <?php
   require_once('../read/read.php');
-  $id = $_GET['id'];
-?>
-
-<link rel="stylesheet" href="../../../CSS/styles.css">
-  
-<style>
-
-.delete a{
-    background-color: red;
-    color: white;
-}
-
-.verMas{
-	list-style: none;
-}
-
-.verMas a{
-	text-decoration: none;
-}
-
-.verMas a:hover{
-	color: blue;
-	font-size: 15px;
-}
-
-
-.top-options{
-	margin:auto;
-	float:center;
-}
-
-</style>
+  $id = $_GET[ 'id' ];
 
 
 
-<?php
+  create_header_of_page( 'Cliente Eliminado' );
 
   if ( $fileExists  ) {
 		
-    if ( $id > $totalDatos ) {
+    if ( $id > $totalData ) {
     
       echo 'Este cliente NO existe!' ;    
     }else { 
@@ -51,12 +20,7 @@
     echo 'El archivo de "Clientes" NO existe! ';
   }
 
+
+  create_button( "../read/list.php" , 'Volver al Listado' ); 
 ?>
 
-<div class="menu" >
-    <div class="opcion" >
-	    <ul>
-            <li> <a href="../index.html"> Volver al Inicio </a> </li>
-		</ul>
-    </div>
-</div>

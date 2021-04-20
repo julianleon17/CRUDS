@@ -1,6 +1,5 @@
 <?php
-
-require_once('../read/read.php');
+  require_once('../read/read.php');
     
     if ( $fileExists  ) {
       
@@ -9,43 +8,13 @@ require_once('../read/read.php');
     }else{
       echo 'El archivo de "Clientes" NO existe! ';
     }
+
+  create_header_of_page( 'Lista Eliminada' );
 ?>
 
-<link rel="stylesheet" href="../../../CSS/styles.css">
-    
-<style>
+  
+<body>
+  create_button( "../index.html" , 'Volver al Inicio' ); 
 
-.delete a{
-    background-color: red;
-    color: white;
-}
-
-.verMas{
-	list-style: none;
-}
-
-.verMas a{
-	text-decoration: none;
-}
-
-.verMas a:hover{
-	color: blue;
-	font-size: 15px;
-}
-
-
-.top-options{
-	margin:auto;
-	float:center;
-}
-
-</style>
-
-
-<div class="menu" >
-    <div class="opcion" >
-	      <ul>
-          <li> <a href="../index.html"> Volver al Inicio </a> </li>
-		    </ul>
-    </div>
-</div>
+</body>
+</html>

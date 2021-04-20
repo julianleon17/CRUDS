@@ -57,22 +57,22 @@ function deleteClient( $array , $key , $filename ){
 function extractClientData( $array , $key ){
 
   $dictionary = [ 'name', 'phone', 'email', 'address' ];
-  $dataFilds = [];  
+  $dataFields = [];  
     
   $clients = $array;
   $client = $clients[ $key ];
 	
-	$clientFilds = explode( "</br>" , $client );
-	$clientFildsData = preg_replace( "[Nombre :|Telefono :|Email :|Direccion :]" , "" , $clientFilds );
+	$clientFields = explode( "</br>" , $client );
+	$clientFieldsData = preg_replace( "[Nombre :|Telefono :|Email :|Direccion :]" , "" , $clientFields );
 
-	$numFilds = count($clientFildsData);
+	$numFields = count($clientFieldsData);
 	$idCliente = $key + 1;
 	
-	for ( $i = 0; $i < $numFilds; $i++ ) {
-	  $dataFilds[ $dictionary[ $i ] ] = $clientFildsData[ $i ];
+	for ( $i = 0; $i < $numFields; $i++ ) {
+	  $dataFields[ $dictionary[ $i ] ] = $clientFieldsData[ $i ];
 	}
 
-	return $dataFilds;
+	return $dataFields;
 }
 
 
@@ -149,60 +149,7 @@ function print_Data_on_Template( $array , $template ) {
 
 
 
-/*===============================================================
- *       Lo que creo me sirve de forma global (Otras estructuras)
- *===============================================================*/
 
-             //Crear un dato
-
-function createData( $data , $filename , $message='' ) {
-
-  if ( file_exists( $filename ) ) {
-  
-    $oldData = file_get_contents($filename);
-    $oldData .= $data; 
-    file_put_contents($filename, $oldData);
-        
-  } else {
-  
-    file_put_contents($filename, $data);    
-    
-  }
-  echo $message;
-}
-
-      
-      
-      //Eliminar un dato
-      
-function deleteData( $array , $key , $filename , $message='' ){
-
-			unset( $array[ $key ] );
-			
-			$array = array_values( $array );
-      
-			update_Base( $array , $filename , $message );
-}
-
-
-
-             //Sobre escribir la base de datos
-
-function update_Base( $newData , $filename , $message='' ) {
-
-	$array = $newData;
-	$newData = implode(",", $array);
-	
-	if( file_exists($filename) ) {
-			
-		file_put_contents( $filename, $newData);
-		
-		echo $message;
-	
-	}else{
-		echo "No existe.\n";
-	}
-}
 
 
 

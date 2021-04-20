@@ -18,47 +18,8 @@
   
 ?>    
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cliente creado</title>
-    
-    <link rel="stylesheet" href="../../../CSS/styles.css">
-        
-<style>
+<?php create_header_of_page( 'Cliente Creado' ) ?>
 
-.delete a{
-    background-color: red;
-    color: white;
-}
-
-.verMas{
-	list-style: none;
-}
-
-.verMas a{
-	text-decoration: none;
-}
-
-.verMas a:hover{
-	color: blue;
-	font-size: 15px;
-}
-
-
-.top-options{
-	margin:auto;
-	float:center;
-}
-
-</style>
-
-
-
-</head>
 <body>
 
      <?php
@@ -67,12 +28,7 @@
        print_Data_on_Template( $client , $template )  
      ?>
     
-    <div class="menu" >
-        <div class="opcion" >
-            <ul>
-                <li> <a href="../index.html"> Volver al Inicio </a> </li>
-            </ul>
-        </div>
-    </div>
+    <?php create_button( "../index.html" , 'Volver al Inicio' ); ?>
+    
 </body>
 </html>

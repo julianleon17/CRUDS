@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Nuevo Cliente</title>
+<?php
+  require_once( '../read/read.php' );
+?>
 
-    <link rel="stylesheet" href="../../../CSS/styles.css">
-</head>
+<?php  create_header_of_page( 'Registrar Nuevo Cliente' );  ?>
+
 <body>
     <form action="create.php" method="POST">
 
@@ -23,14 +19,9 @@
         <input type="reset" value="Borrar" >
         <br>    
 
-        <div class="menu" >
-            <ul>
-                <div class="opcion" >
-                    <li> <a href="../index.html"> Volver al Inicio </a> </li>
-                </div>
-            </ul>
-        </div>
     </form>
+    
+        <?php create_button( "../index.html" , 'Volver al Inicio' ); ?>
 
 </body>
 </html>
