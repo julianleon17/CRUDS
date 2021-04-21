@@ -1,0 +1,21 @@
+<h1> DATOS DEL PRODUCTO </h1>
+
+<b>Nombre :</b> 
+</br>
+%NAME% 
+</br>
+</br>
+
+<b>Précio :</b> 
+</br>
+%PRC%
+</br>
+</br>
+
+<b>descripción :</b> 
+</br>
+%DESC%
+</br>
+</br>
+</br> 
+

@@ -82,35 +82,32 @@ function extractClientData( $array , $key ){
           //Imprime una lista con todos los nombres de los clientes existentes
           
   // Controller          
-function print_listClients( $filename , $totalData ){
+function print_list( $filename , $totalData , $searchTo , $subject ) {
  
-   $contador = "<h2>~~~ Clientes encontrados " . $totalData . " ~~~</h2> </br><hr>";
-    
-   echo $contador;
+  echo "<h2>~~~ " . $subject . "s encontrados " . $totalData . " ~~~</h2> </br><hr>";
       
-   $handle = fopen( $filename , 'r' );
+  $handle = fopen( $filename , "r" );
+  $num = 1;
+  $id = 0;
    
-   $id = 0;
-   $numClient = 1;
+  while( ( $line = fgets( $handle ) ) !== false ) {   
    
-   while( ( $line = fgets( $handle ) ) !== false ){   
-   
-     if( strpos($line, "Nombre :") !== false ){
+    if( strpos( $line , $searchTo ) !== false ) {
             
-       $line = str_replace( "Nombre :" , "" , $line );
+      $line = str_replace( $searchTo , "<b>$subject ($num) : </b>" , $line );
        
-       $line = "<b>Cliente ($numClient) : </b>" . $line . "</br><li class='verMas'>";
-       $line .= "<a href='show.php?id=" . $id . "'> Ver más </a></li>";
-       $line .= "</br> <hr> </br>";
+      $line .= "</br><li class='verMas'>";
+      $line .= "<a href='show.php?id=" . $id . "'> Ver más </a>";
+      $line .= "</li> </br> <hr>";
 
-       echo  $line;
+      echo $line;
        
-       $id += 1;
-       $numClient += 1;       
-     }
-   }
+      $id += 1;
+      $num += 1;       
+    }
+  }
    
-   fclose( $hanlde );
+  fclose( $handle );
 }
 
 
@@ -129,7 +126,7 @@ function sanitize_dataClient( $client ) {
 
 
 
-         //Imprimir el template de los datos actualizados
+         //Imprimir el template de los datos recien creados y actualizados
          
 function print_Data_on_Template( $array , $template ) {
 
