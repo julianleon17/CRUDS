@@ -2,11 +2,11 @@
   require_once( 'read.php' ); // Model
   
  // View :
-create_header_of_page( 'Productos' );  
+create_header_of_page( $pluralTheme );  
 ?>
 
 <body>
-    <h1>Listado de Productos</h1>
+    <h1>Listado de <?php echo $pluralTheme; ?> </h1>
     
     <?php
   		if ( !$fileExists ) {
@@ -15,7 +15,7 @@ create_header_of_page( 'Productos' );
       		echo 'No se han encontrado "Productos"!';
   		} else {
   		
-      		print_list_products( $filename , $totalData );
+      		print_list( $filename, $totalData, $searchTo, $pluralTheme, $singularTheme );
    		}           
    		
    		
@@ -26,7 +26,7 @@ create_header_of_page( 'Productos' );
          create_button( "../delete/confirm-historial.php" , 'Eliminar Lista' , 'delete' ); 
         }
         
-       create_button( "../index.html" , 'Volver al Inicio' );    
+       create_button( "../index.php" , 'Volver al Inicio' );    
     ?>
             
 </body>

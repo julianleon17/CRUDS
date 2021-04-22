@@ -6,7 +6,7 @@
 
 //=================View :
 
-create_header_of_page( 'Datos Producto' );  
+create_header_of_page( "Datos $singularTheme" );  
 ?>
 
 <body>
@@ -14,20 +14,24 @@ create_header_of_page( 'Datos Producto' );
   	
   	if ( !$fileExists ) {
   	
-    		echo 'El archivo de ' . $tema . ' NO existe! ';
+    		echo 'El archivo de ' . $pluralTheme . ' NO existe! ';
     	      	
   	}else{
   	
     	if ( !( $id > ( $totalData -1 ) ) ) {
     		
     		$productExists = true;
+    		   	    		
+    		$singleField = extract_data( $allArray, $id, $dictionaryData, $toDelete );
+    		$singleField['description'] = str_replace( "\n", "</br>", $singleField['description'] );
     		
-    		$template = extract_product_data_on_template( $products , $id , $template , $dictionaryTemplate, $toDelete );		
-    		
-    		echo $template;    	      	   	
+    		$template = return_data_on_template( $singleField, $template, $dictionaryTemplate, $dictionaryData );		
+
+    		echo $template;
+    		    	      	   	
     	}else{
     		
-      	echo 'Este ' . $tema . ' NO existe!' ;    
+      	echo 'Este ' . $pluralTheme . ' NO existe!' ;    
     	}
   	}
   	

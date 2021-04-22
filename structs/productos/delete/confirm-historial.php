@@ -12,14 +12,14 @@
 		  //Valida los botones
   		if ( $fileExists  ) {				  
       		
-      		echo "<h1> ¿Seguro que quieres eliminar todos los clientes? </h1></br></br>";
+      		echo "<h1> ¿Seguro que quieres eliminar $pluralTheme? </h1></br></br>";
           create_button( "delete-historial.php" , 'Confirmar' , 'delete' );
           create_button( "../read/list.php" , 'Cancelar' );
       		
     	}else{
     		
-  		   	echo 'El archivo de "Productos" NO existe!';
-          create_button( "../index.html" , 'Volver al Inicio' );  		   	    
+  		   	echo 'El archivo de ' . $pluralTheme . ' NO existe!';
+          create_button( "../index.php" , 'Volver al Inicio' );  		   	    
     	 }
 		?>
 

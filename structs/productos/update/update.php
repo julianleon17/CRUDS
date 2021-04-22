@@ -2,25 +2,21 @@
   require_once( "../read/read.php" );
 	$id = $_GET['id'];
 	
-	$product = $_POST['product'];
- 	$product = str_replace( "\n" , "</br>" , $product );
-			
-	    //Template
-  $template = "../templates/producto.template";
-
-			
-			//new data of client
-
-  $product = sanitize_data( $product );
+	$data = $_POST['data'];
+	
+			    //update and sanitize Data 
+  $data = sanitize_data( $data, $dictionaryData );  
+  $data['name'] = preg_replace( "[1|2|3|4|5|6|7|8|9|0]" , "" , $data['name'] );
+  $data['price'] = filter_var( $data[ 'price' ] , FILTER_SANITIZE_NUMBER_INT );
   
-  $newData = "\nName :" . $product['name'] . "</br>\n";
-  $newData .= "Price :" . $product['price'] . "</br>\n";
-  $newData .= "Description :" . $product['description'] . "</br>\n";
+  $newData = "\nName :" . $data['name'] . "</br>\n";
+  $newData .= "Price :" . $data['price'] . "</br>\n";
+  $newData .= "Description :" . $data['description'] . "</br>\n";
 //================
 
 
 
-  create_header_of_page( 'Cliente Actualizado' );	    
+  create_header_of_page( "$singularTheme Actualizado" );	    
 ?>
 
 
@@ -32,25 +28,31 @@
 	 	
    	if ( $id > $totalData ) {
     	
-     	echo 'Este producto NO existe!' ;    
+     	echo 'Este ' . $singularTheme . ' NO existe!' ;    
    	}else { 
+   	
 		      	//Replace data  
-	   	$products[$id] = $newData;
-	   	$products = array_values($products);
-     	update_Base( $products , $filename , 'Actualizado Exitosamente.' );
+	   	$allArray[$id] = $newData;
+	   	$allArray = array_values( $allArray );
+     	update_Base( $allArray , $filename , 'Actualizado Exitosamente.' );
      	
-     	$template	= str_replace( "DATOS DEL PRODUCTO" , "NUEVOS DATOS DEL PRODUCTO" , $template );
-     	$template = print_data_on_template( $product , $template , $dictionaryTemplate , $dictionaryData );
+     	
+     	   //Template
+     	$template	= str_replace( "Datos del $singularTheme" , "Nuevos datos del $singularTheme" , $template );     
+     	
+     	$data['description'] = str_replace( "\n", "</br>", $data['description'] );
+     	$template = return_data_on_template( $data, $template, $dictionaryTemplate, $dictionaryData );
      	
      	echo $template;
+	    create_button( "../read/show.php?id=$id" , "Ver $singularTheme" );
    	}
 	} else {
     	
-   	echo 'El archivo de ' . $tema . ' NO existe! ';
+   	echo 'El archivo de ' . $pluralTheme . ' NO existe! ';
+   	create_button( "../index.php" , "Volver al Inicio" );
 	}
 	
 	
-	  create_button( "../read/show.php?id=$id" , 'Ver Pedido' );
 	?>
             
 </body>

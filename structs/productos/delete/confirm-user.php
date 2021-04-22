@@ -16,20 +16,20 @@ create_header_of_page( 'Confirmar' );
 		      //Valida los botones
     		if ( $id > $totalData ) {
 
-      		echo 'Este producto NO existe!';
+      		echo 'Este ' . $singularTheme . ' NO existe!';
       		
-          create_button( "../index.html" , 'Volver al Inicio' );    
+          create_button( "../index.php" , 'Volver al Inicio' );    
           
     		}else {
     		
-    		  echo "<h1> ¿Seguro que quieres eliminar este producto? </h1></br></br>";
+    		  echo "<h1> ¿Seguro que quieres eliminar $singularTheme? </h1></br></br>";
 				 	create_button( "delete-user.php?id=$id" , 'Confirmar' , 'delete' );
 				 	create_button( "../read/show.php?id=$id" , 'Cancelar' );
 				 	
   		  }
   		}else{
 					
-    		echo 'El archivo de "Producto" NO existe! ';
+    		echo 'El archivo de ' . $singularTheme .' NO existe! ';
     		
     		create_button( "../index.html" , 'Volver al Inicio' ); 
     		

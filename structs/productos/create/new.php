@@ -1,19 +1,29 @@
 <?php
   require_once( '../read/read.php' );
+
+//=======================View :
+create_header_of_page( "Registrar Nuevo $singularTheme" );  
 ?>
 
-<?php  create_header_of_page( 'Registrar Nuevo producto' );  ?>
-
 <body>
-    <h1>NUEVO PRODUCTO</h1>
+    <h1>Nuevo <?php echo $singularTheme; ?> </h1>
     </br>
     
     <form action="create.php" method="POST">
 
-        <p><b>Nombre del Producto:</b> <input type="text" placeholder="Nombre" name="product[name]" required > </p>
-        <p><b>Precio del Producto:</b> <input type="num" placeholder="Nombre" name="product[price]" required > </p>
+        <p><b>Nombre del <?php echo $singularTheme ?>:</b> 
+        <input type="text" placeholder="Nombre" name="data[name]" required > </p>
         
-        <p><b> Descripción del Producto :</b> <textarea rows="5" cols="50" placeholder="Escribe una descripción del producto" name="product[description]"></textarea> </p>
+        
+        <p><b>Precio del <?php echo $singularTheme ?>:</b> 
+        <input type="number" placeholder="Precio" name="data[price]" required > </p>
+        
+        
+        
+        <p><b> Descripción del <?php echo $singularTheme ?> :</b> 
+        <textarea rows="5" cols="50" placeholder="Escribe una descripción del <?php echo $singularTheme; ?>" name="data[description]"></textarea> </p>
+        
+        
         
         <input type="submit" value="Enviar" >
         <input type="reset" value="Borrar" >
@@ -21,7 +31,7 @@
 
     </form>
     
-        <?php create_button( "../index.html" , 'Volver al Inicio' ); ?>
+        <?php create_button( "../index.php" , 'Volver al Inicio' ); ?>
 
 </body>
 </html>

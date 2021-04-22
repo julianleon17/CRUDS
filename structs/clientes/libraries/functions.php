@@ -79,12 +79,12 @@ function extractClientData( $array , $key ){
 
 
 
-          //Imprime una lista con todos los nombres de los clientes existentes
+//Imprime una lista de todo lo que existe en la base de datos linea por linea, (searchTo)=Bucar por, ej: buscar por "Name :" (subject)=Para saber que se busca, ej: carro o pedido
           
   // Controller          
-function print_list( $filename , $totalData , $searchTo , $subject ) {
+function print_list( $filename, $totalData, $searchTo, $pluralTheme, $singularTheme ) {
  
-  echo "<h2>~~~ " . $subject . "s encontrados " . $totalData . " ~~~</h2> </br><hr>";
+  echo "<h2>~~~ " . $pluralTheme . " encontrados " . $totalData . " ~~~</h2> </br><hr>";
       
   $handle = fopen( $filename , "r" );
   $num = 1;
@@ -94,7 +94,7 @@ function print_list( $filename , $totalData , $searchTo , $subject ) {
    
     if( strpos( $line , $searchTo ) !== false ) {
             
-      $line = str_replace( $searchTo , "<b>$subject ($num) : </b>" , $line );
+      $line = str_replace( $searchTo , "<b>$singularTheme ($num) : </b>" , $line );
        
       $line .= "</br><li class='verMas'>";
       $line .= "<a href='show.php?id=" . $id . "'> Ver más </a>";

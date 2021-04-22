@@ -7,95 +7,9 @@
  *======================================================================================================================================================*/
 																		
 
-       //Saneamiento de los datos del cliente para crear y actualizar
-       
-function sanitize_data( $array ) {
-    
-    $array['name'] = filter_var( $array[ 'name' ] , FILTER_SANITIZE_STRING );
-    $array[ 'description' ] = str_replace( "," , "&#44;" , $array[ 'description' ] );
-
-    return $array;
-}
-
-
-
-
-
-
-
-          //Extrae los datos del producto y devuelve un array asociativo. Estos son los campos del array devuelto : ('name', 'description')
-            
-function extract_product_data( $array , $key ){
-
-  $dictionary = [ 'name', 'description' , 'price' ];
-  $dataFields = [];  
-    
-  $product = $array[ $key ];
-	
-	$productFields = explode( "</br>" , $product );
-	$productFields[1] = str_replace( "\n" , "</br>" , $productFields[1] );
-	$productFieldsData = preg_replace( "[Name :|Description :|Price :]" , "" , $productFields );
-
-	$numFields = count($productFieldsData);
-	
-	for ( $i = 0; $i < $numFields; $i++ ) {
-	  $dataFields[ $dictionary[ $i ] ] = $productFieldsData[ $i ];
-	}
-
-	return $dataFields;
-}
-
-             //Imprimir el template de los datos recien creados y actualizados
-
-function print_data_on_template( $array , $template , $dictionaryTemplate , $dictionaryData ) {
-
-  $template = file_get_contents( $template );
-  
-  
-  $numFields = count( $array );
-  
-  for ( $i = 0; $i < $numFields; $i++ ) {
-	  $template	= str_replace( $dictionaryTemplate[ $i ] , $array[ $dictionaryData[ $i ] ] , $template );
-  }
-
-  return $template;
-}
-
-
-
-
-function print_list( $filename , $totalData , $searchTo , $subject ) {
-  
-  echo "<h2>~~~ " . $subject . "s encontrados " . $totalData . " ~~~</h2> </br><hr>";
-  
-  $handle = fopen( $filename , "r" );
-  $num = 1;
-  $id = 0;
-  
-  while( ( $line = fgets( $handle ) ) !== false ) {
-  
-    if( strpos( $line , $searchTo ) !== false ) {
-    
-      $line = str_replace( $searchTo , "<b>$subject ($num) : </b>" , $line );
-      
-      $line .= "</br><li class='verMas'>";
-      $line .= "<a href='show.php?id=" . $id . "'> Ver más </a>";
-      $line .= "</li> </br> <hr>";   
-      
-      echo $line;
-      
-      $id += 1;
-      $num += 1;
-    }
-  }
-  
-  fclose( $handle );
-}
-
-
 
 /*==================================================================
- *                 SIRVE DE FORMA GLOBAL
+ *                 SIRVE DE FORMA GLOBAL (Otras estructuras)
  *==================================================================*/
 
 
@@ -103,7 +17,7 @@ function print_list( $filename , $totalData , $searchTo , $subject ) {
 
              //Crear un nuevo dato
 
-function createData( $data , $filename , $message='' ) {
+function create_data( $data , $filename , $message='' ) {
 
   if ( file_exists( $filename ) ) {
   
@@ -123,7 +37,7 @@ function createData( $data , $filename , $message='' ) {
 
          //Eliminar un dato específico
       
-function deleteData( $array , $key , $filename , $message='' ){
+function delete_data( $array , $key , $filename , $message='' ){
 
 			unset( $array[ $key ] );
 			
@@ -154,13 +68,112 @@ function update_Base( $newData , $filename , $message='' ) {
 
 
 
-							//Extraer los datos del producto y lo retorna sobre el template para mostrar (show.php)
 
-function extract_product_data_on_template( $array , $key , $template , $dictionaryTemplate , $toDelete ) {
+          //Extrae los datos del objeto que se pida y devuelve un array asociativo
+            
+function extract_data( $array, $key, $dictionaryData, $toDelete ){
+
+  $dataFields = [];  
+
+  $array = $array[ $key ];
+	
+	
+	$arrayFields = explode( "</br>" , $array );
+	$arrayFields = preg_replace( $toDelete , "" , $arrayFields );
+
+	$numFields = count($arrayFields);
+	
+	for ( $i = 0; $i < $numFields; $i++ ) {
+	  $dataFields[ $dictionaryData[ $i ] ] = $arrayFields[ $i ];
+	}
+
+	return $dataFields;
+}
+
+
+
+             //Retornar el template de los datos recien creados y actualizados
+
+function return_data_on_template( $array , $template , $dictionaryTemplate , $dictionaryData ) {
+  
+  $numFields = count( $array );
+  
+  for ( $i = 0; $i < $numFields; $i++ ) {
+	  $template	= str_replace( $dictionaryTemplate[ $i ] , $array[ $dictionaryData[ $i ] ] , $template );
+  }
+
+  return $template;
+}
+
+
+
+
+
+//Imprime una lista de todo lo que existe en la base de datos linea por linea, (searchTo)=Bucar por, ej: buscar por "Name :" (subject)=Para saber que se busca, ej: carro o pedido
+
+function print_list( $filename, $totalData, $searchTo, $pluralTheme, $singularTheme ) {
+  
+  echo "<h2>~~~ " . $pluralTheme . " encontrados " . $totalData . " ~~~</h2> </br><hr>";
+  
+  $handle = fopen( $filename , "r" );
+  $num = 1;
+  $id = 0;
+  
+  while( ( $line = fgets( $handle ) ) !== false ) {
+  
+    if( strpos( $line , $searchTo ) !== false ) {
+    
+      $line = str_replace( $searchTo , "<b>$singularTheme ($num) : </b>" , $line );
+      
+      $line .= "</br><li class='verMas'>";
+      $line .= "<a href='show.php?id=" . $id . "'> Ver más </a>";
+      $line .= "</li> </br> <hr>";   
+      
+      echo $line;
+      
+      $id += 1;
+      $num += 1;
+    }
+  }
+  
+  fclose( $handle );
+}
+
+
+
+       //Saneamiento de los datos del cliente para crear y actualizar
+function sanitize_data( $array, $dictionaryData ) {
+  
+  
+  for ( $i=0; $i < count($array); $i++ ) {
+    $array[ $dictionaryData[$i] ] = str_replace( "#" , "&#35;" , $array[ $dictionaryData[$i] ] ); 
+    $array[ $dictionaryData[$i] ] = str_replace( "$" , "&#36;" , $array[ $dictionaryData[$i] ] );    
+    $array[ $dictionaryData[$i] ] = str_replace( "%" , "&#37;" , $array[ $dictionaryData[$i] ] ); 
+    $array[ $dictionaryData[$i] ] = str_replace( "&" , "&#38;" , $array[ $dictionaryData[$i] ] ); 
+    $array[ $dictionaryData[$i] ] = str_replace( "(" , "&#40;" , $array[ $dictionaryData[$i] ] );    
+    $array[ $dictionaryData[$i] ] = str_replace( ")" , "&#41;" , $array[ $dictionaryData[$i] ] );    
+    $array[ $dictionaryData[$i] ] = str_replace( "," , "&#44;" , $array[ $dictionaryData[$i] ] );    
+    $array[ $dictionaryData[$i] ] = str_replace( "<" , "&#60;" , $array[ $dictionaryData[$i] ] );    
+    $array[ $dictionaryData[$i] ] = str_replace( ">" , "&#62;" , $array[ $dictionaryData[$i] ] );    
+    $array[ $dictionaryData[$i] ] = str_replace( "[" , "&#91;" , $array[ $dictionaryData[$i] ] );    
+    $array[ $dictionaryData[$i] ] = str_replace( "]" , "&#93;" , $array[ $dictionaryData[$i] ] );    
+    $array[ $dictionaryData[$i] ] = str_replace( "{" , "&#123;" , $array[ $dictionaryData[$i] ] );    
+    $array[ $dictionaryData[$i] ] = str_replace( "}" , "&#125;" , $array[ $dictionaryData[$i] ] );    
+    $array[ $dictionaryData[$i] ] = str_replace( "php" , "&#112;&#104;&#112;" , $array[ $dictionaryData[$i] ] );    
+  }
+
+  return $array;
+}
+
+
+/**============================================================================================================
+ *                                            B    A    S    U    R    A   
+ *=============================================================================================================*/ 
+
+function extract_data_on_template( $array , $key , $template , $dictionaryTemplate , $toDelete ) {
    
   $product = $array[$key];
 	$productFields = explode( "</br>" , $product );
-	$productFields[1] = str_replace( "\n" , "</br>" , $productFields[1] );
 	$productFieldsData = preg_replace( $toDelete , "" , $productFields ); // Sanitize Fields
   
 	$numFields = count( $productFieldsData );

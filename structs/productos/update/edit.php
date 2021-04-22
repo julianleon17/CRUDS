@@ -2,22 +2,29 @@
   require_once("../read/read.php");
   $id = $_GET['id'];
   
-  $dataFields = extract_product_data( $products , $id );   
-  $dataFields['description'] = str_replace( "</br>" , "" , $dataFields['description'] );
+  $dataFields = extract_data( $allArray, $id, $dictionaryData, $toDelete );   
 
 /*==============
  *  TEMPLATE
  *==============*/
 
 $templateToUpdate = "
-<h1>DATOS DEL PRODUCTO(" . ($id + 1) . ")</h1>
+<h1>Datos del $singularTheme(" . ($id + 1) . ")</h1>
 </br>
     <form action='update.php?id=".$id."' method='POST'>
 
-        <p><b>Nombre del Producto:</b> <input type='text' placeholder='Nombre' value='" . $dataFields['name'] . "' name='product[name]' required > </p>
-        <p><b>Precio del Producto:</b> <input type='text' placeholder='Nombre' value='" . $dataFields['price'] . "' name='product[price]' required > </p>
+        <p><b>Nombre del $singularTheme:</b> 
+        <input type='text' placeholder='Nombre' value='" . $dataFields['name'] . "' name='data[name]' required > </p>
         
-        <p><b> Descripción del Producto :</b> <textarea rows='5' cols='50' placeholder='Escribe una descripción del producto' name='product[description]'>" . $dataFields['description'] . "</textarea> </p>
+        
+        <p><b>Precio del $singularTheme:</b> 
+        <input type='number' placeholder='Precio' value='" . (int)$dataFields['price'] . "' name='data[price]' required > </p>
+        
+        
+        
+        <p><b> Descripción del $singularTheme:</b> 
+        <textarea rows='5' cols='50' placeholder='Escribe una descripción del $singularTheme' name='data[description]'>" . $dataFields['description'] . "</textarea> </p>
+         
         
         <input type='submit' value='Enviar' >
         <input type='reset' value='Borrar' >
@@ -28,7 +35,7 @@ $templateToUpdate = "
 //===============
 
 
-create_header_of_page( 'Editar Producto' );  
+create_header_of_page( "Editar $singularTheme" );  
 
 ?>
 <body>
@@ -48,7 +55,7 @@ create_header_of_page( 'Editar Producto' );
      	}
   	}else{
   	
-    	create_button( "../index.html" , 'Volver al Inicio' );
+    	create_button( "../index.php" , 'Volver al Inicio' );
     	
   	}
 	?>

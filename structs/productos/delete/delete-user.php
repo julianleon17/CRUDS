@@ -5,26 +5,28 @@
 
 //================View :
 
-  create_header_of_page( 'Cliente Eliminado' );
+  create_header_of_page( 'Eliminado' );
 
   if ( $fileExists  ) {
 		
     if ( $id > $totalData ) {
     
-      echo 'Este producto NO existe!' ;    
+      echo 'Este ' . $singularTheme . ' NO existe!' ;    
     }else { 
     
-			$product = extract_product_data( $products , $id );
-			$nameProduct = $product['name'];
-			
-			deleteData( $products , $id , $filename , "El producto <b>( $nameProduct )</b> fue elimnado exitosamente" );
+			$singleField = extract_data( $allArray, $id, $dictionaryData, $toDelete );
+			$name = $singleField['name'];
+
+			delete_data( $allArray , $id , $filename , "$singularTheme <b>( $name )</b> fue eliminado exitosamente" );
     }
+    
+      create_button( "../read/list.php" , 'Volver al Listado' ); 
   } else {
     
-    echo 'El archivo de "Productos" NO existe! ';
+    echo 'El archivo de ' . $singularTheme . ' NO existe! ';
+    create_button( "../index.php" , "Volver al Inicio" );
   }
 
 
-  create_button( "../read/list.php" , 'Volver al Listado' ); 
 ?>
 
