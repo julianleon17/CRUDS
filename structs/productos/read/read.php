@@ -1,8 +1,8 @@
 <?php
   include('../libraries/functions.php');
   include('../libraries/helpers.php'); 
-  
-  
+  include('../libraries/forms.php'); 
+    
   $filename = "../productos.db";
   $template = file_get_contents("../templates/producto.template");
   
@@ -17,7 +17,7 @@
   $searchTo = 'Name :';
   $dictionaryTemplate = [ "%NAME%", "%PRC%" , "%DESC%" ];  //Comodines del template
   $dictionaryData = [ 'name', 'price' , 'description' ];  //Campos de los datos estructurados 
-  $toDelete = "[Name :|Description :|Price :]";  //Lo que se debe limpiar (La basura)
+  $toDelete = "[Name :|Price :|Description :]";  //Lo que se debe limpiar (La basura)
 
 
 

@@ -143,15 +143,18 @@ function print_list( $filename, $totalData, $searchTo, $pluralTheme, $singularTh
 
        //Saneamiento de los datos del cliente para crear y actualizar
 function sanitize_data( $array, $dictionaryData ) {
-  
-  
-  for ( $i=0; $i < count($array); $i++ ) {
-    $array[ $dictionaryData[$i] ] = str_replace( "#" , "&#35;" , $array[ $dictionaryData[$i] ] ); 
-    $array[ $dictionaryData[$i] ] = str_replace( "$" , "&#36;" , $array[ $dictionaryData[$i] ] );    
-    $array[ $dictionaryData[$i] ] = str_replace( "%" , "&#37;" , $array[ $dictionaryData[$i] ] ); 
-    $array[ $dictionaryData[$i] ] = str_replace( "&" , "&#38;" , $array[ $dictionaryData[$i] ] ); 
-    $array[ $dictionaryData[$i] ] = str_replace( "(" , "&#40;" , $array[ $dictionaryData[$i] ] );    
-    $array[ $dictionaryData[$i] ] = str_replace( ")" , "&#41;" , $array[ $dictionaryData[$i] ] );    
+  $arraySize = count( $array );
+  $dictionary = array( "#" => "&#35;" , "$" => "&#36;" , "%" => "&#37;" ); // Manera de Estructurar los Datos 1
+
+  $search = array( "&" , "(" , ")" ); // Manera de Estructurar los Datos 2
+  $replace = array( "&#38;" , "&#40;" , "&#41;" );
+
+  for ( $i = 0; $i < $arraySize; $i++ ) {
+    foreach ( $disctionary as $key => $value ) {
+      $array[ $dictionaryData[$i] ] = str_replace( $key , $value , $array[ $dictionaryData[$i] ] );
+    }
+    $array[ $dictionaryData[$i] ] = str_replace( $search , $replace , $array[ $dictionaryData[$i] ] );
+    // Manera de Estructurar los Datos 3
     $array[ $dictionaryData[$i] ] = str_replace( "," , "&#44;" , $array[ $dictionaryData[$i] ] );    
     $array[ $dictionaryData[$i] ] = str_replace( "<" , "&#60;" , $array[ $dictionaryData[$i] ] );    
     $array[ $dictionaryData[$i] ] = str_replace( ">" , "&#62;" , $array[ $dictionaryData[$i] ] );    
@@ -186,6 +189,8 @@ function extract_data_on_template( $array , $key , $template , $dictionaryTempla
 	}
 	return $template;
 }
+
+
 
 
 
