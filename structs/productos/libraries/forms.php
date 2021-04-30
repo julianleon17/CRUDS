@@ -37,9 +37,9 @@ function form_to_create( $singularTheme ) {
 
      //Formulario para actualizar la data 
 
-function form_to_update( $allArray, $id, $dictionaryData, $toDelete ) {
+function form_to_update( $allArray, $id, $dictionaryData, $toDelete, $lineSeparator, $singularTheme) {
 
-  $dataFields = extract_data( $allArray, $id, $dictionaryData, $toDelete ); 
+  $dataFields = extract_data( $allArray, $id, $dictionaryData, $toDelete, $lineSeparator ); 
 
 	echo "
   	<h1>Datos del $singularTheme(" . ($id + 1) . ")</h1>

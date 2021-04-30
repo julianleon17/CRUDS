@@ -1,7 +1,10 @@
 <?php
-  require_once("read/read.php");
   
-//==================View :
+  $pluralTheme = 'Productos';
+  $singularTheme = 'Producto';
+    
+  
+  //==================View :
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +25,7 @@
     <div class="menu" >
         <div class="opcion" >
             <ul>
-                <li> <a href="create/new.php">Crear Nuevo <?php echo $singularTheme ?> </a> </li> 
+                <li> <a href="create/new.php">Crear <?php echo $singularTheme ?> </a> </li> 
             </ul>
         </div>
 

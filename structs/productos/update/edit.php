@@ -19,7 +19,7 @@ create_header_of_page( "Editar $singularTheme" );
      	
      	}else{
   	
-       	form_to_update( $allArray, $id, $dictionaryData, $toDelete );
+       	form_to_update( $allArray, $id, $dictionaryData, $toDelete, $lineSeparator, $singularTheme );
        	create_button( "../read/show.php?id=$id" , 'Cancelar' );
      	}
   	}else{

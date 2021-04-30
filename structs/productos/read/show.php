@@ -14,7 +14,7 @@ create_header_of_page( "Datos $singularTheme" );
   	
   	if ( !$fileExists ) {
   	
-    		echo 'El archivo de ' . $pluralTheme . ' NO existe! ';
+    	echo 'El archivo de ' . $pluralTheme . ' NO existe! ';
     	      	
   	}else{
   	
@@ -22,7 +22,7 @@ create_header_of_page( "Datos $singularTheme" );
     		
     		$productExists = true;
     		   	    		
-    		$singleField = extract_data( $allArray, $id, $dictionaryData, $toDelete );
+    		$singleField = extract_data( $allArray, $id, $dictionaryData, $toDelete, $lineSeparator );
     		$singleField['description'] = str_replace( "\n", "</br>", $singleField['description'] );
     		
     		$template = return_data_on_template( $singleField, $template, $dictionaryTemplate, $dictionaryData );		

@@ -9,9 +9,7 @@
   $data['name'] = preg_replace( "[1|2|3|4|5|6|7|8|9|0]" , "" , $data['name'] );
   $data['price'] = filter_var( $data[ 'price' ] , FILTER_SANITIZE_NUMBER_INT );
   
-  $newData = "\nName :" . $data['name'] . "</br>\n";
-  $newData .= "Price :" . $data['price'] . "</br>\n";
-  $newData .= "Description :" . $data['description'] . "</br>\n";
+  $newData = package_to_update( $data );
 //================
 
 
@@ -34,7 +32,7 @@
 		      	//Replace data  
 	   	$allArray[$id] = $newData;
 	   	$allArray = array_values( $allArray );
-     	update_Base( $allArray , $filename , 'Actualizado Exitosamente.' );
+     	update_Base( $allArray, $filename, $arraySeparator , 'Actualizado Exitosamente.' );
      	
      	
      	   //Template

@@ -14,10 +14,10 @@
       echo 'Este ' . $singularTheme . ' NO existe!' ;    
     }else { 
     
-			$singleField = extract_data( $allArray, $id, $dictionaryData, $toDelete );
+			$singleField = extract_data( $allArray, $id, $dictionaryData, $toDelete, $lineSeparator );
 			$name = $singleField['name'];
 
-			delete_data( $allArray , $id , $filename , "$singularTheme <b>( $name )</b> fue eliminado exitosamente" );
+			delete_data( $allArray, $id, $filename, $arraySeparator, "$singularTheme <b>( $name )</b> fue eliminado exitosamente" );
     }
     
       create_button( "../read/list.php" , 'Volver al Listado' ); 

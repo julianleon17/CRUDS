@@ -15,7 +15,7 @@
 
 
 
-             //Crear un nuevo dato
+         //Crear un nuevo dato
 
 function create_data( $data , $filename , $message='' ) {
 
@@ -37,23 +37,23 @@ function create_data( $data , $filename , $message='' ) {
 
          //Eliminar un dato específico
       
-function delete_data( $array , $key , $filename , $message='' ){
+function delete_data( $array, $key, $filename, $arraySeparator, $message='' ){
 
-			unset( $array[ $key ] );
+	unset( $array[ $key ] );
 			
-			$array = array_values( $array );
+	$array = array_values( $array );
       
-			update_Base( $array , $filename , $message );
+	update_Base( $array, $filename, $arraySeparator, $message );
 }
 
 
 
            //Sobre escribir la base de datos
 
-function update_Base( $newData , $filename , $message='' ) {
+function update_Base( $newData, $filename, $arraySeparator, $message='' ) {
 
 	$array = $newData;
-	$newData = implode(",", $array);
+	$newData = implode( $arraySeparator, $array );
 	
 	if( file_exists($filename) ) {
 			
@@ -71,17 +71,17 @@ function update_Base( $newData , $filename , $message='' ) {
 
           //Extrae los datos del objeto que se pida y devuelve un array asociativo
             
-function extract_data( $array, $key, $dictionaryData, $toDelete ){
+function extract_data( $array, $key, $dictionaryData, $toDelete, $lineSeparator ){
 
   $dataFields = [];  
-
+ 
   $array = $array[ $key ];
 	
 	
-	$arrayFields = explode( "</br>" , $array );
+	$arrayFields = explode( $lineSeparator , $array );
 	$arrayFields = preg_replace( $toDelete , "" , $arrayFields );
 
-	$numFields = count($arrayFields);
+	$numFields = count($arrayFields) - 1;
 	
 	for ( $i = 0; $i < $numFields; $i++ ) {
 	  $dataFields[ $dictionaryData[ $i ] ] = $arrayFields[ $i ];
@@ -97,9 +97,8 @@ function extract_data( $array, $key, $dictionaryData, $toDelete ){
 function return_data_on_template( $array , $template , $dictionaryTemplate , $dictionaryData ) {
   
   $numFields = count( $array );
-  
   for ( $i = 0; $i < $numFields; $i++ ) {
-	  $template	= str_replace( $dictionaryTemplate[ $i ] , $array[ $dictionaryData[ $i ] ] , $template );
+	  $template	= str_replace( $dictionaryTemplate[$i] , $array[ $dictionaryData[$i] ] , $template );
   }
 
   return $template;
@@ -143,18 +142,34 @@ function print_list( $filename, $totalData, $searchTo, $pluralTheme, $singularTh
 
        //Saneamiento de los datos del cliente para crear y actualizar
 function sanitize_data( $array, $dictionaryData ) {
+  
   $arraySize = count( $array );
-  $dictionary = array( "#" => "&#35;" , "$" => "&#36;" , "%" => "&#37;" ); // Manera de Estructurar los Datos 1
-
-  $search = array( "&" , "(" , ")" ); // Manera de Estructurar los Datos 2
-  $replace = array( "&#38;" , "&#40;" , "&#41;" );
+  
+  $search = array( "#", "$", "%", "&", "(", ")", ",", "<", ">", "[", "]", "{", "}" );
+  $replace = array("&#35;", "&#36;", "&#37;", "&#38;", "&#40;", "&#41;", "&#44;", "&#60;", "&#62;", "&#91;", "&#93;", "&#123;", "&#125;" );
+  
+  $searchSize = count( $search );
 
   for ( $i = 0; $i < $arraySize; $i++ ) {
-    foreach ( $disctionary as $key => $value ) {
-      $array[ $dictionaryData[$i] ] = str_replace( $key , $value , $array[ $dictionaryData[$i] ] );
+      
+    for ( $j = 0; $j < $searchSize; $j++ ) {
+      
+      $array[ $dictionaryData[$i] ] = str_replace( $search[$j] , $replace[$j] , $array[ $dictionaryData[$i] ] );
     }
-    $array[ $dictionaryData[$i] ] = str_replace( $search , $replace , $array[ $dictionaryData[$i] ] );
-    // Manera de Estructurar los Datos 3
+  }
+
+  return $array;
+}
+
+/*
+    
+
+    $array[ $dictionaryData[$i] ] = str_replace( "#" , "&#35;" , $array[ $dictionaryData[$i] ] );
+    $array[ $dictionaryData[$i] ] = str_replace( "$" , "&#36;" , $array[ $dictionaryData[$i] ] );
+    $array[ $dictionaryData[$i] ] = str_replace( "%" , "&#37;" , $array[ $dictionaryData[$i] ] );
+    $array[ $dictionaryData[$i] ] = str_replace( "&" , "&#38;" , $array[ $dictionaryData[$i] ] );
+    $array[ $dictionaryData[$i] ] = str_replace( "(" , "&#40;" , $array[ $dictionaryData[$i] ] );
+    $array[ $dictionaryData[$i] ] = str_replace( ")" , "&#41;" , $array[ $dictionaryData[$i] ] );
     $array[ $dictionaryData[$i] ] = str_replace( "," , "&#44;" , $array[ $dictionaryData[$i] ] );    
     $array[ $dictionaryData[$i] ] = str_replace( "<" , "&#60;" , $array[ $dictionaryData[$i] ] );    
     $array[ $dictionaryData[$i] ] = str_replace( ">" , "&#62;" , $array[ $dictionaryData[$i] ] );    
@@ -163,10 +178,12 @@ function sanitize_data( $array, $dictionaryData ) {
     $array[ $dictionaryData[$i] ] = str_replace( "{" , "&#123;" , $array[ $dictionaryData[$i] ] );    
     $array[ $dictionaryData[$i] ] = str_replace( "}" , "&#125;" , $array[ $dictionaryData[$i] ] );    
     $array[ $dictionaryData[$i] ] = str_replace( "php" , "&#112;&#104;&#112;" , $array[ $dictionaryData[$i] ] );    
-  }
 
-  return $array;
-}
+    foreach ( $disctionary as $key => $value ) {
+      $array[ $dictionaryData[$i] ] = str_replace( $key , $value , $array[ $dictionaryData[$i] ] );
+    }
+
+*/
 
 
 /**============================================================================================================

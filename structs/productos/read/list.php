@@ -1,7 +1,7 @@
 <?php
   require_once( 'read.php' ); // Model
   
- // View :
+ //============================= View :
 create_header_of_page( $pluralTheme );  
 ?>
 
