@@ -12,11 +12,10 @@ create_header_of_page( "Editar $singularTheme" );
   	
   	if ( $fileExists ) {
      	
-     	if ( $id > $totalData ) {
+     	if ( $id > ( $totalData - 1 ) ) {
      	
-       	echo 'Este ' . $tema . ' NO existe!' ;    
-       	create_button( "../index.html" , 'Volver al Inicio' );
-     	
+       	echo $singularTheme . ' NO existente!' ;    
+       	create_button( "../index.php" , 'Volver al Inicio' );
      	}else{
   	
        	form_to_update( $allArray, $id, $dictionaryData, $toDelete, $lineSeparator, $singularTheme );
@@ -25,7 +24,6 @@ create_header_of_page( "Editar $singularTheme" );
   	}else{
   	
     	create_button( "../index.php" , 'Volver al Inicio' );
-    	
   	}
 	?>
 	
