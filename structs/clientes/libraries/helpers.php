@@ -1,59 +1,11 @@
 <?php
 
-/*===============================================================
- *       Lo que creo me sirve de forma global (Otras estructuras)
- *===============================================================*/
+/*===========================================================================================================
+ *
+ *                                             H   E   L   P   E   R   S
+ *
+ *===========================================================================================================*/
 
-             //Crear un dato
-
-function createData( $data , $filename , $message='' ) {
-
-  if ( file_exists( $filename ) ) {
-  
-    $oldData = file_get_contents($filename);
-    $oldData .= $data; 
-    file_put_contents($filename, $oldData);
-        
-  } else {
-  
-    file_put_contents($filename, $data);    
-    
-  }
-  echo $message;
-}
-
-      
-      
-         //Eliminar un dato
-      
-function deleteData( $array , $key , $filename , $message='' ){
-
-			unset( $array[ $key ] );
-			
-			$array = array_values( $array );
-      
-			update_Base( $array , $filename , $message );
-}
-
-
-
-           //Sobre escribir la base de datos
-
-function update_Base( $newData , $filename , $message='' ) {
-
-	$array = $newData;
-	$newData = implode(",", $array);
-	
-	if( file_exists($filename) ) {
-			
-		file_put_contents( $filename, $newData);
-		
-		echo $message;
-	
-	}else{
-		echo "No existe.\n";
-	}
-}
 
 
 

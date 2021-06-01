@@ -3,24 +3,30 @@
   $id = $_GET[ 'id' ];
 
 
+//================View :
 
-  create_header_of_page( 'Cliente Eliminado' );
+  create_header_of_page( 'Eliminado' );
 
   if ( $fileExists  ) {
 		
     if ( $id > $totalData ) {
     
-      echo 'Este cliente NO existe!' ;    
+      echo 'Este ' . $singularTheme . ' NO existe!' ;    
     }else { 
-			
-			deleteClient( $clients , $id , $filename );
+    
+			$singleField = extract_data( $allArray, $id, $dictionaryData, $toDelete, $lineSeparator );
+			$name = $singleField['name'];
+
+			delete_data( $allArray, $id, $filename, $arraySeparator, "$singularTheme <b>( $name )</b> fue eliminado exitosamente" );
     }
+    
+      create_button( "../read/list.php" , 'Volver al Listado' ); 
   } else {
     
-    echo 'El archivo de "Clientes" NO existe! ';
+    echo 'El archivo de ' . $singularTheme . ' NO existe! ';
+    create_button( "../index.php" , "Volver al Inicio" );
   }
 
 
-  create_button( "../read/list.php" , 'Volver al Listado' ); 
 ?>
 

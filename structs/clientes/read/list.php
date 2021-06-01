@@ -1,32 +1,32 @@
 <?php
   require_once( 'read.php' ); // Model
   
- // View :
+//============================= View :
+
+create_header_of_page( $pluralTheme );  
 ?>
 
-<?php  create_header_of_page( 'Clientes' );  ?>
 <body>
-    <h1>Listado de Clientes</h1>
+    <h1>Listado de <?php echo $pluralTheme; ?> </h1>
     
     <?php
-  		if ( !$fileExists ) {
-      		echo 'El archivo de "Clientes" NO existe!';
-  		} else if ( empty( $totalData ) ) {
-      		echo 'No se han encontrado "Clientes"!';
-  		} else {
+  		if( !$fileExists ) {
+      	echo 'El archivo de ' . $pluralTheme . ' NO existe!';
+  		}else if ( empty( $totalData ) ) {
+      	echo 'No se han encontrado ' . $pluralTheme . '!';
+  		}else {
   		
-      		print_listClients( $filename , $totalData );
+      	print_list( $filename, $totalData, $searchTo, $pluralTheme, $singularTheme );
    		}           
    		
    		
    		
-       //Valida el boton    
-       if( $fileExists ) { 
-       
-         create_button( "../delete/confirm-historial.php" , 'Eliminar Lista' ); 
-        }
+      //Valida el boton    
+      if( $fileExists ) {  
+        create_button( "../delete/confirm-historial.php" , 'Eliminar Lista' , 'delete' ); 
+      }
         
-       create_button( "../index.html" , 'Volver al Inicio' );    
+      create_button( "../index.php" , 'Volver al Inicio' );    
     ?>
             
 </body>

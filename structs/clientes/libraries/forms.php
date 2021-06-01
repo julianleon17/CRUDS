@@ -15,12 +15,14 @@ function form_to_create( $singularTheme ) {
 			<input type='text' placeholder='Nombre' name='data[name]' required > </p>
 			
 			
-			<p><b>Precio de " . $singularTheme . " :</b> 
-			<input type='number' placeholder='Precio' name='data[price]' required > </p>
+			<p><b>Número Celular :</b> 
+			<input type='number' placeholder='Número Celular' name='data[phone]' required > </p>
 			
+			<p><b>Email :</b> 
+			<input type='email' placeholder='Email' name='data[email]' required > </p>
 			
-			<p><b> Descripción de " . $singularTheme . " :</b> 
-			<textarea rows='5' cols='50' placeholder='Escribe una descripción de " . $singularTheme . " ' name='data[description]'></textarea> </p>
+			<p><b>Direción :</b> 
+			<input type='text' placeholder='Dirección' name='data[direction]' required > </p>
 						
 			
 			<input type='submit' value='Enviar' >
@@ -43,24 +45,27 @@ function form_to_update( $allArray, $id, $dictionaryData, $toDelete, $lineSepara
   	<h1>Datos de $singularTheme(" . ($id + 1) . ")</h1>
 	  </br>
 
-		<form action='update.php?id=" . $id . "' method='POST'>
 
-			<p><b>Nombre del $singularTheme:</b> 
+		<form action='update.php?id=" . $id . "' method='POST'>
+		
+			<p><b>Nombre de " . $singularTheme . " :</b> 
 			<input type='text' placeholder='Nombre' value='" . $dataFields['name'] . "' name='data[name]' required > </p>
 			
 			
-			<p><b>Precio del $singularTheme:</b> 
-			<input type='number' placeholder='Precio' value='" . (int)$dataFields['price'] . "' name='data[price]' required > </p>
+			<p><b>Número Celular :</b> 
+			<input type='number' placeholder='Número Celular' value='" . (int)$dataFields['phone'] . "' name='data[phone]' required > </p>
+			
+			<p><b>Email :</b> 
+			<input type='email' placeholder='Email' value='" . $dataFields['email'] . "' name='data[email]' required > </p>
+			
+			<p><b>Direción :</b> 
+			<input type='text' placeholder='Dirección' value='" . $dataFields['direction'] . "' name='data[direction]' required > </p>
 						
-			
-			<p><b> Descripción del $singularTheme:</b> 
-			<textarea rows='5' cols='50' placeholder='Escribe una descripción del $singularTheme' name='data[description]'>" . $dataFields['description'] . "</textarea> </p>
-			
 			
 			<input type='submit' value='Enviar' >
 			<input type='reset' value='Borrar' >
 			<br>    
-
+		
 		</form>
 	";
   	

@@ -2,26 +2,17 @@
   require_once( "../read/read.php" );
 	$id = $_GET['id'];
 	
-	$client = $_POST['client'];
-  $client = sanitize_dataClient( $client );  
-			
-	    //Template
-  $template = "../templates/cliente.template";
-
-			
-			//new data of client
-			
-	$newClientData = "\nNombre :" . $client['name'] . "</br>\n";
-  $newClientData .= "Telefono :" . $client['phone'] . "</br>\n";
-  $newClientData .= "Email :" . $client['email'] . "</br>\n";
-  $newClientData .= "Direccion :" . $client['address'] . "</br>";
-  $newClientData .= "\n";
-
+	$data = $_POST['data'];
+	
+  //update and sanitize Data 
+  $data = sanitize_data( $data, $dictionaryData );  
+  $data['name'] = preg_replace( "[1|2|3|4|5|6|7|8|9|0]" , "" , $data['name'] );
+  $data['price'] = filter_var( $data[ 'price' ] , FILTER_SANITIZE_NUMBER_INT );
+  
+  $newData = package_to_update( $data );
 //================
 
-
-
-  create_header_of_page( 'Cliente Actualizado' );	    
+create_header_of_page( "$singularTheme Actualizado" );	    
 ?>
 
 
@@ -33,24 +24,31 @@
 	 	
    	if ( $id > $totalData ) {
     	
-     	echo 'Este cliente NO existe!' ;    
+     	echo $singularTheme . ' NO existente!' ;    
    	}else { 
-		      	//Replace data  
-	   	$clients[$id] = $newClientData;
-	   	$clients = array_values($clients);
-	
-     	update_Base( $clients , $filename , 'Actualizado Exitosamente.' );
+   	
+		  //Replace data  
+	   	$allArray[$id] = $newData;
+	   	$allArray = array_values( $allArray );
+     	update_Base( $allArray, $filename, $arraySeparator , 'Actualizado Exitosamente.' );
      	
-     	$template	= str_replace( "DATOS DEL CLIENTE" , "NUEVOS DATOS DEL CLIENTE" , $template );
-     	print_Data_on_Template( $client , $template );
+     	
+     	//Template
+     	$template	= str_replace( "Datos del $singularTheme" , "Nuevos datos de $singularTheme" , $template );     
+     	
+     	$data['description'] = str_replace( "\n", "</br>", $data['description'] );
+     	$template = return_data_on_template( $data, $template, $dictionaryTemplate, $dictionaryData );
+     	
+     	echo $template;
+	    create_button( "../read/show.php?id=$id" , "Ver $singularTheme" );
    	}
 	} else {
     	
-   	echo 'El archivo de "Clientes" NO existe! ';
+   	echo 'El archivo de ' . $pluralTheme . ' NO existe! ';
+   	create_button( "../index.php" , "Volver al Inicio" );
 	}
 	
 	
-	  create_button( "../read/show.php?id=$id" , 'Ver Cliente' );
 	?>
             
 </body>

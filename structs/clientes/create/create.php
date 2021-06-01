@@ -1,34 +1,43 @@
 <?php
   require_once( "../read/read.php" );
-  
-					/*========Template=========*/
-  $template = "../templates/cliente.template";
+  $data = $_POST['data'];
 
 
-          //Data of client
+          //Package and sanitize Data         
+  $data = sanitize_data( $data, $dictionaryData );
+  $data['name'] = preg_replace( "[1|2|3|4|5|6|7|8|9|0]" , "" , $data['name'] );
+  $data['price'] = filter_var( $data[ 'price' ] , FILTER_SANITIZE_NUMBER_INT );
   
-  $client = $_POST['client'];
-  $client = sanitize_dataClient( $client );
+  $newData = package_to_create( $data );
+//=====================
 
-  $clientData = 'Nombre :' . $client['name'] . "</br>\n";
-  $clientData .= 'Telefono :' . $client['phone'] . "</br>\n";
-  $clientData .= 'Email :' . $client['email'] . "</br>\n";
-  $clientData .= 'Direccion :' . $client['address'] . "</br>\n";
-  $clientData .= ",\n";
-  
+
+create_header_of_page( "$singularTheme Creado" );
 ?>    
 
-<?php create_header_of_page( 'Cliente Creado' ) ?>
-
 <body>
-
-     <?php
-     
-       createData( $clientData , $filename , 'Cliente creado exitosamente' );
-       print_Data_on_Template( $client , $template )  
-     ?>
     
-    <?php create_button( "../index.html" , 'Volver al Inicio' ); ?>
+  <?php 
+    create_data( $newData, $filename, 'Creado exitosamente' );
+    
+    
+        //Template
+    $data['description'] = str_replace( "\n" , "</br>" , $data['description'] );
+    
+    $template = return_data_on_template( $data , $template , $dictionaryTemplate , $dictionaryData );    
+    echo $template;
+    
+    create_button( "../index.php" , 'Volver al Inicio' ); 
+  ?>
     
 </body>
 </html>
+
+
+
+
+
+
+
+
+
