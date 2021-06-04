@@ -3,23 +3,23 @@
   include('../libraries/helpers.php');
   include('../libraries/forms.php');
     
-  $filename = "../productos.db";
-  $template = file_get_contents("../templates/producto.template");
+  $filename = "../carros.db";
+  $template = file_get_contents("../templates/carros.template");
   
   $allArray = array();
   $fileExists = false;
   
   //Tema sobre el que trata ej: (sigular)Arbol, (plural)Arboles
-  $pluralTheme = 'Productos';
-  $singularTheme = 'Producto';
+  $pluralTheme = 'Carros';
+  $singularTheme = 'Carro';
     
-  $searchTo = "Name :";
+  $searchTo = "Color :";
   $arraySeparator = ",";
   $lineSeparator = "</br>";
   // [ 'code' => "%CODE%", 'name' => "%NAME%" ]
-  $dictionaryTemplate = [ "%CODE%", "%NAME%", "%PRC%" , "%DESC%" ];  //Comodines del template
-  $dictionaryData = [ 'code', 'name', 'price' , 'description' ];  //Campos de los datos estructurados 
-  $toDelete = "[Code :|Name :|Price :|Description :]";  //Lo que se debe limpiar (La basura)
+  $dictionaryTemplate = [ "%PLACA%", "%MARCA%", "%MODELO%" , "%COLOR%" , "%PRECIO%" ];  //Comodines del template
+  $dictionaryData = [ 'placa', 'marca', 'modelo' , 'color', 'precio' ];  //Campos de los datos estructurados 
+  $toDelete = "[Placa :|Marca :|Modelo :|Color :|Precio :]";  //Lo que se debe limpiar (La basura)
 
 
 //===================================================================
@@ -28,10 +28,11 @@ function model_to_package( $array ) {
 
   global $lineSeparator;
 
-  $pack = "Code :" . $array['code'] . "$lineSeparator\n";
-  $pack .= "Name :" . $array['name'] . "$lineSeparator\n";
-  $pack .= "Price :" . $array['price'] . "$lineSeparator\n";
-  $pack .= "Description :" . $array['description'] . "$lineSeparator\n";
+  $pack = "Placa :" . $array['placa'] . "$lineSeparator\n";
+  $pack .= "Marca :" . $array['marca'] . "$lineSeparator\n";
+  $pack .= "Modelo :" . $array['modelo'] . "$lineSeparator\n";
+  $pack .= "Color :" . $array['color'] . "$lineSeparator\n";
+  $pack .= "Precio :" . $array['precio'] . "$lineSeparator\n";
 
   return $pack;
 }

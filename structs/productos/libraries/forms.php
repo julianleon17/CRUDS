@@ -11,9 +11,12 @@ function form_to_create( $singularTheme ) {
 		
 		<form action='create.php' method='POST'>
 		
+		   
+			<p><b>Código de " . $singularTheme . " :</b> 
+			<input type='text' placeholder='Código' name='data[code]' required > </p>			
+		
 			<p><b>Nombre de " . $singularTheme . " :</b> 
 			<input type='text' placeholder='Nombre' name='data[name]' required > </p>
-			
 			
 			<p><b>Precio de " . $singularTheme . " :</b> 
 			<input type='number' placeholder='Precio' name='data[price]' required > </p>
@@ -45,11 +48,14 @@ function form_to_update( $allArray, $id, $dictionaryData, $toDelete, $lineSepara
 
 		<form action='update.php?id=" . $id . "' method='POST'>
 
-			<p><b>Nombre del $singularTheme:</b> 
+            <p><b>Código de $singularTheme:</b> 
+			<input type='text' placeholder='Código' value='" . $dataFields['code'] . "' name='data[code]' required > </p>
+
+			<p><b>Nombre de $singularTheme:</b> 
 			<input type='text' placeholder='Nombre' value='" . $dataFields['name'] . "' name='data[name]' required > </p>
 			
 			
-			<p><b>Precio del $singularTheme:</b> 
+			<p><b>Precio de $singularTheme:</b> 
 			<input type='number' placeholder='Precio' value='" . (int)$dataFields['price'] . "' name='data[price]' required > </p>
 						
 			
