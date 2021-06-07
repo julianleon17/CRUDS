@@ -13,7 +13,7 @@
   		if ( $fileExists  ) {				  
       		
       		echo "<h1> ¿Seguro que quieres eliminar $pluralTheme? </h1></br></br>";
-          create_button( "delete-historial.php" , 'Confirmar' , 'delete' );
+          create_button( "delete-list.php" , 'Confirmar' , 'delete' );
           create_button( "../read/list.php" , 'Cancelar' );
       		
     	}else{

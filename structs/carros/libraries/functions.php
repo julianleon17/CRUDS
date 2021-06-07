@@ -17,40 +17,38 @@
 
   //Crear un nuevo dato
 
-  function create_data( $data , $filename , $message='' ) {
+  function create_data( $data, $filename ) {
 
     if ( file_exists( $filename ) ) {
     
       $oldData = file_get_contents($filename);
       $oldData .= $data; 
       file_put_contents($filename, $oldData);
-          
+
     } else {
-    
+
       file_put_contents($filename, $data);    
-      
     }
-    echo $message;
   }
 
-        
+
 
   //Eliminar un dato específico
         
-  function delete_data( $array, $key, $filename, $arraySeparator, $message='' ){
+  function delete_data( $array, $key, $filename, $arraySeparator ){
 
     unset( $array[ $key ] );
         
     $array = array_values( $array );
         
-    update_Base( $array, $filename, $arraySeparator, $message );
+    update_Base( $array, $filename, $arraySeparator );
   }
 
 
 
   //Sobre escribir la base de datos
 
-  function update_Base( $newData, $filename, $arraySeparator, $message='' ) {
+  function update_Base( $newData, $filename, $arraySeparator ) {
 
     $array = $newData;
     $newData = implode( $arraySeparator, $array );
@@ -58,11 +56,10 @@
     if( file_exists($filename) ) {
         
       file_put_contents( $filename, $newData);
-      
-      echo $message;
+
     
     }else{
-      echo "No existe.\n";
+      
     }
   }
 
@@ -111,30 +108,30 @@
   //Imprime una lista de todo lo que existe en la base de datos linea por linea, (searchTo)=Bucar por, ej: buscar por "Name :" (subject)=Para saber que se busca, ej: carro o pedido
 
   function print_list( $filename, $totalData, $searchTo, $pluralTheme, $singularTheme ) {
-    
+
     echo "<h2>~~~ " . $pluralTheme . " encontrados " . $totalData . " ~~~</h2> </br><hr>";
-    
+
     $handle = fopen( $filename , "r" );
     $num = 1;
     $id = 0;
-    
+
     while( ( $line = fgets( $handle ) ) !== false ) {
-    
+
       if( strpos( $line , $searchTo ) !== false ) {
-      
+
         $line = str_replace( $searchTo , "<b>$singularTheme ($num) : </b>" , $line );
-        
+
         $line .= "</br><li class='verMas'>";
         $line .= "<a href='show.php?id=" . $id . "'> Ver más </a>";
         $line .= "</li> </br> <hr>";   
-        
+
         echo $line;
-        
+
         $id += 1;
         $num += 1;
       }
     }
-    
+
     fclose( $handle );
   }
 
@@ -160,7 +157,6 @@
       "]" => "&#93;", 
       "{" => "&#123;",
       "}" => "&#125;",
-      "á" => "a"
     );
     
     for ( $i=0; $i <$arraySize ; $i++ ) { 

@@ -23,7 +23,7 @@ create_header_of_page( 'Confirmar' );
     		}else {
     		
     		  echo "<h1> ¿Seguro que quieres eliminar $singularTheme? </h1></br></br>";
-				 	create_button( "delete-user.php?id=$id" , 'Confirmar' , 'delete' );
+				 	create_button( "delete-object.php?id=$id" , 'Confirmar' , 'delete' );
 				 	create_button( "../read/show.php?id=$id" , 'Cancelar' );
 				 	
   		  }

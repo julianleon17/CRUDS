@@ -2,38 +2,52 @@
   include('../libraries/functions.php');
   include('../libraries/helpers.php');
   include('../libraries/forms.php');
-    
-  $filename = "../clientes.db";
-  $template = file_get_contents("../templates/cliente.template");
-  
-  $allArray = array();
-  $fileExists = false;
   
   //Tema sobre el que trata ej: (sigular)Arbol, (plural)Arboles
   $pluralTheme = 'Clientes';
   $singularTheme = 'Cliente';
-    
-  $searchTo = "Name :";
+
+
+  $template = file_get_contents("../templates/template.tpl");
+  $filename = "../" . $pluralTheme . ".db";
+
+  $allArray = array();
+  $fileExists = false;
+
+  $searchTo = "name :";
   $arraySeparator = ",";
   $lineSeparator = "</br>";
 
-  $dictionaryTemplate = [ "%NAME%", "%PHONE%", "%EMAIL%", "%DIRECTION%" ];  //Comodines del template
-  $dictionaryData = [ 'name', 'phone', 'email', 'direction' ];  //Campos de los datos estructurados 
-  $toDelete = "[Name :|Phone :|Email :|Direction :]";  //Lo que se debe limpiar (La basura)
+  // [ 'code' => "%CODE%", 'name' => "%NAME%" ]
+  $dictionaryTemplate = [ "%NAME%", "%PHONE%", "%AGE%" , "%EMAIL%" ];  //Comodines del template
+  $dictionaryData = [ 'name', 'phone', 'age' , 'email' ];  //Campos de los datos estructurados 
+  $toDelete = "[name :|phone :|age :|email :]";  //Lo que se debe limpiar (La basura)
+
+
+//=================================================================== 
+//Indica si el archivo existe o no
+
+  if ( file_exists( $filename ) ) {
+
+    $fileExists = true;
+
+    $allArray = decode( $filename );
+
+    $totalData = count( $allArray ) - 1;
+  }
 
 
 //===================================================================
   //Model to pack up
 function model_to_package( $array ) {
-  
-  global $searchTo;
-  global $lineSeparator;
-  global $arraySeparator;
 
-  $pack = $searchTo . $array['name'] . "$lineSeparator\n";
-  $pack .= "Phone :" . $array['phone'] . "$lineSeparator\n";
-  $pack .= "Email :" . $array['email'] . "$lineSeparator\n";
-  $pack .= "Direction :" . $array['direction'] . "$lineSeparator\n";
+  //Es como se guardará la información, su orden
+  global $lineSeparator;
+
+  $pack = "name :" . $array['name'] . "$lineSeparator\n";
+  $pack .= "phone :" . $array['phone'] . "$lineSeparator\n";
+  $pack .= "age :" . $array['age'] . "$lineSeparator\n";
+  $pack .= "email :" . $array['email'] . "$lineSeparator\n";
 
   return $pack;
 }
@@ -68,18 +82,8 @@ function decode( $filename ) {
 
   $data = file_get_contents( $filename );
   $array = explode( $arraySeparator , $data );
-
+    
   return $array;
 }
-//========================================================================
 
-
-if ( file_exists( $filename ) ) {
-
-  $fileExists = true;
-
-  $allArray = decode( $filename );
-
-  $totalData = count( $allArray ) - 1;
-}
 

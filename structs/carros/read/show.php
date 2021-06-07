@@ -3,7 +3,6 @@
   $id = $_GET[ 'id' ];
  
 
-
 //=================View :
 
 create_header_of_page( "Datos $singularTheme" );  
@@ -22,7 +21,6 @@ create_header_of_page( "Datos $singularTheme" );
 				$objectExists = true;
 				
     		$singleField = extract_data( $allArray, $id, $dictionaryData, $toDelete, $lineSeparator );
-    		$singleField['description'] = str_replace( "\n", "</br>", $singleField['description'] );
     		
     		$template = return_data_on_template( $singleField, $template, $dictionaryTemplate, $dictionaryData );		
 				
@@ -34,7 +32,6 @@ create_header_of_page( "Datos $singularTheme" );
     	}
   	}
   	
-  	
   	  	
   	//Valida los botones
   	if ( !$objectExists ){  
@@ -42,7 +39,7 @@ create_header_of_page( "Datos $singularTheme" );
   	}else{
 
     	create_button( "../update/edit.php?id=$id" , 'Editar' ); 
-    	create_button( "../delete/confirm-user.php?id=$id" , 'Eliminar' , 'delete'); 
+    	create_button( "../delete/confirm-object.php?id=$id" , 'Eliminar' , 'delete'); 
   	} 
   	
   	create_button( "../read/list.php" , 'Volver al Listado' );
@@ -50,4 +47,3 @@ create_header_of_page( "Datos $singularTheme" );
 
 </body>
 </html>
-

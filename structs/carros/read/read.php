@@ -2,30 +2,46 @@
   include('../libraries/functions.php');
   include('../libraries/helpers.php');
   include('../libraries/forms.php');
-    
-  $filename = "../carros.db";
-  $template = file_get_contents("../templates/carros.template");
-  
-  $allArray = array();
-  $fileExists = false;
   
   //Tema sobre el que trata ej: (sigular)Arbol, (plural)Arboles
   $pluralTheme = 'Carros';
   $singularTheme = 'Carro';
-    
-  $searchTo = "Color :";
+
+
+  $template = file_get_contents("../templates/template.tpl");
+  $filename = "../" . $pluralTheme . ".db";
+
+  $allArray = array();
+  $fileExists = false;
+
+  $searchTo = "Marca :";
   $arraySeparator = ",";
   $lineSeparator = "</br>";
+
   // [ 'code' => "%CODE%", 'name' => "%NAME%" ]
   $dictionaryTemplate = [ "%PLACA%", "%MARCA%", "%MODELO%" , "%COLOR%" , "%PRECIO%" ];  //Comodines del template
   $dictionaryData = [ 'placa', 'marca', 'modelo' , 'color', 'precio' ];  //Campos de los datos estructurados 
   $toDelete = "[Placa :|Marca :|Modelo :|Color :|Precio :]";  //Lo que se debe limpiar (La basura)
 
 
+//=================================================================== 
+//Indica si el archivo existe o no
+
+  if ( file_exists( $filename ) ) {
+
+    $fileExists = true;
+
+    $allArray = decode( $filename );
+
+    $totalData = count( $allArray ) - 1;
+  }
+
+
 //===================================================================
   //Model to pack up
 function model_to_package( $array ) {
 
+  //Es como se guardará la información, su orden
   global $lineSeparator;
 
   $pack = "Placa :" . $array['placa'] . "$lineSeparator\n";
@@ -70,15 +86,5 @@ function decode( $filename ) {
     
   return $array;
 }
-//========================================================================
 
-
-if ( file_exists( $filename ) ) {
-
-  $fileExists = true;
-    
-  $allArray = decode( $filename );
-
-  $totalData = count( $allArray ) - 1;
-}
 
