@@ -1,7 +1,6 @@
 <?php
   include('../libraries/functions.php');
   include('../libraries/helpers.php');
-  include('../libraries/forms.php');
   
   //Tema sobre el que trata ej: (sigular)Arbol, (plural)Arboles
   $pluralTheme = 'Carros';
@@ -20,12 +19,19 @@
 
   // [ 'code' => "%CODE%", 'name' => "%NAME%" ]
   $dictionaryTemplate = [ "%PLACA%", "%MARCA%", "%MODELO%" , "%COLOR%" , "%PRECIO%" ];  //Comodines del template
-  $dictionaryData = [ 'placa', 'marca', 'modelo' , 'color', 'precio' ];  //Campos de los datos estructurados 
-  $toDelete = "[Placa :|Marca :|Modelo :|Color :|Precio :]";  //Lo que se debe limpiar (La basura)
+  
+  //Campos de los datos estructurados
+  $dictionaryData = [ 
+    'placa' => 'text',
+    'marca' => 'text',
+    'modelo' => 'text',
+    'color' => 'text',
+    'precio' => 'number'
+  ];
 
 
 //=================================================================== 
-//Indica si el archivo existe o no
+  //Indica si el archivo existe o no
 
   if ( file_exists( $filename ) ) {
 
@@ -44,11 +50,11 @@ function model_to_package( $array ) {
   //Es como se guardará la información, su orden
   global $lineSeparator;
 
-  $pack = "Placa :" . $array['placa'] . "$lineSeparator\n";
-  $pack .= "Marca :" . $array['marca'] . "$lineSeparator\n";
-  $pack .= "Modelo :" . $array['modelo'] . "$lineSeparator\n";
-  $pack .= "Color :" . $array['color'] . "$lineSeparator\n";
-  $pack .= "Precio :" . $array['precio'] . "$lineSeparator\n";
+  $pack  = $array['placa'] . "$lineSeparator\n";
+  $pack .= $array['marca'] . "$lineSeparator\n";
+  $pack .= $array['modelo'] . "$lineSeparator\n";
+  $pack .= $array['color'] . "$lineSeparator\n";
+  $pack .= $array['precio'] . "$lineSeparator\n";
 
   return $pack;
 }

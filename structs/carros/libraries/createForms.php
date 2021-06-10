@@ -1,10 +1,5 @@
 <?php
 
-/*===========================================================================================================
- *
- *                                             H   E   L   P   E   R   S
- *
- *===========================================================================================================*/
 
 
 
@@ -67,67 +62,65 @@ function build_the_form( $formType, $action='', $method='', $array, $extractedDa
 
 
 
-       //Create hader of page
-       
-function create_header_of_page( $nameOfPage='' ) {
-	
-	$header = "
-	<!DOCTYPE html>
-	<html lang='en'>
-	<head>
-    	<meta charset='UTF-8'>
-    	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    	<title>$nameOfPage</title>
-    	
-    	<link rel='stylesheet' href='../../../CSS/styles.css'>
-        	
-	<style>
-	
-	.delete a{
-    	background-color: red;
-    	color: white;
-	}
-	
-	.verMas{
-		list-style: none;
-	}
-	
-	.verMas a{
-		text-decoration: none;
-	}
-	
-	.verMas a:hover{
-		color: blue;
-		font-size: 15px;
-	}
-		
-	</style>
-	
-	</head>
-	";
-
-  echo $header;
-}
-       
-       
 
 
-                  //Create buttons
-       
-function create_button( $path , $buttonName , $class='' ) {
+//ARRAYS
 
-	echo "
-	<div class='menu' >        
-    	<div class='opcion' >
-        	<ul>
-            	<li class='$class'> <a href='$path'> $buttonName </a> </li>
-        	</ul>
-    	</div>
-	</div>
-	";
-	
-}
-       
-       
+  $extractedData = [
+    "placa" => "jju4vt", 
+    "marca" => "mazda", 
+    "modelo" => "jolo", 
+    "color" => "verde", 
+    "precio" => 5462
+  ];
 
+//La key es el nombre de la variable y el valor es el tipo de input en el formulario
+$prueba1 = [ 
+  "placa" => "text", 
+  "marca" => "text", 
+  "modelo" => "text", 
+  "color" => "text", 
+  "precio" => "number"
+];
+
+$prueba2 = [ 'placa', 'marca', 'modelo' , 'color', 'precio' ];
+$types = [ 'text', 'text', 'text', 'text', 'number' ];
+
+$form = build_the_form( "update", "hola.php", "POST",  $prueba1 , $extractedData );
+
+echo $form;
+
+
+
+
+
+/*===T R A S H
+
+
+
+  //choose how the form should be assembled depending on the type of array
+
+  /*
+  foreach ( $array as $name ) {  }
+
+  if ( gettype($name) == 'integer' ) {
+
+    //Array of type number
+    for ( $i=0; $i<$fieldsArray; $i++ ) {
+
+      $bodyForm .= "
+      <p>" . $array[$i] . " :  
+      <input type='" . $types[$i] . "' placeholder='". $array[$i] ."' > </p>\n";
+    }
+  }
+  else if ( gettype($name) == 'string' ) {
+
+
+    //Array of type associative
+    foreach ( $array as $variable ) {
+
+      $bodyForm .= "
+      <p>" . $variable . " :  
+      <input type='" . $types[$i] . "' placeholder='". $variable ."' > </p>\n";
+    }
+*/
