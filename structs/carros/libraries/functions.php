@@ -68,18 +68,23 @@
 
   //Extrae los datos del objeto que se pida y devuelve un array asociativo
               
-  function extract_data( $array, $key, $dictionaryData, $toDelete, $lineSeparator ){
+  function extract_data( $allArray, $key, $dictionaryData, $lineSeparator ){
 
     $dataFields = [];  
   
-    $array = $array[ $key ];
+    $toEstract = $allArray[ $key ];
     
     
     $arrayFields = explode( $lineSeparator , $array );
     $arrayFields = preg_replace( $toDelete , "" , $arrayFields );
 
     $numFields = count($arrayFields) - 1;
-    
+
+    foreach (  ) {
+
+
+    }
+
     for ( $i = 0; $i < $numFields; $i++ ) {
       $dataFields[ $dictionaryData[ $i ] ] = $arrayFields[ $i ];
     }

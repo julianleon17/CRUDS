@@ -2,14 +2,15 @@
   require_once( '../read/read.php' );
 
 //=======================View :
-create_header_of_page( "Registrar $singularTheme" );  
+create_header_of_page( " $singularTheme" );  
 ?>
 
 <body>
     
-   <?php 
-     form_to_create( $singularTheme );
-      
+   <?php
+     $initialData = [];
+     $form = build_the_form( "create", array( "action" => "create.php", "method" =>"POST" ),  $dictionaryData, $initialData );
+     echo $form;
      create_button( "../index.php" , 'Volver al Inicio' ); 
    ?>
 

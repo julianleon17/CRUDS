@@ -1,15 +1,13 @@
 <?php
-
-/*===========================================================================================================
- *
- *                                             H   E   L   P   E   R   S
- *
- *===========================================================================================================*/
+/* SANDBOX */
+/* PLAY GROUND */
 
 
 
                     //Works with associative type array
 
+/*
+*/
 
 
 function getTextarea( $key, $attributes ) {
@@ -142,6 +140,37 @@ function build_the_form( $formtype, $formAttributes=array(), $dictionaryData, $i
 
 
 
+//ARRAYS
+
+$initialData = [/*
+  "placa" => "jju4vt",
+  "marca" => "mazda",
+  "modelo" => "julian",
+  "color" => "verde",
+  "price" => "23",
+  "producto" => "key2"
+*/];
+
+//La key es el nombre de la variable y el valor es el tipo de input en el formulario
+$dictionaryData = [ 
+  "placa" => array( 'type' => "text", 'required' => true ),
+  "marca" => array( 'type' => "text", 'required' => true ),
+  "modelo" => array( 'type' => "text", 'required' => true ),
+  "email" => array( 'type' => "email", 'required' => true ),
+  "color" => array( 'type' => "text", 'required' => true ),
+  "price" => array( 'type' => "number" ),
+  "producto" => array( 'type' => "select", 'options' => array( 'key' => 'Value 1', 'key2' => 'Value 2' ), 'required' => true ),
+  "descripcion" => array( 'type' => "textarea", 'rows' => "5", 'cols' => "50", 'required' => true )
+];
+
+$form = build_the_form( "upDAte", array( "action" => "hola.php", "method" =>"POST" ),  $dictionaryData, $initialData );
+
+
+echo $form;
+
+
+
+
 // Función para construir los comodines por defecto del template
 
 function create_default_wildcards( $dictionaryData ) {
@@ -160,70 +189,49 @@ function create_default_wildcards( $dictionaryData ) {
   return $dictionaryTemplate;
 }
 
-//=======================================================================================================================
 
 
-       //Create hader of page
-       
-function create_header_of_page( $nameOfPage='' ) {
-	
-	$header = "
-	<!DOCTYPE html>
-	<html lang='en'>
-	<head>
-    	<meta charset='UTF-8'>
-    	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    	<title>$nameOfPage</title>
-    	
-    	<link rel='stylesheet' href='../../../CSS/styles.css'>
-        	
-	<style>
-	
-	.delete a{
-    	background-color: red;
-    	color: white;
-	}
-	
-	.verMas{
-		list-style: none;
-	}
-	
-	.verMas a{
-		text-decoration: none;
-	}
-	
-	.verMas a:hover{
-		color: blue;
-		font-size: 15px;
-	}
-		
-	</style>
-	
-	</head>
-	";
 
-  echo $header;
+
+// Función para construir el template por defecto
+
+function create_default_template( $wildcards, $singularTheme='', $urlTemplate="" ) {
+
+  $template = "<h1> Datos de " . $singularTheme . " </h1>\n";
+
+  foreach ( $wildcards as $key => $wildcard ) {
+
+    $template .= "
+    <b>". ucfirst( $key ) ." :</b> 
+    </br>".
+    $wildcard
+    ."</br>
+    </br>
+    ";
+  }
+  //file_put_contents( $urlTemplate, $template );
+
+  return $template;
 }
-       
-       
 
 
-                  //Create buttons
-       
-function create_button( $path , $buttonName , $class='' ) {
 
-	echo "
-	<div class='menu' >        
-    	<div class='opcion' >
-        	<ul>
-            	<li class='$class'> <a href='$path'> $buttonName </a> </li>
-        	</ul>
-    	</div>
-	</div>
-	";
-	
-}
-       
-       
+
+
+
+
+
+$wildcards = create_default_wildcards( $dictionaryData );
+$template = create_default_template( $wildcards, "carro" );
+
+//print_r( $wildcards );
+//print_r( $template );
+
+
+/*===T R A S H
+*/
+
+
+
+
 

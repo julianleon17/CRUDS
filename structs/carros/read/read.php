@@ -1,36 +1,26 @@
 <?php
-  include('../libraries/functions.php');
+  require_once( '../settings.php' );
+  //include('../libraries/functions.php');
   include('../libraries/helpers.php');
-  
-  //Tema sobre el que trata ej: (sigular)Arbol, (plural)Arboles
-  $pluralTheme = 'Carros';
-  $singularTheme = 'Carro';
 
 
-  $template = file_get_contents("../templates/template.tpl");
   $filename = "../" . $pluralTheme . ".db";
-
+  $template = "../templates/template.tpl";
   $allArray = array();
   $fileExists = false;
+
+  $wildcards = create_default_wildcards( $dictionaryData );  //Comodines del template
+
+  if ( !( file_exists( $template ) ) ) {
+    $template = create_default_template( $wildcards, $singularTheme, $template );
+  }
 
   $searchTo = "Marca :";
   $arraySeparator = ",";
   $lineSeparator = "</br>";
 
-  // [ 'code' => "%CODE%", 'name' => "%NAME%" ]
-  $dictionaryTemplate = [ "%PLACA%", "%MARCA%", "%MODELO%" , "%COLOR%" , "%PRECIO%" ];  //Comodines del template
-  
-  //Campos de los datos estructurados
-  $dictionaryData = [ 
-    'placa' => 'text',
-    'marca' => 'text',
-    'modelo' => 'text',
-    'color' => 'text',
-    'precio' => 'number'
-  ];
 
-
-//=================================================================== 
+//==================================
   //Indica si el archivo existe o no
 
   if ( file_exists( $filename ) ) {
@@ -45,27 +35,25 @@
 
 //===================================================================
   //Model to pack up
-function model_to_package( $array ) {
+function model_to_package( $dictionaryData ) {
 
   //Es como se guardará la información, su orden
   global $lineSeparator;
 
-  $pack  = $array['placa'] . "$lineSeparator\n";
-  $pack .= $array['marca'] . "$lineSeparator\n";
-  $pack .= $array['modelo'] . "$lineSeparator\n";
-  $pack .= $array['color'] . "$lineSeparator\n";
-  $pack .= $array['precio'] . "$lineSeparator\n";
+  foreach ( $dictionaryData as $key ) {
+    $pack .= $dictionaryData[ $key ] . "$lineSeparator\n";
+  }
 
   return $pack;
 }
 
 
 //PACK UP TO CREATE
-function package_to_create( $array ) { 
+function package_to_create( $dictionaryData ) { 
   
   global $arraySeparator;
 
-  $data = model_to_package( $array );
+  $data = model_to_package( $dictionaryData );
   $data .= "$arraySeparator\n";
 
   return $data;
@@ -73,9 +61,9 @@ function package_to_create( $array ) {
 
 
 //PACK UP TO UPDATE
-function package_to_update( $array ) {
+function package_to_update( $dictionaryData ) {
 
-  $data = model_to_package( $array );
+  $data = model_to_package( $dictionaryData );
   $data = "\n" . $data; 
 
   return $data;
@@ -92,5 +80,4 @@ function decode( $filename ) {
     
   return $array;
 }
-
-
+//print_r( $wildcards );
