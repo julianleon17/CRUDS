@@ -8,7 +8,7 @@
 
 
 
-                    //Works with associative type array
+//                             Works with associative type array
 
 
 
@@ -160,6 +160,27 @@ function create_default_wildcards( $dictionaryData ) {
   return $dictionaryTemplate;
 }
 
+
+
+// Función para construir el template por defecto
+
+function create_default_template( $wildcards, $singularTheme='', $urlTemplate="" ) {
+
+  $template = "<h1> Datos de " . $singularTheme . " </h1>\n";
+
+  foreach ( $wildcards as $key => $wildcard ) {
+
+    $template .= "
+    <b>". ucfirst( $key ) ." :</b> 
+    </br>".
+    $wildcard
+    ."</br>
+    </br>
+    ";
+  }  
+  return $template;
+}
+
 //=======================================================================================================================
 
 
@@ -205,12 +226,11 @@ function create_header_of_page( $nameOfPage='' ) {
 
   echo $header;
 }
-       
-       
 
 
-                  //Create buttons
-       
+
+//           Create buttons
+
 function create_button( $path , $buttonName , $class='' ) {
 
 	echo "
@@ -224,6 +244,3 @@ function create_button( $path , $buttonName , $class='' ) {
 	";
 	
 }
-       
-       
-

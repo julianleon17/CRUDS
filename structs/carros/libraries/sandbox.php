@@ -159,14 +159,14 @@ $dictionaryData = [
   "email" => array( 'type' => "email", 'required' => true ),
   "color" => array( 'type' => "text", 'required' => true ),
   "price" => array( 'type' => "number" ),
-  "producto" => array( 'type' => "select", 'options' => array( 'key' => 'Value 1', 'key2' => 'Value 2' ), 'required' => true ),
-  "descripcion" => array( 'type' => "textarea", 'rows' => "5", 'cols' => "50", 'required' => true )
+  // "producto" => array( 'type' => "select", 'options' => array( 'key' => 'Value 1', 'key2' => 'Value 2' ), 'required' => true ),
+  // "descripcion" => array( 'type' => "textarea", 'rows' => "5", 'cols' => "50", 'required' => true )
 ];
 
 $form = build_the_form( "upDAte", array( "action" => "hola.php", "method" =>"POST" ),  $dictionaryData, $initialData );
 
 
-echo $form;
+//echo $form;
 
 
 
@@ -190,9 +190,6 @@ function create_default_wildcards( $dictionaryData ) {
 }
 
 
-
-
-
 // Función para construir el template por defecto
 
 function create_default_template( $wildcards, $singularTheme='', $urlTemplate="" ) {
@@ -214,16 +211,6 @@ function create_default_template( $wildcards, $singularTheme='', $urlTemplate=""
   return $template;
 }
 
-
-
-
-
-
-
-
-$wildcards = create_default_wildcards( $dictionaryData );
-$template = create_default_template( $wildcards, "carro" );
-
 //print_r( $wildcards );
 //print_r( $template );
 
@@ -231,7 +218,65 @@ $template = create_default_template( $wildcards, "carro" );
 /*===T R A S H
 */
 
+$lineSeparator = '|';
+
+$id = 3;
+
+$allArray = "
+dato1|dato2|dato3|dato4|dato5|dato6,
+perro1|perro2|perro3|perro4|perro5|perro6,
+gato1|gato2|gato3|gato4|gato5|gato6,
+pajaro1|pajaro2|pajaro3|pajaro4|pajaro5|pajaro6,
+pez1|pez2|pez3|pez4|pez5|pez6,
+";
+
+$allArray = explode( ',', $allArray );
+
+print_r( $allArray[$id]."<br>" );
 
 
+  //Extrae los datos del objeto que se pida y devuelve un array asociativo
+
+function extract_data( $dictionaryData, $allArray, $id, $lineSeparator ){
+
+  $toReturn = [];  
+  $toExtract = $allArray[ $id ];
+  $arrayFields = explode( $lineSeparator, $toExtract );
+  // $numFields = count($arrayFields) - 1;
+  $i = 0;
+
+  foreach ( $dictionaryData as $key => $content ) {
+	
+	$toReturn[ $key ] = $arrayFields[ $i ]; 
+    $i++;
+  }
+
+  return $toReturn;
+}
 
 
+  //Retornar el template de los datos recien creados y actualizados
+
+function return_data_on_template( $extractedData, $template, $wildcards ) {
+
+  $numFields = count( $extractedData );
+  $toReturn = $template;
+
+  foreach ( $extractedData as $key => $value ) {
+	$toReturn = str_replace( $wildcards[ $key ], $value, $toReturn );
+  }
+
+  return $toReturn;
+}
+
+
+/*
+*/
+
+$wildcards = create_default_wildcards( $dictionaryData );
+$template = create_default_template( $wildcards, "carro" );
+$extractedData = extract_data( $dictionaryData, $allArray, $id, $lineSeparator );
+
+$templateWithData = return_data_on_template( $extractedData, $template, $wildcards );
+
+echo $templateWithData;

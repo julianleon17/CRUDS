@@ -22,30 +22,23 @@ create_header_of_page( "$singularTheme Actualizado" );
     	
 	if ( $fileExists  ) {
 	 	
-   	if ( $id > $totalData ) {
-    	
+   	  if ( $id > $totalData ) {
      	echo $singularTheme . ' NO existente!' ;    
-   	}else { 
-   	
-		  //Replace data  
+   	  }else {
+        //Replace data  
 	   	$allArray[$id] = $newData;
 	   	$allArray = array_values( $allArray );
-     	update_Base( $allArray, $filename, $arraySeparator , 'Actualizado Exitosamente.' );
-     	
-     	
-     	//Template
-     	$template	= str_replace( "Datos del $singularTheme" , "Nuevos datos de $singularTheme" , $template );     
-     	
-     	$data['description'] = str_replace( "\n", "</br>", $data['description'] );
-     	$template = return_data_on_template( $data, $template, $dictionaryTemplate, $dictionaryData );
-     	
-     	echo $template;
-	    create_button( "../read/show.php?id=$id" , "Ver $singularTheme" );
-   	}
-	} else {
-    	
-   	echo 'El archivo de ' . $pluralTheme . ' NO existe! ';
-   	create_button( "../index.php" , "Volver al Inicio" );
+     	update_data( $allArray, $filename, $arraySeparator );
+
+        //Template
+        $extractedData = extract_data( $dictionaryData, $allArray, $id, $lineSeparator )
+        $template = return_data_on_template( $extractedData, $urlTemplate, $wildcards );
+    
+        echo $template;;
+   	  }
+	}else{
+      echo 'El archivo de ' . $pluralTheme . ' NO existe! ';
+      create_button( "../index.php" , "Volver al Inicio" );
 	}
 	
 	

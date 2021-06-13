@@ -1,24 +1,41 @@
 <?php
   require_once( '../settings.php' );
-  //include('../libraries/functions.php');
+  include('../libraries/functions.php');
   include('../libraries/helpers.php');
 
-
-  $filename = "../" . $pluralTheme . ".db";
-  $template = "../templates/template.tpl";
+  $filename = "../" . strtolower( $pluralTheme ) . ".db";
+  $urlTemplate = "../templates/template.tpl";
   $allArray = array();
   $fileExists = false;
+  $arraySeparator = ",";
+  $lineSeparator = "\n";
 
   $wildcards = create_default_wildcards( $dictionaryData );  //Comodines del template
 
-  if ( !( file_exists( $template ) ) ) {
-    $template = create_default_template( $wildcards, $singularTheme, $template );
+  if ( $modifyTemplate ) {
+	if ( !( file_exists( $urlTemplate ) ) ) {
+      $template = create_default_template( $wildcards, $singularTheme, $urlTemplate );
+	  file_put_contents( $urlTemplate, $template );
+    }
+  }else{
+	if ( !( file_exists( $urlTemplate ) ) ) {
+      $template = create_default_template( $wildcards, $singularTheme, $urlTemplate );
+	  file_put_contents( $urlTemplate, $template );
+    }
+    else if ( file_exists( $urlTemplate ) ) {
+	  $oldTemplate = file_get_contents( $urlTemplate );
+	  $newTemplate = create_default_template( $wildcards, $singularTheme, $urlTemplate );
+	  file_put_contents( $urlTemplate, $newTemplate );
+    }
   }
 
-  $searchTo = "Marca :";
-  $arraySeparator = ",";
-  $lineSeparator = "</br>";
-
+  if ( !( file_exists( $urlTemplate ) ) ) {
+    $template = create_default_template( $wildcards, $singularTheme, $urlTemplate );
+	file_put_contents( $urlTemplate, $template );
+  }/*
+  else if ( file_exists( $urlTemplate ) ) {
+	$oldTemplate = file_get_contents( $urlTemplate );
+  }*/
 
 //==================================
   //Indica si el archivo existe o no
@@ -35,13 +52,23 @@
 
 //===================================================================
   //Model to pack up
-function model_to_package( $dictionaryData ) {
-
+function model_to_package( $arrayToPackage ) {
   //Es como se guardará la información, su orden
   global $lineSeparator;
 
-  foreach ( $dictionaryData as $key ) {
-    $pack .= $dictionaryData[ $key ] . "$lineSeparator\n";
+  $maxFields = count( $arrayToPackage );
+  $pack = "";
+  $i = 0;
+
+  foreach( $arrayToPackage as $key => $value ) {
+    $i++;
+	
+	if ( $i == $maxFields ) {
+	  $pack .= $value;
+	}
+	else{
+	  $pack .= $value . $lineSeparator;
+	}
   }
 
   return $pack;
@@ -49,22 +76,22 @@ function model_to_package( $dictionaryData ) {
 
 
 //PACK UP TO CREATE
-function package_to_create( $dictionaryData ) { 
+function package_to_create( $arrayToPackage ) { 
   
   global $arraySeparator;
 
-  $data = model_to_package( $dictionaryData );
-  $data .= "$arraySeparator\n";
+  $data = model_to_package( $arrayToPackage );
+  $data .= $arraySeparator . "\n";
 
   return $data;
 }
 
 
 //PACK UP TO UPDATE
-function package_to_update( $dictionaryData ) {
+function package_to_update( $arrayToPackage ) {
 
-  $data = model_to_package( $dictionaryData );
-  $data = "\n" . $data; 
+  $data = "\n";
+  $data .= model_to_package( $arrayToPackage ); 
 
   return $data;
 }
@@ -80,4 +107,3 @@ function decode( $filename ) {
     
   return $array;
 }
-//print_r( $wildcards );

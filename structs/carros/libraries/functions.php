@@ -5,59 +5,31 @@
  *                                                        F   U   N   C   T   I   O   N   S
  *
  *======================================================================================================================================================*/
-																		
-
-
- /*==================================================================
-  *                 SIRVE DE FORMA GLOBAL (Otras estructuras)
-  *==================================================================*/
-
-
-
-
-  //Crear un nuevo dato
-
-  function create_data( $data, $filename ) {
-
-    if ( file_exists( $filename ) ) {
-    
-      $oldData = file_get_contents($filename);
-      $oldData .= $data; 
-      file_put_contents($filename, $oldData);
-
-    } else {
-
-      file_put_contents($filename, $data);    
-    }
-  }
-
 
 
   //Eliminar un dato específico
-        
-  function delete_data( $array, $key, $filename, $arraySeparator ){
 
-    unset( $array[ $key ] );
-        
-    $array = array_values( $array );
-        
-    update_Base( $array, $filename, $arraySeparator );
+  function delete_data( $allArray, $id, $arraySeparator ){
+
+    unset( $allArray[ $id ] );
+
+    $newAllArray = array_values( $allArray );
+
+    update_data( $newAllArray, $filename, $arraySeparator );
   }
 
 
 
   //Sobre escribir la base de datos
 
-  function update_Base( $newData, $filename, $arraySeparator ) {
+  function update_data( $newData, $filename, $arraySeparator ) {
 
     $array = $newData;
     $newData = implode( $arraySeparator, $array );
     
     if( file_exists($filename) ) {
         
-      file_put_contents( $filename, $newData);
-
-    
+      file_put_contents( $filename, $newData);   
     }else{
       
     }
@@ -65,50 +37,47 @@
 
 
 
-
   //Extrae los datos del objeto que se pida y devuelve un array asociativo
-              
-  function extract_data( $allArray, $key, $dictionaryData, $lineSeparator ){
 
-    $dataFields = [];  
-  
-    $toEstract = $allArray[ $key ];
-    
-    
-    $arrayFields = explode( $lineSeparator , $array );
-    $arrayFields = preg_replace( $toDelete , "" , $arrayFields );
+function extract_data( $dictionaryData, $allArray, $id, $lineSeparator ){
 
-    $numFields = count($arrayFields) - 1;
+  $toReturn = [];  
+  $toExtract = $allArray[ $id ];
+  $arrayFields = explode( $lineSeparator, $toExtract );
+  // $numFields = count($arrayFields) - 1;
+  $i = 0;
 
-    foreach (  ) {
-
-
-    }
-
-    for ( $i = 0; $i < $numFields; $i++ ) {
-      $dataFields[ $dictionaryData[ $i ] ] = $arrayFields[ $i ];
-    }
-
-    return $dataFields;
+  foreach ( $dictionaryData as $key => $content ) {
+	
+	$toReturn[ $key ] = $arrayFields[ $i ]; 
+    $i++;
   }
+
+  return $toReturn;
+}
 
 
 
 
   //Retornar el template de los datos recien creados y actualizados
 
-  function return_data_on_template( $array , $template , $dictionaryTemplate , $dictionaryData ) {
-    
-    $numFields = count( $array );
-    for ( $i = 0; $i < $numFields; $i++ ) {
-      $template	= str_replace( $dictionaryTemplate[$i] , $array[ $dictionaryData[$i] ] , $template );
-    }
+function return_data_on_template( $extractedData, $urlTemplate, $wildcards ) {
 
-    return $template;
+  $template = file_get_contents( $urlTemplate );
+
+  $numFields = count( $extractedData );
+  $toReturn = $template;
+
+  foreach ( $extractedData as $key => $value ) {
+	$toReturn = str_replace( $wildcards[ $key ], $value, $toReturn );
   }
 
+  return $toReturn;
+}
 
 
+
+/*
 
   //Imprime una lista de todo lo que existe en la base de datos linea por linea, (searchTo)=Bucar por, ej: buscar por "Name :" (subject)=Para saber que se busca, ej: carro o pedido
 
@@ -174,6 +143,8 @@
     
     return $array;
   }
+*/
+
 
 /*DISTINTAS FORMAS EN LAS QUE SE PUEDE LIMPIAR LA INFORMACIÓN
 
@@ -241,6 +212,30 @@
     }
   }
 */
+
+
+ /*==================================================================
+  *                 SIRVE DE FORMA GLOBAL (Otras estructuras)
+  *==================================================================*/
+
+
+  //Crear un nuevo dato
+
+  function create_data( $data, $filename ) {
+
+    if ( file_exists( $filename ) ) {
+    
+      $oldData = file_get_contents($filename);
+      $oldData .= $data; 
+      file_put_contents($filename, $oldData);
+
+    } else {
+
+      file_put_contents($filename, $data);    
+    }
+  }
+
+
 
 
 /**============================================================================================================
