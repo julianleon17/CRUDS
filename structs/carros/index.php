@@ -1,8 +1,5 @@
 <?php
-  
-  $pluralTheme = 'Carros';
-  $singularTheme = 'Carro';
-    
+  require_once( 'settings.php' );    
   
   //==================View :
 ?>
@@ -18,9 +15,8 @@
     <link rel="stylesheet" href="../../CSS/styles.css">
 </head>
 <body>
-    <h1>Restaurante Nalaska</h1>
+    <h1>Administrador de <?php echo $pluralTheme ?></h1>
     <p>(Multiples Structs)</p>
-    <p>Bienvenido al restaurante Nalaska - Administrador de <?php echo $pluralTheme ?> </p>
 
     <div class="menu" >
         <div class="opcion" >

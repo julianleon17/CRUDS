@@ -3,15 +3,18 @@
   include('../libraries/functions.php');
   include('../libraries/helpers.php');
 
+  $searchTo = strtolower( $searchTo );
+
   $filename = "../" . strtolower( $pluralTheme ) . ".db";
   $urlTemplate = "../templates/template.tpl";
   $allArray = array();
   $fileExists = false;
-  $arraySeparator = ",";
-  $lineSeparator = "\n";
+  $arraySeparator = "|";
+  $lineSeparator = ",";
 
   $wildcards = create_default_wildcards( $dictionaryData );  //Comodines del template
 
+// Decide dejar el template por defeto o si será modificado
   if ( $modifyTemplate ) {
 	if ( !( file_exists( $urlTemplate ) ) ) {
       $template = create_default_template( $wildcards, $singularTheme, $urlTemplate );
@@ -23,19 +26,14 @@
 	  file_put_contents( $urlTemplate, $template );
     }
     else if ( file_exists( $urlTemplate ) ) {
-	  $oldTemplate = file_get_contents( $urlTemplate );
-	  $newTemplate = create_default_template( $wildcards, $singularTheme, $urlTemplate );
-	  file_put_contents( $urlTemplate, $newTemplate );
+      $oldTemplate = file_get_contents( $urlTemplate );
+      $newTemplate = create_default_template( $wildcards, $singularTheme, $urlTemplate );
+
+      if ( $oldTemplate != $newTemplate ) {
+        file_put_contents( $urlTemplate, $newTemplate );
+	  }
     }
   }
-
-  if ( !( file_exists( $urlTemplate ) ) ) {
-    $template = create_default_template( $wildcards, $singularTheme, $urlTemplate );
-	file_put_contents( $urlTemplate, $template );
-  }/*
-  else if ( file_exists( $urlTemplate ) ) {
-	$oldTemplate = file_get_contents( $urlTemplate );
-  }*/
 
 //==================================
   //Indica si el archivo existe o no

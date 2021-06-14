@@ -19,23 +19,38 @@ create_header_of_page( $pluralTheme );
       echo "</br>En este momento la lista está vacía </br> ¿Deseas crear $pluralTheme ?";
     }else {
 
-        echo "Filtrado por " . str_replace( ":", "", $searchTo );
-        print_list( $filename, $totalData, $searchTo, $pluralTheme, $singularTheme );
+        $searchExists = false;
+		foreach ( $dictionaryData as $key => $attributes ) {
+			if ( $searchTo == $key ) {
+			  $searchExists = true;
+			}
+		}
+		if ( !$searchExists ) {
+          $message = '¡No existe el campo de dato "<b>' . $searchTo . '</b>" !</br>';
+          $message .= 'No te puedo filtrar la información.';
+		  
+		  echo $message;
+		}else{
+          echo "<h2>~~~ " . $pluralTheme . " encontrados " . $totalData . " ~~~</h2> </br>";
+          echo "Filtrado por " . ucfirst( $searchTo ) . '</br></br></br>';
+		
+          print_list( $dictionaryData, $allArray, $searchTo, $lineSeparator, $singularTheme );
+		
+          //Valida el boton    
+            if( ($fileExists) && (empty( $totalData )) ) {  
+
+              create_button( "../create/new.php", "Crear $singularTheme" );
+            }
+            else if ( ($fileExists) && !(empty( $totalData )) ) {
+
+              create_button( "../delete/confirm-list.php" , 'Eliminar Lista' , 'delete' );
+            }
+		}
     }        
 
 
-		
-  //Valida el boton    
-  if( ($fileExists) && (empty( $totalData )) ) {  
-
-    create_button( "../create/new.php", "Crear $singularTheme" );
-  }
-  else if ( ($fileExists) && !(empty( $totalData )) ) {
-
-    create_button( "../delete/confirm-list.php" , 'Eliminar Lista' , 'delete' );
-  }
   
-  if ( !($fileExist) ) {
+  if ( !($fileExists) ) {
 
     create_button( "../create/new.php", "Crear $singularTheme" );
   }

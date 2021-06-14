@@ -18,8 +18,14 @@ create_header_of_page( "Editar $singularTheme" );
        	  create_button( "../index.php" , 'Volver al Inicio' );
      	}else{
 
-       	  form_to_update( $allArray, $id, $dictionaryData, $toDelete, $lineSeparator, $singularTheme );
-       	  create_button( "../read/show.php?id=$id" , 'Cancelar' );
+          echo '<h1> Edit '. $singularTheme .'</h1>';
+
+       	  $extractedData = extract_data( $dictionaryData, $allArray, $id, $lineSeparator );
+          $form = build_the_form( "upDAte", array( "action" => "update.php?id=$id", "method" =>"POST" ),  $dictionaryData, $extractedData );
+
+          echo $form;
+
+       	  create_button( "../read/show.php?id=$id", 'Cancelar' );
      	}
   	}else{
 

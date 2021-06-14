@@ -11,7 +11,7 @@ create_header_of_page( "Registrar $singularTheme" );
   
   <?php
     $initialData = [];
-    $form = build_the_form( "upDAte", array( "action" => "create.php", "method" =>"POST" ),  $dictionaryData, $initialData );
+    $form = build_the_form( "Create", array( "action" => "create.php", "method" =>"POST" ),  $dictionaryData, $initialData );
 
     echo $form;
  

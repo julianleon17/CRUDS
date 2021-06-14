@@ -3,7 +3,7 @@
   $data = $_POST['data'];
   
   //Package and sanitize Data
-  //$data = sanitize_data( $data );
+  $data = sanitize_data( $data );
 
   $newData = package_to_create( $data );
 

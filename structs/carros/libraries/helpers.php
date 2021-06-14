@@ -95,6 +95,7 @@ function build_the_form( $formtype, $formAttributes=array(), $dictionaryData, $i
 
     
     foreach ( $dictionaryData as $key => $attributes ) {
+      $key = strtolower( $key );
       $type = strtolower( trim( $attributes[ 'type' ] ) );
       $attributes[ 'value' ] = ( ( isset( $initialData[ $key ] ) ) ? $initialData[ $key ] : '' );
 

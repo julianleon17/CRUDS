@@ -218,22 +218,6 @@ function create_default_template( $wildcards, $singularTheme='', $urlTemplate=""
 /*===T R A S H
 */
 
-$lineSeparator = '|';
-
-$id = 3;
-
-$allArray = "
-dato1|dato2|dato3|dato4|dato5|dato6,
-perro1|perro2|perro3|perro4|perro5|perro6,
-gato1|gato2|gato3|gato4|gato5|gato6,
-pajaro1|pajaro2|pajaro3|pajaro4|pajaro5|pajaro6,
-pez1|pez2|pez3|pez4|pez5|pez6,
-";
-
-$allArray = explode( ',', $allArray );
-
-print_r( $allArray[$id]."<br>" );
-
 
   //Extrae los datos del objeto que se pida y devuelve un array asociativo
 
@@ -271,12 +255,95 @@ function return_data_on_template( $extractedData, $template, $wildcards ) {
 
 
 /*
-*/
 
 $wildcards = create_default_wildcards( $dictionaryData );
 $template = create_default_template( $wildcards, "carro" );
-$extractedData = extract_data( $dictionaryData, $allArray, $id, $lineSeparator );
 
 $templateWithData = return_data_on_template( $extractedData, $template, $wildcards );
 
 echo $templateWithData;
+*/
+
+
+
+function sanitize_data( $arrayToClean ) {
+
+    // $arraySize = count( $arrayToClean );
+    $toReturn = [];
+    $cleanUp = array(
+      "$" => "&#36;",
+      "%" => "&#37;",
+      "&" => "&#38;",
+      "(" => "&#40;",
+      ")" => "&#41;",
+      "," => "&#44;",
+      "/" => "&#47",
+      ";" => "&#59;",
+      "<" => "&#60;",
+      ">" => "&#62;",
+      "@" => "&#64;",
+      "[" => "&#91;",
+      "]" => "&#93;",
+      "{" => "&#123;",
+      "}" => "&#125;",
+    );
+
+    foreach ( $arrayToClean as $key => $value ) {
+	  foreach ( $cleanUp as $search => $replace ) {
+	    $arrayToClean[ $key ] = str_replace( $search , $replace , $arrayToClean[ $key ] );
+	  }
+	}
+    return $arrayToClean;
+  }
+
+
+
+
+  //Imprime una lista de todo lo que existe en la base de datos linea por linea, (searchTo)=Bucar por, ej: buscar por "Name :" (subject)=Para saber que se busca, ej: carro o pedido
+//PENDIENTE
+function print_list( $dictionaryData, $allArray, $searchTo, $lineSeparator, $singularTheme ) {
+
+  $size = count( $allArray ) - 1;
+  $num = 1;
+
+  for ( $i=0; $i<$size; $i++ ) {
+    $dataToList = extract_data( $dictionaryData, $allArray, $i, $lineSeparator );
+
+    $line = $singularTheme . '(' . $num . ') : ' . $dataToList[ $searchTo ];
+    $line .= "</br><li class='verMas'>";
+    $line .= "<a href='show.php?id=" . $i . "'> Ver más </a>";
+    $line .= "</li> </br> <hr>";   
+
+    echo $line;
+    $num++;
+  }
+}
+/*
+*/
+
+
+$singularTheme = 'Carro';
+$lineSeparator = '|';
+$searchTo = 'placa';
+$id = 0;
+
+$allArray = "
+dato1|dato2|dato3|dato4|dto5|dato6,
+perro1|perro2|perro3|perro4|perro5|perro6,
+gato1|gato2|gato3|gato4|gato5|gato6,
+pajaro1|pajaro2|pajaro3|pajaro4|pajaro5|pajaro6,
+pez1|pez2|pez3|pez4|pez5|pez6,
+";
+
+$allArray = explode( ',', $allArray );
+
+// print_r( $allArray[$id]."<br>" );
+
+
+// $extractedData = extract_data( $dictionaryData, $allArray, $id, $lineSeparator );
+// $newData = sanitize_data( $extractedData );
+
+
+// print_r( $newData );
+
+print_list( $dictionaryData, $allArray, $searchTo, $lineSeparator, $singularTheme );

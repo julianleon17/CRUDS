@@ -15,13 +15,14 @@ $modifyTemplate = false;
 $singularTheme = 'Carro';
 $pluralTheme = 'Carros';
 
-$searchTo = "Marca :"; // Es la key por la que quieres listar la información
-
 // Elnombre de la variable es la key
 $dictionaryData = [ 
   "placa" => array( 'type' => "text", 'required' => true ),
   "marca" => array( 'type' => "text", 'required' => true ),
-  "modelo" => array( 'type' => "text" ),
-  "color" => array( 'type' => "text" ),
-  "precio" => array( 'type' => "number" ),
+  "modelo" => array( 'type' => "text", 'required' => true ),
+  "color" => array( 'type' => "text", 'required' => true ),
+  "precio" => array( 'type' => "number", 'required' => true ),
 ];
+
+// Es el nombre de dato por la que quieres listar la información
+$searchTo = "color"; 
