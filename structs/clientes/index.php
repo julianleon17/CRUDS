@@ -37,7 +37,7 @@
 
         <div class="opcion" >
             <ul>
-                <li> <a href="../index.html"> Volver al inicio </a> </li> 
+                <li> <a href="../index.php"> Volver al inicio </a> </li> 
             </ul>
         </div>
     </div>
