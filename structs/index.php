@@ -3,7 +3,62 @@
   $dir = './';
   $dirs = scandir( $dir );
 
+// Carpetas para ignorar ( Black List )
+$ignoreDirs = [
+  '.',
+  '..',
+  'pedidos',
+  'clientes',
+  'productos',
+  'structureBase',
+  'libraries',
+  //'celulares'
+];
+
+
+$listOfStructures = '';
+
+foreach ( $dirs as $key => $value ) {
+
+  if ( in_array( $value, $ignoreDirs ) ) {
+    continue;
+  }else{
+
+    if ( is_dir( $value ) ) {
+
+      $folder = scandir( $value );
+
+      if ( count( $folder ) <= 2 ) {
+        system( "cd structureBase;cp -r . ../$value/" );
+        system( "chgrp -R www-data $value/" );
+      }
+
+
+
+      $listOfStructures .= '
+      <div class="opcion" >
+        <ul>
+          <li> <a href="'. $value .'">Administrar '. ucfirst( $value ) .'</a> </li>
+        </ul>
+      </div>' . "\n";
+    }
+  }
+}
+
+
+//print_r( $dirs );
+
+
+// system( 'cd structureBase;cp -r . ../prueba/' );
+// system( 'chgrp -R www-data prueba/' );
+// system( 'ls -l' );
+
+
+
+/*
+*/
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,27 +75,15 @@
     <h1>STRUCTS</h1>
 
     <div class="menu" >
-        <?php
-            
-          foreach ( $dirs as $key => $value ) {
 
-            if  ( $value == '.' || $value == '..' ) {
+        <?php echo $listOfStructures; ?>
 
-            }else{
+        <div class="opcion" >
+            <ul>
+                <li> <a href="../"> Regresar </a> </li>
+            </ul>
+        </div>
 
-              if ( is_dir( $value ) != false ) {
-
-                echo '
-                <div class="opcion" >
-                <ul>
-                <li> <a href="'. $value .'">Administrar '. ucfirst( $value ) .'</a> </li>
-                </ul>
-                </div>' . "\n";
-              }
-            }
-          }
-        ?>
     </div>
 </body>
 </html>
-
