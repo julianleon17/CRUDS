@@ -9,27 +9,18 @@
 
   create_data( $newData, $filename );
 
-//=====================
-
+//=====================View :
 
 create_header_of_page( "$singularTheme Creado" );
-?>
 
-<body>
+  //Template
+  $template = return_data_on_template( $data, $pathTemplate, $wildcards );
 
-  <?php 
+  echo $template;
 
-    //Template
-    $template = return_data_on_template( $data, $pathTemplate, $wildcards );
+  create_button( "../index.php" , 'Volver al Inicio' );
 
-    echo $template;
-
-    create_button( "../index.php" , 'Volver al Inicio' ); 
-  ?>
-
-</body>
-</html>
-
+create_footer_of_page();
 
 
 

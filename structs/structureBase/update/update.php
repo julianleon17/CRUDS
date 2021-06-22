@@ -11,36 +11,29 @@
 //================
 
 create_header_of_page( "$singularTheme Actualizado" );	    
-?>
 
+  if ( $fileExists  ) {
 
-<body>
+    if ( $id > $totalData ) {
+ 	  echo $singularTheme . ' NO existente!' ;
+	}else {
 
-	<?php 
+    //Replace data
+   	$allArray[$id] = $newData;
+   	$allArray = array_values( $allArray );
+    update_data( $allArray, $filename, $arraySeparator );
 
-	if ( $fileExists  ) {
+    //Template
+    $template = return_data_on_template( $data, $pathTemplate, $wildcards );
 
-   	  if ( $id > $totalData ) {
-     	echo $singularTheme . ' NO existente!' ;    
-   	  }else {
-        //Replace data
-       	$allArray[$id] = $newData;
-       	$allArray = array_values( $allArray );
-        update_data( $allArray, $filename, $arraySeparator );
+    echo $template;;
 
-        //Template
-        $template = return_data_on_template( $data, $pathTemplate, $wildcards );
+    create_button( "../read/show.php?id=$id", 'Ver nuevos datos' );
+    }
+  }else{
 
-        echo $template;;
+  echo 'El archivo de ' . $pluralTheme . ' NO existe! ';
+  create_button( "../index.php" , "Volver al Inicio" );
+  }
 
-        create_button( "../read/show.php?id=$id", 'Ver nuevos datos' );
-   	  }
-	}else{
-      echo 'El archivo de ' . $pluralTheme . ' NO existe! ';
-      create_button( "../index.php" , "Volver al Inicio" );
-	}
-
-	?>
-            
-</body>
-</html>
+create_footer_of_page();

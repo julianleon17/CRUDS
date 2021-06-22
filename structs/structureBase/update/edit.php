@@ -4,35 +4,28 @@
 
 //===============
 
-create_header_of_page( "Editar $singularTheme" );  
+create_header_of_page( "Editar $singularTheme" );
 
-?>
-<body>
-	<?php
+  if ( $fileExists ) {
 
-  	if ( $fileExists ) {
+    if ( $id > ( $totalData - 1 ) ) {
 
-     	if ( $id > ( $totalData - 1 ) ) {
+	  echo $singularTheme . ' NO existente!' ;    
+	  create_button( "../index.php" , 'Volver al Inicio' );
+    }else{
 
-       	echo $singularTheme . ' NO existente!' ;    
-       	  create_button( "../index.php" , 'Volver al Inicio' );
-     	}else{
+      echo '<h1> Edit '. $singularTheme .'</h1>';
 
-          echo '<h1> Edit '. $singularTheme .'</h1>';
+	  $extractedData = extract_data( $dictionaryData, $allArray, $id, $lineSeparator );
+      $form = build_the_form( "upDAte", array( "action" => "update.php?id=$id", "method" =>"POST" ),  $dictionaryData, $extractedData );
 
-       	  $extractedData = extract_data( $dictionaryData, $allArray, $id, $lineSeparator );
-          $form = build_the_form( "upDAte", array( "action" => "update.php?id=$id", "method" =>"POST" ),  $dictionaryData, $extractedData );
+      echo $form;
 
-          echo $form;
+	  create_button( "../read/show.php?id=$id", 'Cancelar' );
+    }
+  }else{
 
-       	  create_button( "../read/show.php?id=$id", 'Cancelar' );
-     	}
-  	}else{
+    create_button( "../index.php" , 'Volver al Inicio' );
+  }
 
-    	create_button( "../index.php" , 'Volver al Inicio' );
-  	}
-	?>
-
-</body>
-</html>
-  
+create_footer_of_page();
