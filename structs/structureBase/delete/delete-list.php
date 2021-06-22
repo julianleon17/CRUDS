@@ -1,20 +1,18 @@
 <?php
   require_once('../read/read.php');
     
-    if ( $fileExists  ) {
-      
-      unlink($filename);
-      echo 'El archivo de ' . $pluralTheme . ' fue eliminado exitosamente';
-    }else{
-      echo 'El archivo de ' . $pluralTheme . ' NO existe! ';
-    }
+  if ( $fileExists  ) {
 
-  create_header_of_page( 'Lista Eliminada' );
-?>
+    unlink($filename);
+    echo 'El archivo de ' . $pluralTheme . ' fue eliminado exitosamente';
+  }else{
+    echo 'El archivo de ' . $pluralTheme . ' NO existe! ';
+  }
 
-  
-<body>
-  <?php create_button( "../index.php" , 'Volver al Inicio' ); ?>
+//=====================View :
 
-</body>
-</html>
+create_header_of_page( 'Lista Eliminada' );
+
+  create_button( "../index.php" , 'Volver al Inicio' );
+
+create_footer_of_page();
