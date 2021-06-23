@@ -1,7 +1,0 @@
-<h1>SU PEDIDO</h1>
-
-<b>Nombre :</b> %NAME% </br></br>
-
-<b>Telefono :</b> (57)%TEL% </br></br>
-
-<b>Pedido :</b> %PED% </br></br>
