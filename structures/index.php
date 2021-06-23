@@ -41,16 +41,6 @@ foreach ( $dirs as $key => $value ) {
   }
 }
 
-
-//print_r( $dirs );
-
-
-// system( 'cd structureBase;cp -r . ../prueba/' );
-// system( 'chgrp -R www-data prueba/' );
-// system( 'ls -l' );
-
-
-
 /*
 */
 ?>
@@ -68,7 +58,7 @@ foreach ( $dirs as $key => $value ) {
 
 </head>
 <body>
-    <h1>STRUCTS</h1>
+    <h1>STRUCTURES</h1>
 
     <div class="menu" >
 
