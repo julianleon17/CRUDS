@@ -7,12 +7,8 @@
 $ignoreDirs = [
   '.',
   '..',
-  'pedidos',
-  'clientes',
-  'productos',
   'structureBase',
   'libraries',
-  //'celulares'
 ];
 
 
