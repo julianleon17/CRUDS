@@ -1,5 +1,4 @@
 <?php
-  $settingsPath = '../settings.php';
   require_once( '../../libraries/loader.php' );
 
   //============== INICIALIZADORES ====================

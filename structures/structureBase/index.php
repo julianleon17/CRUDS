@@ -1,5 +1,6 @@
 <?php
-  require_once( 'settings.php' );    
+  require_once( 'settings.php' );
+  require_once( '../libraries/helpers.php' );
   
   //==================View :
 ?>
@@ -18,24 +19,11 @@
     <h1>Administrador de <?php echo $pluralTheme ?></h1>
     <p>(Multiples Structs)</p>
 
-    <div class="menu" >
-        <div class="opcion" >
-            <ul>
-                <li> <a href="create/new.php">Crear <?php echo $singularTheme ?> </a> </li> 
-            </ul>
-        </div>
+    <?php
+      create_button( "create/new.php", "Crear $singularTheme" );
+      create_button( "read/list.php", "Listado de $pluralTheme" );
+      create_button( "../index.php", "Volver al inicio" );
+    ?>
 
-        <div class="opcion" >
-            <ul>
-                <li> <a href="read/list.php">Listado de <?php echo $pluralTheme ?> </a> </li> 
-            </ul>
-        </div>
-
-        <div class="opcion" >
-            <ul>
-                <li> <a href="../index.php"> Volver al inicio </a> </li> 
-            </ul>
-        </div>
-    </div>
 </body>
 </html>
