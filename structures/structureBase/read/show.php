@@ -1,7 +1,7 @@
 <?php
   require_once('read.php'); //Model
   $id = $_GET[ 'id' ];
-
+  $objectExists = false;
 
 //=================View :
 
@@ -19,7 +19,6 @@ create_header_of_page( "Datos $singularTheme" );
 
       echo $template;
     }else{
-      $objectExists = false;
       echo $singularTheme . ' NO existente!' ;
     }
   }

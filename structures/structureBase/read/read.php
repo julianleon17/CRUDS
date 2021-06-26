@@ -5,8 +5,8 @@
 
   $searchTo = strtolower( $searchTo );
 
-  $filename = "../" . strtolower( $pluralTheme ) . ".db";
-  $pathTemplate = "../templates/template.tpl";
+  $filename = "../../database/" . strtolower( $pluralTheme ) . ".db";
+  $pathTemplate = "../../templates/" . strtolower( $pluralTheme ) . ".tpl";
   $arraySeparator = "|";
   $lineSeparator = ",";
 

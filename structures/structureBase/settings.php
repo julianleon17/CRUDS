@@ -16,18 +16,31 @@
  los datos que serán creados.
  Si vas a modificar el template, cambia el valor de '$modifyTemplate' a true, sino, dejalo como está.
 *=======================*/
-$modifyTemplate = false; // "false" para que el Software lo modifique automaticamente
 
-// Tema a tratar ej: (sigular)Arbol, (plural)Arboles
-$singularTheme = 'Structure';
-$pluralTheme = 'Structures';
+$controller = '';
+$settingsFilePath = '';
 
-// El nombre de la variable es la key
-$dictionaryData = [ 
-  "val1" => array( 'type' => "text", 'required' => true ),
-  "val2" => array( 'type' => "text", 'required' => true ),
-  "val3" => array( 'type' => "text", 'required' => true ),
-];
+if ( isset( $_REQUEST[ 'controller' ] ) && trim( $_REQUEST[ 'controller' ] ) !== '' ) {
+  $controller = strtolower( trim( $_REQUEST[ 'controller' ] ) );
+  $settingsFilePath = ( dirname( __FILE__ ) . '/../settings/' . $controller . '.php' );
+}
 
-// Es el nombre de dato por la que quieres listar la información
-$searchTo = "val1"; 
+if ( ( $settingsFilePath !== '' ) && file_exists( $settingsFilePath ) ) {
+  require_once( $settingsFilePath );
+} else {
+  $modifyTemplate = false; // "false" para que el Software lo modifique automaticamente
+
+  // Tema a tratar ej: (sigular)Arbol, (plural)Arboles
+  $singularTheme = 'Structure';
+  $pluralTheme = 'Structures';
+
+  // El nombre de la variable es la key
+  $dictionaryData = [ 
+    "val1" => array( 'type' => "text", 'required' => true ),
+    "val2" => array( 'type' => "text", 'required' => true ),
+    "val3" => array( 'type' => "text", 'required' => true ),
+  ];
+
+  // Es el nombre de dato por la que quieres listar la información
+  $searchTo = "val1"; 
+}

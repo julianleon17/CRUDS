@@ -11,6 +11,13 @@
   //Imprime una lista de todo lo que existe en la base de datos linea por linea, (searchTo)=Bucar por, ej: buscar por "Name :" (subject)=Para saber que se busca, ej: carro o pedido
 
   function print_list( $dictionaryData, $allArray, $searchTo, $lineSeparator, $singularTheme ) {
+    global $controller;
+
+    $parameters = '';
+
+    if ( trim( $controller ) !== '' ) {
+      $parameters .= ( '&controller=' . $controller );
+    }
 
   $size = count( $allArray ) - 1;
   $num = 1;
@@ -22,7 +29,7 @@
 	$line .= $singularTheme . '(' . $num . ') : </b>' . $dataToList[ $searchTo ];
 	$line .= '<br>';
     $line .= "</br><li class='verMas'>";
-    $line .= "<a href='show.php?id=" . $i . "'> Ver más </a>";
+    $line .= '<a href="show.php?id=' . $i . $parameters . '"> Ver más </a>';
     $line .= "</li>";   
 
     echo $line;

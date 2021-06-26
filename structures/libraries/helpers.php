@@ -120,10 +120,18 @@ function build_the_form( $formtype, $formAttributes=array(), $dictionaryData, $i
       }
     }
 
-  //Assemble the form to return  
+  //Assemble the form to return
+  global $controller;
+
+  $action = $formAttributes[ 'action' ];
+
+  if ( trim( $controller ) !== '' ) {
+    $action .= ( ( strpos( $action, '?' ) !== false ) ? '&' : '?' );
+    $action .= ( 'controller=' . $controller );
+  }
 
   //Form head
-  $form = "<form action='" . $formAttributes[ 'action' ] . "' method='" . $formAttributes[ 'method' ] . "'>\n\n";
+  $form = "<form action='" . $action . "' method='" . $formAttributes[ 'method' ] . "'>\n\n";
 
   //Form body
   $form .= $bodyForm;
@@ -245,6 +253,12 @@ function create_footer_of_page() {
 //           Create buttons
 
 function create_button( $path , $buttonName , $class='' ) {
+  global $controller;
+
+  if ( trim( $controller ) !== '' ) {
+    $path .= ( ( strpos( $path, '?' ) !== false ) ? '&' : '?' );
+    $path .= ( 'controller=' . $controller );
+  }
 
 	echo "
 	<div class='menu' >        

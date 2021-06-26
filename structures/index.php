@@ -1,43 +1,23 @@
 <?php
 
-  $dir = './';
-  $dirs = scandir( $dir );
-
-// Carpetas para ignorar ( Black List )
-$ignoreDirs = [
-  '.',
-  '..',
-  'structureBase',
-  'libraries',
-];
-
+  $dirToScan = './settings';
+  $directories = scandir( $dirToScan );
 
 $listOfStructures = '';
 
-foreach ( $dirs as $key => $value ) {
+foreach ( $directories as $key => $controller ) {
 
-  if ( in_array( $value, $ignoreDirs ) ) {
-    continue;
-  }else{
+  if ( !( is_dir( $controller ) ) ) { // is_file
 
-    if ( is_dir( $value ) ) {
+    $controller = str_replace( '.php', '', $controller ); // basename
 
-      $folder = scandir( $value );
-
-      if ( count( $folder ) <= 2 ) {
-        system( "cd structureBase;cp -r . ../$value/" );
-        system( "chgrp -R www-data $value/" );
-      }
-
-
-
-      $listOfStructures .= '
+    $listOfStructures .= '
       <div class="opcion" >
         <ul>
-          <li> <a href="'. $value .'">Administrar '. ucfirst( $value ) .'</a> </li>
+          <li> <a href="structureBase?controller='. $controller .'">Administrar '. ucfirst( $controller ) .'</a> </li>
         </ul>
-      </div>' . "\n";
-    }
+      </div>
+    ' . "\n";
   }
 }
 
