@@ -3,7 +3,7 @@
   require_once( $reference_path . "/read/read.php" );
 
 //=======================View :
-create_header_of_page( "Registrar $singularTheme" );
+create_header_of_page( "Registrar $singularTheme", $styles );
 
   echo '<h1>Create New ' . $singularTheme . '</h1>';
 

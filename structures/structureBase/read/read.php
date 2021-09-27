@@ -7,6 +7,7 @@
   $pathTemplate = $reference_path . "/../templates/" . strtolower( $controller ) . ".tpl";
   $arraySeparator = "|";
   $lineSeparator = ",";
+  $styles = '<link rel="stylesheet" href="../../../CSS/styles.css">';
 
   $allArray = array();
   $fileExists = false;

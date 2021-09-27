@@ -7,7 +7,7 @@
 
 //=================View :
 
-create_header_of_page( "Datos $singularTheme" );
+create_header_of_page( "Datos $singularTheme", $styles );
 
   if ( !$fileExists ) {
 

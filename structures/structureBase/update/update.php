@@ -12,7 +12,7 @@
   $newData = package_to_update( $data, $lineSeparator );
 //================
 
-create_header_of_page( "$singularTheme Actualizado" );	    
+create_header_of_page( "$singularTheme Actualizado", $styles );	    
 
   if ( $fileExists  ) {
 

@@ -4,7 +4,7 @@
 
 //============================= View :
 
-create_header_of_page( $pluralTheme );
+create_header_of_page( $pluralTheme, $styles );
 
   echo '<h1>Listado de '. $pluralTheme . '</h1>';
 

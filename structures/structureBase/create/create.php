@@ -13,7 +13,7 @@
 
 //=====================View :
 
-create_header_of_page( "$singularTheme Creado" );
+create_header_of_page( "$singularTheme Creado", $styles );
 
   //Template
   $template = return_data_on_template( $data, $pathTemplate, $wildcards );

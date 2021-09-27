@@ -24,6 +24,24 @@
     background-color: black;
 }
 
+.delete a{
+  background-color: red;
+  color: white;
+}
+
+.verMas{
+  list-style: none;
+}
+
+.verMas a{
+  text-decoration: none;
+}
+
+.verMas a:hover{
+  color: blue;
+  font-size: 15px;
+}
+
 /*
 .menu .opcion .back a:hover{
     color: white;

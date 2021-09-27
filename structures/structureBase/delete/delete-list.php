@@ -12,7 +12,7 @@
 
 //=====================View :
 
-create_header_of_page( 'Lista Eliminada' );
+create_header_of_page( 'Lista Eliminada', $styles );
 
   create_button( "../index.php" , 'Volver al Inicio' );
 

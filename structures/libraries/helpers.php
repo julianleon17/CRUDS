@@ -18,13 +18,14 @@ function getTextarea( $key, $attributes ) {
   $rows = ( ( isset( $attributes[ 'rows' ] ) ) ? $attributes[ 'rows' ] : 5 );
   $cols = ( ( isset( $attributes[ 'cols' ] ) ) ? $attributes[ 'cols' ] : 50 );
   $name = ( ( isset( $attributes[ 'name' ] ) ) ? $attributes[ 'name' ] : ( 'data['. $key .']' ) );
+  $label = ( ( isset( $attributes[ 'label' ] ) ) ? $attributes[ 'label' ] : 'Label is needed' );
   $value = ( ( isset( $attributes[ 'value' ] ) ) ? $attributes[ 'value' ] : '' );
   $placeholder = ( ( isset( $attributes[ 'placeholder' ] ) ) ? $attributes[ 'placeholder' ] : $key );
   $required = ( ( isset( $attributes[ 'required' ] ) && ( $attributes[ 'required' ] === true ) ) ? 'required="required"' : '' );
   $type = $attributes[ 'type' ];
 
-  $toReturn = '<p><label for="' . $id . '">' . ucfirst( $key ) . '</label> : ' . "\n";
-  $toReturn .= '<textarea rows="'. $rows .'" cols="'. $cols .'" placeholder="'. $placeholder .'" name="'. $name .'" '. $required .' > </textarea> </p>' . "\n\n";
+  $toReturn = '<p><label for="' . $id . '">' . ucfirst( $label ) . '</label> : ' . "\n";
+  $toReturn .= '<textarea rows="'. $rows .'" cols="'. $cols .'" placeholder="'. $placeholder .'" name="'. $name .'" '. $required .' >' . $value . '</textarea> </p>' . "\n\n";
 
   return $toReturn;
 }
@@ -33,6 +34,7 @@ function getTextarea( $key, $attributes ) {
 function getInput( $key, $attributes ) {
   // Logica y Estructuración de los datos necesarios para la contrucción de un <input />
   $type = $attributes[ 'type' ];
+  $label = ( ( isset( $attributes[ 'label' ] ) ) ? $attributes[ 'label' ] : 'Label is needed' );
   $id = ( ( isset( $attributes[ 'id' ] ) ) ? $attributes[ 'id' ] : ( 'data-' . $key ) );
   $name = ( ( isset( $attributes[ 'name' ] ) ) ? $attributes[ 'name' ] : ( 'data['. $key .']' ) );;
   $placeholder = ( ( isset( $attributes[ 'placeholder' ] ) ) ? $attributes[ 'placeholder' ] : $key );
@@ -40,7 +42,7 @@ function getInput( $key, $attributes ) {
   $required = ( ( isset( $attributes[ 'required' ] ) && ( $attributes[ 'required' ] === true ) ) ? 'required="required"' : '' );
 
   // Usando la data calculada previamente se procede a la construcción del <input />
-  $toReturn = '<p><label for="' . $id . '">' . ucfirst( $key ) . ' :</label> ' . "\n";
+  $toReturn = '<p><label for="' . $id . '">' . ucfirst( $label ) . ' :</label> ' . "\n";
   $toReturn .= '<input type="' . $type . '" placeholder="'. $placeholder .'" name="' . $name . '" value="'.$value .'" ' . $required . ' /> </p>' . "\n\n";
 
   return( $toReturn );
@@ -51,12 +53,13 @@ function getInput( $key, $attributes ) {
 function getSelect( $key, $attributes ) {
   // Logica y Estructuración de los datos necesarios para la contrucción de un <input />
   $selectedValue = ( ( isset( $attributes[ 'value' ] ) ) ? $attributes[ 'value' ] : '' );
+  $label = ( ( isset( $attributes[ 'label' ] ) ) ? $attributes[ 'label' ] : 'Label is needed' );
   $id = ( ( isset( $attributes[ 'id' ] ) ) ? $attributes[ 'id' ] : ( 'data-' . $key ) );
   $required = ( ( isset( $attributes[ 'required' ] ) && ( $attributes[ 'required' ] === true ) ) ? 'required="required"' : '' );
   $options = $attributes[ 'options' ];
 
   // Usando la data calculada previamente se procede a la construcción del <select />
-  $toReturn = '<p><label for="' . $id . '">' . ucfirst( $key ) . '</label> : ' . "\n";
+  $toReturn = '<p><label for="' . $id . '">' . ucfirst( $label ) . '</label> : ' . "\n";
   $toReturn .= '<select name="data[' . $key . ']" ' . $required . '>' . "\n";
 
   foreach ( $options as $value => $option ) {
@@ -174,13 +177,14 @@ function create_default_wildcards( $dictionaryData ) {
 // Función para construir el template por defecto
 
 function create_default_template( $wildcards, $singularTheme='', $urlTemplate="" ) {
-
+  global $dictionaryData;
   $template = "<h1> Datos de " . $singularTheme . " </h1>\n";
 
   foreach ( $wildcards as $key => $wildcard ) {
+    $label = $dictionaryData[ $key ]['label']; // Label
 
     $template .= "
-    <b>". ucfirst( $key ) ." :</b> 
+    <b>". ucfirst( $label ) ." :</b> 
     </br>".
     $wildcard
     ."</br>
@@ -195,7 +199,7 @@ function create_default_template( $wildcards, $singularTheme='', $urlTemplate=""
 
        //Create hader of page
 
-function create_header_of_page( $nameOfPage='' ) {
+function create_header_of_page( $nameOfPage = 'Page Title', $customHeadHTML='' ) {
 	
 	$header = "
 	<!DOCTYPE html>
@@ -204,31 +208,9 @@ function create_header_of_page( $nameOfPage='' ) {
     	<meta charset='UTF-8'>
     	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
     	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    	<title>$nameOfPage</title>
+    	<title>".$nameOfPage."</title>
     	
-    	<link rel='stylesheet' href='../../../CSS/styles.css'>
-        	
-	<style>
-	
-	.delete a{
-    	background-color: red;
-    	color: white;
-	}
-	
-	.verMas{
-		list-style: none;
-	}
-	
-	.verMas a{
-		text-decoration: none;
-	}
-	
-	.verMas a:hover{
-		color: blue;
-		font-size: 15px;
-	}
-		
-	</style>
+    	" . $customHeadHTML .  "
 	
 	</head>
 	<body>

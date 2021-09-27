@@ -7,7 +7,7 @@
 
 //================View :
 
-create_header_of_page( 'Eliminado' );
+create_header_of_page( 'Eliminado', $styles );
 
   if ( $fileExists  ) {
     if ( $id > $totalData ) {

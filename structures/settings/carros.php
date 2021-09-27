@@ -24,11 +24,11 @@ $pluralTheme = 'Carros';
 
 // El nombre de la variable es la key
 $dictionaryData = [ 
-  "placa" => array( 'type' => "text", 'required' => true ),
-  "marca" => array( 'type' => "text", 'required' => true ),
-  "modelo" => array( 'type' => "text", 'required' => true ),
-  "color" => array( 'type' => "text", 'required' => true ),
-  "precio" => array( 'type' => "number", 'required' => true ),
+  "placa" => array( 'type' => "text", 'label' => "placa", 'required' => true ),
+  "marca" => array( 'type' => "text", 'label' => "marca", 'required' => true ),
+  "modelo" => array( 'type' => "text", 'label' => "modelo", 'required' => true ),
+  "color" => array( 'type' => "text", 'label' => "color", 'required' => true ),
+  "precio" => array( 'type' => "number", 'label' => "precio", 'required' => true ),
 ];
 
 // Es el nombre de dato por la que quieres listar la información

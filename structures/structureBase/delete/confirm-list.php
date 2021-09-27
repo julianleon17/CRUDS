@@ -4,7 +4,7 @@
 
 //=================View :
 
-create_header_of_page( 'Confirmar' );
+create_header_of_page( 'Confirmar', $styles );
 
   //Valida los botones
   if ( $fileExists  ) {

@@ -6,7 +6,7 @@
 
 //===============
 
-create_header_of_page( "Editar $singularTheme" );
+create_header_of_page( "Editar $singularTheme", $styles );
 
   if ( $fileExists ) {
 
