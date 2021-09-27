@@ -28,6 +28,7 @@ if ( isset( $_REQUEST[ 'controller' ] ) && trim( $_REQUEST[ 'controller' ] ) !==
 if ( ( $settingsFilePath !== '' ) && file_exists( $settingsFilePath ) ) {
   require_once( $settingsFilePath );
 } else {
+  $controller = $_REQUEST[ 'controller' ] = 'structures';
   $modifyTemplate = false; // "false" para que el Software lo modifique automaticamente
 
   // Tema a tratar ej: (sigular)Arbol, (plural)Arboles

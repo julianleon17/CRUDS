@@ -1,5 +1,6 @@
 <?php
-  require_once( '../read/read.php' );
+  require_once( "../boot.php" );
+  require_once( $reference_path . "/read/read.php" );
 
 //=======================View :
 create_header_of_page( "Registrar $singularTheme" );

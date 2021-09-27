@@ -1,5 +1,7 @@
 <?php
-  require_once( "../read/read.php" );
+  require_once( "../boot.php" );
+  require_once( $reference_path . "/read/read.php" );
+
   $data = $_POST['data'];
 
   //Package and sanitize Data

@@ -1,6 +1,7 @@
 <?php
-  require_once( 'read.php' ); // Model
-  
+  require_once( "../boot.php" );
+  require_once( $reference_path . "/read/read.php" ); // Model
+
 //============================= View :
 
 create_header_of_page( $pluralTheme );

@@ -1,12 +1,10 @@
 <?php
-  require_once( '../../libraries/loader.php' );
-
   //============== INICIALIZADORES ====================
 
   $searchTo = strtolower( $searchTo );
 
-  $filename = "../../database/" . strtolower( $pluralTheme ) . ".db";
-  $pathTemplate = "../../templates/" . strtolower( $pluralTheme ) . ".tpl";
+  $filename = $reference_path . "/../database/" . strtolower( $controller ) . ".db";
+  $pathTemplate = $reference_path . "/../templates/" . strtolower( $controller ) . ".tpl";
   $arraySeparator = "|";
   $lineSeparator = ",";
 
