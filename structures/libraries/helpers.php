@@ -199,8 +199,11 @@ function create_default_template( $wildcards, $singularTheme='', $urlTemplate=""
 
        //Create hader of page
 
-function create_header_of_page( $nameOfPage = 'Page Title', $customHeadHTML='' ) {
-	
+function create_header_of_page( $nameOfPage = 'Page Title', $customHeadHTML = '' ) {
+  global $assets_url;
+
+  $defaultStyles = '<link rel="stylesheet" href="' . $assets_url . '/css/styles.css" />';
+
 	$header = "
 	<!DOCTYPE html>
 	<html lang='en'>
@@ -210,7 +213,7 @@ function create_header_of_page( $nameOfPage = 'Page Title', $customHeadHTML='' )
     	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
     	<title>".$nameOfPage."</title>
     	
-    	" . $customHeadHTML .  "
+    	" . $defaultStyles . $customHeadHTML .  "
 	
 	</head>
 	<body>
@@ -220,10 +223,12 @@ function create_header_of_page( $nameOfPage = 'Page Title', $customHeadHTML='' )
 }
 
 
-function create_footer_of_page() {
+function create_footer_of_page( $customFooterHTML = '' ) {
+  global $assets_url;
 
-  
-  $footer = "
+  $defaultScripts = '<script src="' . $assets_url . '/js/scripts.js"> </script>';
+
+  $footer = $defaultScripts . $customFooterHTML . "
   </body>
   </html>
   ";
@@ -235,7 +240,10 @@ function create_footer_of_page() {
 //           Create buttons
 
 function create_button( $path , $buttonName , $class='' ) {
+  global $reference_url;
   global $controller;
+
+  $path = ( $reference_url . $path );
 
   if ( trim( $controller ) !== '' ) {
     $path .= ( ( strpos( $path, '?' ) !== false ) ? '&' : '?' );

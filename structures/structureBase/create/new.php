@@ -3,7 +3,7 @@
   require_once( $reference_path . "/read/read.php" );
 
 //=======================View :
-create_header_of_page( "Registrar $singularTheme", $styles );
+create_header_of_page( "Registrar $singularTheme" );
 
   echo '<h1>Create New ' . $singularTheme . '</h1>';
 
@@ -12,6 +12,6 @@ create_header_of_page( "Registrar $singularTheme", $styles );
 
   echo $form;
  
-  create_button( "../index.php" , 'Volver al Inicio' ); 
+  create_button( "/index.php" , 'Volver al Inicio' ); 
 
 create_footer_of_page();

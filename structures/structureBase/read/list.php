@@ -4,7 +4,7 @@
 
 //============================= View :
 
-create_header_of_page( $pluralTheme, $styles );
+create_header_of_page( $pluralTheme );
 
   echo '<h1>Listado de '. $pluralTheme . '</h1>';
 
@@ -36,13 +36,13 @@ create_header_of_page( $pluralTheme, $styles );
   }
 
   //Valida el boton
-  create_button( "../create/new.php", "Crear $singularTheme" ); // Crear Nuevo Objeto
+  create_button( "/create/new.php", "Crear $singularTheme" ); // Crear Nuevo Objeto
 
   if ( ($fileExists) && !(empty( $totalData )) ) {
 
-    create_button( "../delete/confirm-list.php" , 'Eliminar Lista' , 'delete' );
+    create_button( "/delete/confirm-list.php" , 'Eliminar Lista' , 'delete' );
   }
 
-  create_button( "../index.php" , 'Volver al Inicio' ); // Volver Al Menú
+  create_button( "/index.php" , 'Volver al Inicio' ); // Volver Al Menú
 
 create_footer_of_page();

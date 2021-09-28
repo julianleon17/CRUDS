@@ -7,7 +7,7 @@
 
 //=================View :
 
-create_header_of_page( "Datos $singularTheme", $styles );
+create_header_of_page( "Datos $singularTheme" );
 
   if ( !$fileExists ) {
 
@@ -30,10 +30,10 @@ create_header_of_page( "Datos $singularTheme", $styles );
   if ( !$objectExists ){  
 
   }else{
-    create_button( "../update/edit.php?id=$id" , 'Editar' ); 
-    create_button( "../delete/confirm-object.php?id=$id" , 'Eliminar' , 'delete'); 
+    create_button( "/update/edit.php?id=$id" , 'Editar' ); 
+    create_button( "/delete/confirm-object.php?id=$id" , 'Eliminar' , 'delete'); 
   } 
 
-  create_button( "../read/list.php" , 'Volver al Listado' );
+  create_button( "/read/list.php" , 'Volver al Listado' );
 
 create_footer_of_page();

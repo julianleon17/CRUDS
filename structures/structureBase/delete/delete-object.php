@@ -7,7 +7,7 @@
 
 //================View :
 
-create_header_of_page( 'Eliminado', $styles );
+create_header_of_page( 'Eliminado' );
 
   if ( $fileExists  ) {
     if ( $id > $totalData ) {
@@ -21,11 +21,11 @@ create_header_of_page( 'Eliminado', $styles );
        delete_data( $allArray, $id, $arraySeparator, $filename );
     }
 
-      create_button( "../read/list.php" , 'Volver al Listado' );
+      create_button( "/read/list.php" , 'Volver al Listado' );
   } else {
 
     echo 'El archivo de ' . $singularTheme . ' NO existe! ';
-    create_button( "../index.php" , "Volver al Inicio" );
+    create_button( "/index.php" , "Volver al Inicio" );
   }
 
 create_footer_of_page();

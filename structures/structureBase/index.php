@@ -1,29 +1,13 @@
 <?php
-  require_once( 'settings.php' );
-  require_once( '../libraries/helpers.php' );
-  
-  //==================View :
-?>
+  require_once( 'boot.php' );
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD de <?php echo $pluralTheme ?> </title>
+//==================View :
+create_header_of_page( "CRUD de " . $pluralTheme );
 
-    <link rel="stylesheet" href="../../CSS/styles.css">
-</head>
-<body>
-    <h1>Administrador de <?php echo $pluralTheme ?></h1>
-    <p>(Multiples Structs)</p>
+  echo '<h1>Administrador de ' . $pluralTheme . '</h1>';
 
-    <?php
-      create_button( "create/new.php", "Crear $singularTheme" );
-      create_button( "read/list.php", "Listado de $pluralTheme" );
-      create_button( "../index.php", "Volver al inicio" );
-    ?>
+  create_button( "create/new.php", "Crear $singularTheme" );
+  create_button( "read/list.php", "Listado de $pluralTheme" );
+  create_button( "/../index.php", "Volver al inicio" );
 
-</body>
-</html>
+create_footer_of_page();

@@ -13,14 +13,14 @@
 
 //=====================View :
 
-create_header_of_page( "$singularTheme Creado", $styles );
+create_header_of_page( "$singularTheme Creado" );
 
   //Template
   $template = return_data_on_template( $data, $pathTemplate, $wildcards );
 
   echo $template;
 
-  create_button( "../index.php" , 'Volver al Inicio' );
+  create_button( "/index.php" , 'Volver al Inicio' );
 
 create_footer_of_page();
 

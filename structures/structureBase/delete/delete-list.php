@@ -12,8 +12,8 @@
 
 //=====================View :
 
-create_header_of_page( 'Lista Eliminada', $styles );
+create_header_of_page( 'Lista Eliminada' );
 
-  create_button( "../index.php" , 'Volver al Inicio' );
+  create_button( "/index.php" , 'Volver al Inicio' );
 
 create_footer_of_page();
