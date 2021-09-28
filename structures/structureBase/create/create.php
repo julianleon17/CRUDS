@@ -13,7 +13,7 @@
 
 //=====================View :
 
-create_header_of_page( "$singularTheme Creado" );
+create_header_of_page( $singularTheme . " Creado" );
 
   //Template
   $template = return_data_on_template( $data, $pathTemplate, $wildcards );
@@ -23,11 +23,3 @@ create_header_of_page( "$singularTheme Creado" );
   create_button( "/index.php" , 'Volver al Inicio' );
 
 create_footer_of_page();
-
-
-
-
-
-
-
-

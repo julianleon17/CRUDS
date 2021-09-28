@@ -7,22 +7,22 @@
 
 //==================View :
 
-create_header_of_page( 'Confirmar' );  
-		
+create_header_of_page( 'Confirmar' );
+
   if ( $fileExists  ) {
     //Valida los botones
     if ( $id > $totalData ) {
 
       echo 'Este ' . $singularTheme . ' NO existe!';
-      create_button( "../index.php" , 'Volver al Inicio' );
-    }else{
+      create_button( "/index.php" , 'Volver al Inicio' );
+    } else {
 
-      echo "<h1> ¿Seguro que quieres eliminar $singularTheme? </h1></br></br>";
-	  create_button( "delete-object.php?id=$id" , 'Confirmar' , 'delete' );
-	  create_button( "/read/show.php?id=$id" , 'Cancelar' );	
+      echo "<h1> ¿Seguro que quieres eliminar " . $singularTheme . "? </h1></br></br>";
+	  create_button( "/delete/delete-object.php?id=".$id , 'Confirmar' , 'delete' );
+	  create_button( "/read/show.php?id=".$id , 'Cancelar' );
     }
-  }else{
-		
+  } else {
+
     echo 'El archivo de ' . $singularTheme .' NO existe! ';
     create_button( "/index.html" , 'Volver al Inicio' );
   }

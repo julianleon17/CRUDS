@@ -5,20 +5,20 @@
   $id = $_GET['id'];
 
   $data = $_POST['data'];
-	
+
   //update and sanitize Data 
   $data = sanitize_data( $data );
 
   $newData = package_to_update( $data, $lineSeparator );
 //================
 
-create_header_of_page( "$singularTheme Actualizado" );	    
+create_header_of_page( $singularTheme . " Actualizado" );
 
   if ( $fileExists  ) {
 
     if ( $id > $totalData ) {
  	  echo $singularTheme . ' NO existente!' ;
-	}else {
+	} else {
 
     //Replace data
    	$allArray[$id] = $newData;
@@ -30,12 +30,12 @@ create_header_of_page( "$singularTheme Actualizado" );
 
     echo $template;;
 
-    create_button( "../read/show.php?id=$id", 'Ver nuevos datos' );
+    create_button( "/read/show.php?id=".$id, 'Ver nuevos datos' );
     }
-  }else{
+  } else {
 
   echo 'El archivo de ' . $pluralTheme . ' NO existe! ';
-  create_button( "../index.php" , "Volver al Inicio" );
+  create_button( "/index.php" , "Volver al Inicio" );
   }
 
 create_footer_of_page();

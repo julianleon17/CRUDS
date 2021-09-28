@@ -13,10 +13,10 @@ create_header_of_page( 'Eliminado' );
     if ( $id > $totalData ) {
 
       echo 'Este ' . $singularTheme . ' NO existe!' ;
-    }else {
+    } else {
 
        $extractedData = extract_data( $dictionaryData, $allArray, $id, $lineSeparator );
-       echo "$singularTheme $searchTo <b>( $extractedData[$searchTo] )</b> fue eliminado exitosamente";
+       echo $singularTheme . " " . $searchTo . " <b>( ". $extractedData[$searchTo]. " )</b> fue eliminado exitosamente";
 
        delete_data( $allArray, $id, $arraySeparator, $filename );
     }

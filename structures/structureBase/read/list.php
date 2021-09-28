@@ -10,11 +10,11 @@ create_header_of_page( $pluralTheme );
 
   if( !$fileExists ) {
 
-    echo "El archivo de " . $pluralTheme . " NO existe! </br> ¿Deseas crear $pluralTheme ?";
-  }else if ( empty( $totalData ) ) {
+    echo "El archivo de " . $pluralTheme . " NO existe! </br> ¿Deseas crear " . $pluralTheme . " ?";
+  } else if ( empty( $totalData ) ) {
 
-    echo "</br>En este momento la lista está vacía </br> ¿Deseas crear $pluralTheme ?";
-  }else{
+    echo "</br>En este momento la lista está vacía </br> ¿Deseas crear " . $pluralTheme . " ?";
+  } else {
 
     $searchExists = false;
 	foreach ( $dictionaryData as $key => $attributes ) {
@@ -25,9 +25,9 @@ create_header_of_page( $pluralTheme );
 	if ( !$searchExists ) {
       $message = '¡No existe el campo de dato "<b>' . $searchTo . '</b>" !</br>';
       $message .= 'No te puedo filtrar la información.';
-	  
+
 	  echo $message;
-	}else{
+	} else {
       echo "<h2>~~~ " . $pluralTheme . " encontrados " . $totalData . " ~~~</h2> </br>";
       echo "Filtrado por " . ucfirst( $searchTo ) . '</br></br></br>';
 
@@ -36,7 +36,7 @@ create_header_of_page( $pluralTheme );
   }
 
   //Valida el boton
-  create_button( "/create/new.php", "Crear $singularTheme" ); // Crear Nuevo Objeto
+  create_button( "/create/new.php", "Crear " . $singularTheme ); // Crear Nuevo Objeto
 
   if ( ($fileExists) && !(empty( $totalData )) ) {
 
