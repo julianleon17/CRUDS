@@ -1,5 +1,8 @@
 <?php
-  require_once( 'boot.php' );
+  if ( !isset( $reference_path ) ) {
+    require_once( "../boot.php" );
+  }
+
 
 //==================View :
 create_header_of_page( "CRUD de " . $pluralTheme );

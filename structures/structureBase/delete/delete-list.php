@@ -1,5 +1,8 @@
 <?php
-  require_once( "../boot.php" );
+  if ( !isset( $reference_path ) ) {
+    require_once( "../boot.php" );
+  }
+
   require_once( $reference_path . "/read/read.php" );
 
   if ( $fileExists  ) {
